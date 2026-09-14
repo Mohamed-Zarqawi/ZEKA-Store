@@ -100,7 +100,7 @@ const AccountMobilePage = () => {
         {
           name: "Wishlists",
           describtion: `${favoritesCount} saved items`,
-          href: "/profile/wishList",
+          href: "/profile/favorites",
           icon: Heart,
         },
       ],
@@ -198,7 +198,7 @@ const AccountMobilePage = () => {
         return (
           <div key={section.title}>
             {section.title == "1" ? (
-              <div className="mt-3 flex flex-row items-start justify-center gap-3">
+              <div className="mt-1 flex flex-row items-start justify-center gap-3">
                 {section.items.map((item) => {
                   const Icon = item.icon;
                   return (

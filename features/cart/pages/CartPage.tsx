@@ -118,16 +118,18 @@ const CartPage = () => {
           </Button>
         </div>
       ) : (
-        <div className="flex h-[calc(100vh-200px)] flex-col justify-center">
+        <div className="flex min-h-[calc(100dvh-155px)] flex-col justify-center lg:min-h-[calc(100dvh-185px)]">
           {/* 1 */}
-          <div className="flex flex-col items-center gap-4">
-            <div className="text-primary text-3xl">
+          <div className="flex flex-col items-center gap-2 md:gap-4">
+            <div className="text-primary text-center text-2xl md:text-3xl">
               YOUR SHOPPING CART LOOK EMPTY !
             </div>
-            <div className="text-xl">WHAT ARE YOU WAITING FOR?</div>
+            <div className="text-center text-base md:text-xl">
+              WHAT ARE YOU WAITING FOR?
+            </div>
             <Link
               href="/shop"
-              className="bg-primary hover:bg-secondary mt-4 rounded-lg px-4 py-4 text-center transition-colors duration-300 hover:cursor-pointer"
+              className="bg-primary hover:bg-secondary mt-4 rounded-lg px-3 py-3 text-center text-sm transition-colors duration-300 hover:cursor-pointer md:px-4 md:py-4 md:text-base"
             >
               START SHOPPING NOW !
             </Link>
