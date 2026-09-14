@@ -118,98 +118,96 @@ const ShopPage = () => {
   //   );
   // }
   return (
-    <div className="mx-4 md:mx-10">
-      {/* body */}
-      <div className="mt-6 flex flex-wrap gap-6 md:mt-15 md:gap-10">
-        {/* Left - Filter Component */}
+    <div className="mx-4 mt-6 flex flex-wrap gap-6 lg:mx-10 lg:mt-15 lg:gap-10">
+      {/* Left - Filter Component */}
 
-        {isCategoriesLoading || isBrandsLoading || isPricesLoading ? (
-          <FilterLeftBarSkeleton />
-        ) : (
-          <FilterBar
-            filterMenu={filterMenu}
-            selectedCategories={selectedCategories}
-            selectedBrands={selectedBrands}
-            handleFilterChange={handleFilterChange}
-            setSelectedCategories={setSelectedCategories}
-            setSelectedBrands={setSelectedBrands}
-            value={value}
-            setValue={setValue}
-            setPriceRange={setPriceRange}
-            setCurrentPage={setCurrentPage}
-          />
-        )}
+      {isCategoriesLoading || isBrandsLoading || isPricesLoading ? (
+        <FilterLeftBarSkeleton />
+      ) : (
+        <FilterBar
+          filterMenu={filterMenu}
+          selectedCategories={selectedCategories}
+          selectedBrands={selectedBrands}
+          handleFilterChange={handleFilterChange}
+          setSelectedCategories={setSelectedCategories}
+          setSelectedBrands={setSelectedBrands}
+          value={value}
+          setValue={setValue}
+          setPriceRange={setPriceRange}
+          setCurrentPage={setCurrentPage}
+        />
+      )}
 
-        <div className="flex min-h-screen w-full flex-1 flex-col gap-6 md:gap-10">
-          {/* 1 R - Header */}
-          <div className="flex flex-col items-start justify-between gap-2 md:flex-row md:items-end">
-            <div className="flex w-full items-center justify-between">
-              <div className="text-primary text-xl md:text-3xl">PRODUCTS</div>
-
-              <FilterPopover
-                filterMenu={filterMenu}
-                selectedCategories={selectedCategories}
-                selectedBrands={selectedBrands}
-                handleFilterChange={handleFilterChange}
-                setSelectedCategories={setSelectedCategories}
-                setSelectedBrands={setSelectedBrands}
-                value={value}
-                setValue={setValue}
-                setPriceRange={setPriceRange}
-                setCurrentPage={setCurrentPage}
-              />
+      <div className="flex min-h-screen w-full flex-1 flex-col gap-6 lg:gap-10">
+        {/* 1 R - Header */}
+        <div className="flex flex-col items-start justify-between gap-2 lg:flex-row lg:items-end">
+          <div className="flex w-full items-center justify-between">
+            <div className="text-primary text-xl md:text-2xl lg:text-3xl">
+              PRODUCTS
             </div>
 
-            {isProductsLoading ? (
-              <Skeleton className="h-4 w-65 rounded-sm bg-zinc-800" />
-            ) : (
-              <div className="text-xs whitespace-nowrap text-zinc-400 md:text-sm">
-                Showing{" "}
-                <span className="text-primary">
-                  {fromItem} - {toItem}
-                </span>{" "}
-                of <span className="text-primary">{productsNumber}</span>{" "}
-                products
-              </div>
-            )}
+            <FilterPopover
+              filterMenu={filterMenu}
+              selectedCategories={selectedCategories}
+              selectedBrands={selectedBrands}
+              handleFilterChange={handleFilterChange}
+              setSelectedCategories={setSelectedCategories}
+              setSelectedBrands={setSelectedBrands}
+              value={value}
+              setValue={setValue}
+              setPriceRange={setPriceRange}
+              setCurrentPage={setCurrentPage}
+            />
           </div>
 
-          {/* 2 R - Flexible Grid */}
-          <div className="grid w-full grid-cols-2 gap-3 md:grid-cols-[repeat(auto-fill,minmax(240px,1fr))] md:gap-6">
-            {isProductsLoading ? (
-              Array.from({ length: 8 }).map((_, i) => (
-                <ProductCardSkeleton key={i} />
-              ))
-            ) : products?.data && products?.data?.length > 0 ? (
-              products.data.map((product: ProductType) => (
-                <ProductCard key={product.id} product={product} />
-              ))
-            ) : (
-              <div className="text-muted-foreground col-span-full py-10 text-center">
-                No products found.
-              </div>
-            )}
-          </div>
+          {isProductsLoading ? (
+            <Skeleton className="h-4 w-65 rounded-sm bg-zinc-800" />
+          ) : (
+            <div className="text-xs whitespace-nowrap text-zinc-400 md:text-sm">
+              Showing{" "}
+              <span className="text-primary">
+                {fromItem} - {toItem}
+              </span>{" "}
+              of <span className="text-primary">{productsNumber}</span> products
+            </div>
+          )}
         </div>
 
-        {/* Pagination */}
-        <div className="mb-8 flex w-full justify-center">
-          <div className="flex gap-3">
-            {Array.from({
-              length: totalPages,
-            }).map((_, index) => (
-              <Button
-                variant={"outline"}
-                key={index}
-                onClick={() => setCurrentPage(index + 1)}
-                className={`border-border h-8 w-8 cursor-pointer border! text-sm md:h-10 md:w-10 ${
-                  currentPage === index + 1 ? "bg-primary!" : ""
-                }`}
-              >
-                {index + 1}
-              </Button>
-            ))}
-          </div>
+        {/* 2 R - Flexible Grid */}
+        <div className="grid w-full grid-cols-2 gap-3 md:grid-cols-[repeat(auto-fill,minmax(240px,1fr))] lg:gap-6">
+          {isProductsLoading ? (
+            Array.from({ length: 8 }).map((_, i) => (
+              <ProductCardSkeleton key={i} />
+            ))
+          ) : products?.data && products?.data?.length > 0 ? (
+            products.data.map((product: ProductType) => (
+              <ProductCard key={product.id} product={product} />
+            ))
+          ) : (
+            <div className="text-muted-foreground col-span-full py-10 text-center">
+              No products found.
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Pagination */}
+      <div className="mb-8 flex w-full justify-center">
+        <div className="flex gap-3">
+          {Array.from({
+            length: totalPages,
+          }).map((_, index) => (
+            <Button
+              variant={"outline"}
+              key={index}
+              onClick={() => setCurrentPage(index + 1)}
+              className={`border-border h-8 w-8 cursor-pointer border! text-sm lg:h-10 lg:w-10 ${
+                currentPage === index + 1 ? "bg-primary!" : ""
+              }`}
+            >
+              {index + 1}
+            </Button>
+          ))}
         </div>
       </div>
     </div>

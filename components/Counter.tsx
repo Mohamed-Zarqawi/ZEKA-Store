@@ -85,7 +85,7 @@ const Counter = ({
       </Button>
       <div className={` ${spanClass}`}>
         {isToggleCart ? (
-          <span className="flex justify-center items-center gap-2">
+          <span className="flex items-center justify-center">
             <Spinner data-icon="inline-start" />
           </span>
         ) : (

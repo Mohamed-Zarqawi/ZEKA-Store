@@ -24,7 +24,7 @@ const HomePage = () => {
             </div>
 
             <div className="flex flex-col items-start gap-6 md:gap-10">
-              <div className="text-[26px] md:text-4xl lg:text-6xl">
+              <div className="text-[26px] md:text-4xl md:text-6xl">
                 PUSH YOUR <span className="text-primary">LIMITS</span> FURTHER
               </div>
               <div className="w-[90%] text-[12px] md:mr-0 md:w-lg md:text-base">
@@ -102,26 +102,26 @@ export default HomePage;
 //   const { data: products, isLoading: isProductsLoading } = useGetShopProducts();
 
 //   return (
-//     <div className="mx-4 lg:mx-10">
+//     <div className="mx-4 md:mx-10">
 //       {/* body */}
 
 //       <div className="flex flex-col">
 //         {/* first slide */}
 
-//         <div className="mt-10 flex items-center justify-between gap-2 lg:mt-15 lg:gap-0">
-//           <div className="flex flex-col gap-4 md:gap-15 lg:gap-15">
-//             <div className="text-primary text-xs font-bold md:text-base lg:text-base">
+//         <div className="mt-10 flex items-center justify-between gap-2 md:mt-15 md:gap-0">
+//           <div className="flex flex-col gap-4 md:gap-15 md:gap-15">
+//             <div className="text-primary text-xs font-bold md:text-base md:text-base">
 //               NEW COLLECTION
 //             </div>
 
-//             <div className="flex flex-col gap-5 lg:gap-10">
-//               <div className="text-lg md:text-4xl lg:text-6xl">
+//             <div className="flex flex-col gap-5 md:gap-10">
+//               <div className="text-lg md:text-4xl md:text-6xl">
 //                 PUSH YOUR <span className="text-primary">LIMITS</span> FURTHER
 //               </div>
-//               <div className="flex flex-col gap-3 lg:gap-15">
-//                 <div className="text-xs lg:flex lg:text-base">
+//               <div className="flex flex-col gap-3 md:gap-15">
+//                 <div className="text-xs md:flex md:text-base">
 //                   High-performance equipment designed for athletes who{" "}
-//                   <br className="lg:flex" /> never settle for second place.
+//                   <br className="md:flex" /> never settle for second place.
 //                 </div>
 
 //                 <div>
@@ -135,14 +135,14 @@ export default HomePage;
 //           <div>
 //             <img
 //               src="/images/hamester.jpeg"
-//               className="shadow-primary w-50 rounded-2xl shadow-[0_0_10px] lg:w-175 lg:rounded-[65px] lg:shadow-[0_0_50px]"
+//               className="shadow-primary w-50 rounded-2xl shadow-[0_0_10px] md:w-175 md:rounded-[65px] md:shadow-[0_0_50px]"
 //             />
 //           </div>
 //         </div>
 //         {/* second slide */}
 //         <div className="mt-20 flex flex-col gap-10">
 //           <div className="flex items-end justify-between">
-//             <div className="text-primary text-lg lg:text-3xl">
+//             <div className="text-primary text-lg md:text-3xl">
 //               MOST PRODUCT POPULAR
 //             </div>
 //           </div>

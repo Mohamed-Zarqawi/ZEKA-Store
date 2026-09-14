@@ -14,7 +14,7 @@ const FavoritesPage = () => {
   return (
     <div>
       {favoritesData.length === 0 ? (
-        <div className="flex flex-col justify-center h-[calc(100vh-155px)]">
+        <div className="flex h-[calc(100vh-155px)] flex-col justify-center">
           {/* 1 */}
           <div className="flex flex-col items-center gap-4">
             <div className="text-primary text-3xl">
@@ -22,7 +22,7 @@ const FavoritesPage = () => {
             </div>
             <Link
               href="/shop"
-              className="bg-primary hover:bg-secondary mt-4 px-4 py-4 rounded-lg font-extrabold text-center transition-colors duration-300 hover:cursor-pointer"
+              className="bg-primary hover:bg-secondary mt-4 rounded-lg px-4 py-4 text-center font-extrabold transition-colors duration-300 hover:cursor-pointer"
             >
               START SHOPPING HERE !
             </Link>
@@ -32,7 +32,7 @@ const FavoritesPage = () => {
         <div>
           <div className="text-primary text-3xl">FAVORITES</div>
 
-          <div className="gap-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-10">
+          <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
             {favoritesData.map((favorite, i) => (
               <ProductCard key={favorite.id} product={favorite.product} />
             ))}

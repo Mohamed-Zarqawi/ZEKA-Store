@@ -30,21 +30,26 @@ export default function ResetPasswordPage() {
     });
 
   return (
-    <div className="mx-10">
+    <div className="mx-6 md:mx-10">
       <form onSubmit={handleSubmit}>
-        <div className="flex justify-center items-center h-[calc(100vh-155px)]">
+        <div className="flex h-[calc(100dvh-155px)] items-center justify-center lg:h-[calc(100dvh-185px)]">
           {/* body */}
-          <div className="flex flex-col justify-center items-center gap-7 bg-[#1a1a1a]/20 backdrop-blur-md p-12 border border-primary rounded-3xl w-160 h-fit">
+          <div className="border-primary flex h-fit w-160 flex-col items-center justify-center gap-7 rounded-3xl md:border md:bg-[#1a1a1a]/20 md:p-12">
             {/* 1 */}
-            <div className="flex flex-col justify-center items-center gap-4">
-              <div className="text-primary text-4xl">RESET PASSWORD</div>
-              {/* <div className="text-md text-zinc-400">Enter new password</div> */}
+
+            <div className="flex flex-col items-center justify-center gap-3 md:gap-4">
+              <div className="text-primary text-center text-2xl md:text-4xl">
+                RESET PASSWORD
+              </div>
+              <div className="text-muted-foreground text-center text-sm md:text-base">
+                Set new password here !
+              </div>
             </div>
 
             {/* 2 */}
 
-            <div className="group flex flex-col justify-center items-end gap-4 w-full">
-              <div className="flex flex-col gap-2 w-full">
+            <div className="group flex w-full flex-col items-end justify-center gap-4">
+              <div className="flex w-full flex-col gap-2">
                 <Input
                   type="password"
                   id="password"
@@ -60,8 +65,8 @@ export default function ResetPasswordPage() {
             </div>
 
             {/* 3 */}
-            <div className="flex flex-col justify-center items-center gap-4 w-full">
-              <div className="flex flex-col justify-center items-center gap-4 w-full">
+            <div className="flex w-full flex-col items-center justify-center gap-4">
+              <div className="flex w-full flex-col items-center justify-center gap-4">
                 <Button
                   type="submit"
                   variant={"none"}
@@ -70,7 +75,7 @@ export default function ResetPasswordPage() {
                   isPending={isReseting}
                   pendingText="UPDATING"
                   onClick={handleChange}
-                  className="bg-primary hover:bg-secondary disabled:opacity-50 px-4 py-4 rounded-lg w-full font-extrabold text-center transition-colors duration-300 hover:cursor-pointer disabled:cursor-not-allowed"
+                  className="bg-primary hover:bg-secondary h-13 w-full rounded-lg px-4 py-4 text-center hover:cursor-pointer md:h-15"
                 >
                   UPDATE PASSWORD
                 </Button>

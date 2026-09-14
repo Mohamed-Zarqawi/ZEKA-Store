@@ -40,17 +40,19 @@ const CartPage = () => {
     return <CartPageSkeleton />;
   }
   return (
-    <div className="mx-10">
+    <div className="mx-4 md:mx-10">
       {cart.length > 0 ? (
-        <div className="flex flex-col gap-10 mt-15">
+        <div className="mt-8 flex flex-col gap-5 md:mt-15 md:gap-10">
           {/* 1 */}
-          <div className="text-primary text-3xl">YOUR SHOPPING BAG</div>
+          <div className="text-primary text-xl md:text-3xl">
+            YOUR SHOPPING BAG
+          </div>
 
           {/* 2 */}
 
-          <div className="flex gap-10">
+          <div className="flex flex-col gap-5 md:flex-row md:gap-10">
             {/* left */}
-            <div className="flex flex-col gap-6 w-full">
+            <div className="border-primary divide-primary/40 flex w-full flex-col divide-y overflow-hidden rounded-3xl border md:gap-6 md:border-0">
               {cart.map((item) => (
                 <ItemCart key={item.id} product={item.product} />
               ))}
@@ -58,26 +60,34 @@ const CartPage = () => {
 
             {/* right */}
 
-            <div className="top-24 sticky flex flex-col gap-8 bg-[#1a1a1a]/20 backdrop-blur-md p-7 border border-primary rounded-3xl w-200 h-fit">
-              <div>ORDER SUMMARY</div>
+            <div className="border-primary flex h-fit w-full flex-col gap-5 rounded-3xl border bg-[#1a1a1a]/20 p-5 backdrop-blur-md md:sticky md:top-24 md:w-200 md:gap-8 md:p-7">
+              <div className="text-primary text-lg md:text-2xl">
+                ORDER SUMMARY
+              </div>
 
-              <div>
+              <div className="flex flex-col gap-1 md:gap-2">
                 <div className="flex justify-between">
-                  <div>SubTotal</div>
-                  <div>${subtotal.toFixed(2)}</div>
+                  <div className="text-sm md:text-base">SubTotal</div>
+                  <div className="text-primary text-sm md:text-base">
+                    ${subtotal.toFixed(2)}
+                  </div>
                 </div>
 
                 <div className="flex justify-between">
-                  <div>Shipping Fee</div>
-                  <div>${shippingFee.toFixed(2)}</div>
+                  <div className="text-sm md:text-base">Shipping Fee</div>
+                  <div className="text-primary text-sm md:text-base">
+                    ${shippingFee.toFixed(2)}
+                  </div>
                 </div>
               </div>
-              <div className="bg-[#FEFEFE] h-px"></div>
+              <div className="bg-primary h-px"></div>
 
               <div className="flex flex-col gap-6">
                 <div className="flex justify-between">
-                  <div className="font-bold text-2xl">TOTAL</div>
-                  <div className="font-bold text-2xl">${total.toFixed(2)}</div>
+                  <div className="text-md md:text-xl">TOTAL</div>
+                  <div className="text-primary text-md md:text-xl">
+                    ${total.toFixed(2)}
+                  </div>
                 </div>
 
                 <Button
@@ -87,16 +97,28 @@ const CartPage = () => {
                   disabled={isCreateOrder}
                   isPending={isCreateOrder}
                   pendingText="PROCESSING..."
-                  className="bg-primary hover:bg-secondary disabled:opacity-70 px-4 py-4 rounded-lg font-extrabold text-center transition-colors duration-300"
+                  className="bg-primary hover:bg-secondary hidden rounded-lg px-2 py-3 text-center text-sm transition-colors duration-300 disabled:opacity-70 md:block md:px-3 md:py-4 md:text-base"
                 >
                   PROCEED TO CHECKOUT
                 </Button>
               </div>
             </div>
           </div>
+
+          <Button
+            variant={"none"}
+            size={"none"}
+            onClick={handleCreateOrder}
+            disabled={isCreateOrder}
+            isPending={isCreateOrder}
+            pendingText="PROCESSING..."
+            className="bg-primary/60 border-primary sticky bottom-21 -mt-2 rounded-xl px-3 py-4 text-center text-sm backdrop-blur-md transition-colors duration-300 disabled:opacity-70 md:hidden"
+          >
+            PROCEED TO CHECKOUT
+          </Button>
         </div>
       ) : (
-        <div className="flex flex-col justify-center h-[calc(100vh-155px)]">
+        <div className="flex h-[calc(100vh-200px)] flex-col justify-center">
           {/* 1 */}
           <div className="flex flex-col items-center gap-4">
             <div className="text-primary text-3xl">
@@ -105,7 +127,7 @@ const CartPage = () => {
             <div className="text-xl">WHAT ARE YOU WAITING FOR?</div>
             <Link
               href="/shop"
-              className="bg-primary hover:bg-secondary mt-4 px-4 py-4 rounded-lg font-extrabold text-center transition-colors duration-300 hover:cursor-pointer"
+              className="bg-primary hover:bg-secondary mt-4 rounded-lg px-4 py-4 text-center transition-colors duration-300 hover:cursor-pointer"
             >
               START SHOPPING NOW !
             </Link>

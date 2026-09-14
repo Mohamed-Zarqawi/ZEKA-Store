@@ -38,27 +38,29 @@ const LoginPage = () => {
   if (currentUser) return null;
 
   return (
-    <div className="mx-10">
-      <div className="flex justify-center items-center h-[calc(100vh-200px)]">
+    <div className="mx-6 md:mx-10">
+      <div className="flex h-[calc(100dvh-155px)] items-center justify-center lg:h-[calc(100dvh-185px)]">
         {/* body */}
 
         <form
           onSubmit={handleSubmit}
-          className="flex flex-col justify-center items-center gap-7 bg-[#1a1a1a]/20 backdrop-blur-md p-12 border border-primary rounded-3xl w-130 h-fit"
+          className="border-primary flex h-fit w-130 flex-col items-center justify-center gap-7 rounded-3xl md:border md:bg-[#1a1a1a]/20 md:p-12"
           noValidate
         >
           {/* 1 */}
-          <div className="flex flex-col justify-center items-center gap-4">
-            <div className="text-primary text-4xl">WELCOME BACK</div>
+          <div className="flex flex-col items-center justify-center gap-3 md:gap-4">
+            <div className="text-primary text-center text-2xl md:text-4xl">
+              WELCOME BACK
+            </div>
 
-            <div className="text-md text-zinc-400">
-              Login to access your performance data
+            <div className="text-muted-foreground text-center text-sm md:text-base">
+              Login to access your profile !
             </div>
           </div>
 
           {/* 2 */}
 
-          <div className="group flex flex-col justify-center items-end gap-4 w-full">
+          <div className="group flex w-full flex-col items-end justify-center gap-3 md:gap-4">
             <Input
               name="email"
               type="email"
@@ -72,7 +74,6 @@ const LoginPage = () => {
             />
 
             {/* ----------------------------------------------------- */}
-            <div className="flex flex-col gap-2 w-full"></div>
 
             <Input
               name="password"
@@ -95,7 +96,7 @@ const LoginPage = () => {
           </div>
 
           {/* 3 */}
-          <div className="flex flex-col justify-center items-center gap-4 w-full">
+          <div className="flex w-full flex-col items-center justify-center gap-4">
             <Button
               variant={"none"}
               size={"none"}
@@ -103,12 +104,12 @@ const LoginPage = () => {
               isPending={isLogin}
               pendingText="Wait . . ."
               type="submit"
-              className="bg-primary hover:bg-secondary px-4! py-4! rounded-lg w-full h-15 text-center hover:cursor-pointer"
+              className="bg-primary hover:bg-secondary h-13 w-full rounded-lg px-4 py-4 text-center hover:cursor-pointer md:h-15"
             >
               LOG IN
             </Button>
 
-            <div>
+            <div className="text-sm md:text-base">
               Don't have an account?{" "}
               <Link
                 href="/signup"

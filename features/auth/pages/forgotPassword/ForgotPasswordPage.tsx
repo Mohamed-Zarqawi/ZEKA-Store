@@ -72,23 +72,25 @@ const ForgotPasswordPage = () => {
     });
 
   return (
-    <div className="mx-10">
+    <div className="mx-6 md:mx-10">
       <form onSubmit={handleSubmit}>
-        <div className="flex justify-center items-center h-[calc(100vh-200px)]">
+        <div className="flex h-[calc(100dvh-155px)] items-center justify-center lg:h-[calc(100dvh-185px)]">
           {/* body */}
-          <div className="flex flex-col justify-center items-center gap-7 bg-[#1a1a1a]/20 backdrop-blur-md p-12 border border-primary rounded-3xl w-160 h-fit">
+          <div className="border-primary flex h-fit w-160 flex-col items-center justify-center gap-7 rounded-3xl md:border md:bg-[#1a1a1a]/20 md:p-12">
             {/* 1 */}
-            <div className="flex flex-col justify-center items-center gap-4">
-              <div className="text-primary text-4xl">FORGOT PASSWORD</div>
-              <div className="text-md text-zinc-400">
+            <div className="flex flex-col items-center justify-center gap-3 md:gap-4">
+              <div className="text-primary text-center text-2xl md:text-4xl">
+                FORGOT PASSWORD
+              </div>
+              <div className="text-muted-foreground text-center text-sm md:text-base">
                 Enter your email and we'll send you a recovery link.
               </div>
             </div>
 
             {/* 2 */}
 
-            <div className="group flex flex-col justify-center items-end gap-4 w-full">
-              <div className="flex flex-col gap-2 w-full">
+            <div className="group flex w-full flex-col items-end justify-center gap-4">
+              <div className="flex w-full flex-col gap-2">
                 <Input
                   name="email"
                   type="email"
@@ -104,15 +106,15 @@ const ForgotPasswordPage = () => {
             </div>
 
             {/* 3 */}
-            <div className="flex flex-col justify-center items-center gap-4 w-full">
-              <div className="flex flex-col justify-center items-center gap-4 w-full">
+            <div className="flex w-full flex-col items-center justify-center gap-4">
+              <div className="flex w-full flex-col items-center justify-center gap-4">
                 <Button
                   type="submit"
                   variant={"none"}
                   size={"none"}
                   disabled={!dirty || isEmailSending || cooldown > 0}
                   onClick={handleChange}
-                  className="bg-primary hover:bg-secondary disabled:opacity-50 px-4 py-4 rounded-lg w-full font-extrabold text-center transition-colors duration-300 hover:cursor-pointer disabled:cursor-not-allowed"
+                  className="bg-primary hover:bg-secondary h-13 w-full rounded-lg px-4 py-4 text-center hover:cursor-pointer md:h-15"
                 >
                   {cooldown > 0
                     ? `RESEND IN ${cooldown} Second`
@@ -120,12 +122,14 @@ const ForgotPasswordPage = () => {
                 </Button>
               </div>
             </div>
-            <div className="flex justify-center items-center gap-1 text-zinc-400 hover:text-primary transition-colors duration-300 hover:cursor-pointer">
-              <IconArrowLeft className="size-" />
-              <Link href="/login" className="">
-                Back to login
-              </Link>
-            </div>
+
+            <Link
+              href="/login"
+              className="hover:text-primary text-muted-foreground flex items-center justify-center gap-1.5 text-sm hover:cursor-pointer md:text-base md:transition-colors md:duration-300"
+            >
+              <IconArrowLeft className="size-5" />
+              Back to login
+            </Link>
           </div>
         </div>
       </form>

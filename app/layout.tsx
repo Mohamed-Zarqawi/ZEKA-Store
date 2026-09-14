@@ -48,10 +48,10 @@ export default function RootLayout({
       <body className={cn("flex min-h-screen flex-col", bruno.className)}>
         <Providers>
           <Header />
-          <main className="flex-1 pb-20 lg:pb-0">{children}</main>
+          <main className="flex-1 pb-20 md:pb-0">{children}</main>
           <Footer />
           <MobileBottomNav />
-          <Toaster className="font-bruno! hidden lg:flex" />
+          <Toaster className="font-bruno! hidden md:flex" />
         </Providers>
       </body>
     </html>

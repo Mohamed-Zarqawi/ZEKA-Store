@@ -93,7 +93,7 @@ export const FilterBar = ({
     tempPrice[1] === maxPrice;
 
   return (
-    <div className="border-primary sticky top-24 hidden h-fit w-full max-w-xs flex-col gap-5 rounded-3xl border bg-[#1a1a1a]/20 p-7 backdrop-blur-md md:flex">
+    <div className="border-primary sticky top-24 hidden h-fit w-full max-w-xs flex-col gap-5 rounded-3xl border bg-[#1a1a1a]/20 p-7 backdrop-blur-md lg:flex">
       {/* Header */}
       <div className="text-primary flex flex-col gap-3">
         <div>FILTERS</div>

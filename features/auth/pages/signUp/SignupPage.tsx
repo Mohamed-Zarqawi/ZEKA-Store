@@ -55,96 +55,92 @@ const SignUpPage = () => {
   }
 
   return (
-    <div className="mx-10">
-      <div className="flex justify-center items-center h-[calc(100vh-200px)]">
+    <div className="mx-6 md:mx-10">
+      <div className="flex h-[calc(100dvh-155px)] items-center justify-center lg:h-[calc(100dvh-185px)]">
         {/* body */}
 
         <form
           onSubmit={handleSubmit}
-          className="flex flex-col justify-center items-center gap-8 bg-[#1a1a1a]/20 backdrop-blur-md p-12 border border-primary rounded-3xl w-135 h-fit"
+          className="border-primary flex h-fit w-135 flex-col items-center justify-center gap-8 rounded-3xl md:border md:bg-[#1a1a1a]/20 md:p-12"
         >
           {/* 1 */}
-          <div className="flex flex-col justify-center items-center gap-4 w-full">
-            <div className="text-primary text-4xl">JOIN THE ELITE</div>
-            <div className="text-md text-zinc-400">
-              Create your account to start your journey!
+          <div className="flex w-full flex-col items-center justify-center gap-3 md:gap-4">
+            <div className="text-primary text-center text-2xl md:text-4xl">
+              JOIN THE ELITE
+            </div>
+            <div className="text-muted-foreground text-center text-sm md:text-base">
+              Create your account to start your journey !
             </div>
           </div>
 
           {/* 2 */}
 
-          <div className="flex flex-col justify-center items-end gap-4 w-full">
-            <div className="flex gap-4 w-full">
-              <div className="flex flex-col flex-1 gap-2">
-                <Input
-                  name="firstName"
-                  type="text"
-                  label="First Name"
-                  isRequired={true}
-                  errors={errors}
-                  touched={touched}
-                  value={values.firstName}
-                  onChange={handleChange}
-                  aria-invalid={!!errors.firstName && !!touched.firstName}
-                />
-              </div>
-
-              <div className="flex flex-col flex-1 gap-2">
-                <Input
-                  name="lastName"
-                  type="text"
-                  label="Last Name"
-                  isRequired={false}
-                  errors={errors}
-                  touched={touched}
-                  value={values.lastName}
-                  onChange={handleChange}
-                  aria-invalid={!!errors.lastName && !!touched.lastName}
-                />
-              </div>
-            </div>
-
-            <div className="flex flex-col gap-2 w-full">
+          <div className="flex w-full flex-col items-end justify-center gap-4">
+            <div className="flex w-full gap-3 md:gap-4">
               <Input
-                name="email"
-                type="email"
-                label="Email"
+                name="firstName"
+                type="text"
+                label="First Name"
                 isRequired={true}
                 errors={errors}
                 touched={touched}
-                value={values.email}
+                value={values.firstName}
                 onChange={handleChange}
-                aria-invalid={!!errors.email && !!touched.email}
+                aria-invalid={!!errors.firstName && !!touched.firstName}
+              />
+
+              <Input
+                name="lastName"
+                type="text"
+                label="Last Name"
+                isRequired={false}
+                errors={errors}
+                touched={touched}
+                value={values.lastName}
+                onChange={handleChange}
+                aria-invalid={!!errors.lastName && !!touched.lastName}
               />
             </div>
 
-            <div className="flex flex-col gap-2 w-full">
-              <Input
-                name="password"
-                type="password"
-                label="Password"
-                isRequired={true}
-                errors={errors}
-                touched={touched}
-                value={values.password}
-                onChange={handleChange}
-                aria-invalid={!!errors.password && !!touched.password}
-              />
-            </div>
+            <Input
+              name="email"
+              type="email"
+              label="Email"
+              isRequired={true}
+              errors={errors}
+              touched={touched}
+              value={values.email}
+              onChange={handleChange}
+              aria-invalid={!!errors.email && !!touched.email}
+            />
+
+            <Input
+              name="password"
+              type="password"
+              label="Password"
+              isRequired={true}
+              errors={errors}
+              touched={touched}
+              value={values.password}
+              onChange={handleChange}
+              aria-invalid={!!errors.password && !!touched.password}
+            />
           </div>
 
           {/* 3 */}
-          <div className="flex flex-col justify-center items-center gap-4 w-full">
+          <div className="flex w-full flex-col items-center justify-center gap-4">
             <Button
               type="submit"
+              variant={"none"}
+              size={"none"}
               isPending={isSignUp}
               pendingText="Registering"
               disabled={!dirty || isSignUp}
-              className="bg-primary hover:bg-secondary px-4 py-4 rounded-lg w-full h-15 text-center"
+              className="bg-primary hover:bg-secondary h-13 w-full rounded-lg px-4 py-4 text-center hover:cursor-pointer md:h-15"
             >
               CREATE ACCOUNT
             </Button>
-            <div>
+            <div className="text-sm md:text-base">
               Already a member?{" "}
               <Link
                 href="/login"

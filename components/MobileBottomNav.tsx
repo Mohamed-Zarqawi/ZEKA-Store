@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { useGetCurrentUser } from "@/features/auth/pages/hooks/useAuth";
 import { useGetCart } from "@/features/cart/pages/hooks/useCart";
+import { Button } from "./ui/button";
 
 export default function MobileBottomNav() {
   const pathname = usePathname();
@@ -37,7 +38,7 @@ export default function MobileBottomNav() {
   ];
 
   return (
-    <nav className="fixed bottom-0 z-50 mb-3 block w-full items-center justify-center px-3 lg:hidden">
+    <nav className="fixed bottom-0 z-50 mb-3 block w-full items-center justify-center px-3 md:hidden">
       <div className="flex h-16 items-center justify-around rounded-full border border-white/10 px-3 backdrop-blur-md">
         {navItems.map((item, i) => {
           const isActive = pathname === item.href;

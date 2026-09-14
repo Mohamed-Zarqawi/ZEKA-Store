@@ -26,14 +26,14 @@ const Header = () => {
   ];
 
   return (
-    <header className="bg-background sticky top-0 left-0 z-50 w-full border-b lg:border-0 lg:bg-transparent lg:backdrop-blur-md">
-      <div className="flex h-20 w-full items-center justify-between px-4 lg:px-10">
+    <header className="bg-background sticky top-0 left-0 z-50 w-full border-b md:border-0 md:bg-transparent md:backdrop-blur-md">
+      <div className="flex h-18 w-full items-center justify-between px-4 md:h-20 md:px-10">
         <img
           src="/images/zekaLogo.png"
-          className="absolute top-1/2 left-1/2 w-24 -translate-x-1/2 -translate-y-1/2 object-contain sm:w-28 lg:static lg:w-30 lg:translate-x-0 lg:translate-y-0"
+          className="absolute top-1/2 left-1/2 w-24 -translate-x-1/2 -translate-y-1/2 object-contain sm:w-28 md:static md:w-30 md:translate-x-0 md:translate-y-0"
         />
 
-        <div className="hidden items-center gap-5 lg:flex">
+        <div className="hidden items-center gap-5 md:flex">
           {menuItems.map((item, i) => (
             <Link key={i} href={item.href}>
               <Button
@@ -50,7 +50,7 @@ const Header = () => {
         </div>
 
         {isCurrentUserLoading || isCartLoading ? (
-          <div className="hidden w-20 items-center justify-end gap-3 lg:flex">
+          <div className="hidden w-20 items-center justify-end gap-3 md:flex">
             <Skeleton className="h-7 w-7 rounded-md" />
             <Skeleton className="h-7 w-7 rounded-md" />
           </div>
@@ -71,7 +71,7 @@ const Header = () => {
                 </Button>
               ) : null}
             </div>
-            <div className="mt-1 hidden items-center justify-center lg:flex">
+            <div className="mt-1 hidden items-center justify-center md:flex">
               {currentUser ? (
                 <Link href="/profile">
                   <Button className="hover:cursor-pointer">
@@ -100,7 +100,7 @@ const Header = () => {
               )}
             </div>
             {currentUser && (
-              <Link href="/cart" className="relative hidden lg:inline-flex">
+              <Link href="/cart" className="relative hidden md:inline-flex">
                 <Button className="flex items-center justify-center hover:cursor-pointer">
                   <ShoppingCartIcon
                     className={`hover:cursor-pointer ${pathname === "/cart" ? "text-primary" : "hover:text-primary"}`}

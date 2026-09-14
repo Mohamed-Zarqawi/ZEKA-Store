@@ -137,24 +137,24 @@ const ProductPage = ({ productId }: ViewProps) => {
   if (!product) return;
   return (
     <div className="mx-10 my-15">
-      <div className="flex items-center gap-6 w-full h-fit">
+      <div className="flex h-fit w-full items-center gap-6">
         {/* left */}
-        <div className="relative flex gap-8 w-full max-w-155">
-          <div className="flex flex-col gap-4 rounded-2xl w-31 h-130 overflow-y-auto no-scrollbar">
+        <div className="relative flex w-full max-w-155 gap-8">
+          <div className="no-scrollbar flex h-130 w-31 flex-col gap-4 overflow-y-auto rounded-2xl">
             {product?.images?.length ? (
               product.images.map((image, i) => (
                 <img
                   key={i}
                   src={image}
                   onClick={() => handleChangeImage(image)}
-                  className="border border-primary rounded-2xl w-full h-25 object-center object-cover hover:cursor-pointer"
+                  className="border-primary h-25 w-full rounded-2xl border object-cover object-center hover:cursor-pointer"
                   alt={product.name}
                 />
               ))
             ) : (
               <img
                 src="/images/placeholder.jpeg"
-                className="border border-primary rounded-2xl w-full h-25 object-center object-cover"
+                className="border-primary h-25 w-full rounded-2xl border object-cover object-center"
                 alt={product?.name}
               />
             )}
@@ -164,7 +164,7 @@ const ProductPage = ({ productId }: ViewProps) => {
             {!isProductLoading ? (
               <img
                 src={imageUrl}
-                className="border border-primary rounded-2xl w-full max-w-130 h-130 object-center object-cover hover:cursor-pointer"
+                className="border-primary h-130 w-full max-w-130 rounded-2xl border object-cover object-center hover:cursor-pointer"
                 alt={product?.name}
               />
             ) : null}
@@ -172,7 +172,7 @@ const ProductPage = ({ productId }: ViewProps) => {
         </div>
 
         {/* right */}
-        <div className="flex flex-col justify-between gap-4 w-full h-130">
+        <div className="flex h-130 w-full flex-col justify-between gap-4">
           <div className="w-full">
             <span className="text-primary uppercase">
               {product?.category?.name || "Uncategorized"} |{" "}
@@ -184,44 +184,44 @@ const ProductPage = ({ productId }: ViewProps) => {
             <div className="mt-6 text-5xl">{product?.name}</div>
 
             {/* Rates */}
-            <div className="flex items-center gap-2 mt-5">
+            <div className="mt-5 flex items-center gap-2">
               {rating !== 0 && <div className="text-sm">{rating}</div>}
               {[1, 2, 3, 4, 5].map((star: number) => (
                 <button key={star} onClick={() => setRating(star)}>
                   {star <= rating ? (
-                    <IconStarFilled className="size-5 text-primary cursor-pointer" />
+                    <IconStarFilled className="text-primary size-5 cursor-pointer" />
                   ) : (
-                    <IconStar className="size-5 text-primary cursor-pointer" />
+                    <IconStar className="text-primary size-5 cursor-pointer" />
                   )}
                 </button>
               ))}
-              <div className="pl-2 border-zinc-400 border-l-2 text-zinc-400 text-sm">
+              <div className="border-l-2 border-zinc-400 pl-2 text-sm text-zinc-400">
                 1501 Ratings
               </div>
             </div>
 
             {/* price */}
-            <div className="mt-6 text-primary text-3xl">
+            <div className="text-primary mt-6 text-3xl">
               ${product?.price.toFixed(2)}
             </div>
 
             {/* description */}
-            <div className="flex flex-col gap-2 mt-6">
+            <div className="mt-6 flex flex-col gap-2">
               Description:
-              <div className="text-zinc-400 text-sm">
+              <div className="text-sm text-zinc-400">
                 {product?.description}
               </div>
             </div>
 
             {product.stock < 5 && product.stock > 0 ? (
-              <div className="flex items-center gap-2 mt-6 text-primary">
+              <div className="text-primary mt-6 flex items-center gap-2">
                 {product?.stock}
                 <div className="text-sm">Left in stock</div>
               </div>
             ) : null}
 
             {product.stock == cartItem?.quantity ? (
-              <div className="flex items-center gap-2 mt-6 text-primary">
+              <div className="text-primary mt-6 flex items-center gap-2">
                 <div className="text-destructive text-sm">
                   Maximum items added in cart
                 </div>
@@ -229,8 +229,8 @@ const ProductPage = ({ productId }: ViewProps) => {
             ) : null}
           </div>
 
-          <div className="flex justify-between items-center gap-3 w-full">
-            <div className="flex items-center w-full">
+          <div className="flex w-full items-center justify-between gap-3">
+            <div className="flex w-full items-center">
               {/* Counter or Add to Cart */}
 
               {isInCart && cartItem ? (
@@ -250,7 +250,7 @@ const ProductPage = ({ productId }: ViewProps) => {
                   onClick={(e) => {
                     handleCartClick(e, "add");
                   }}
-                  className="bg-primary hover:bg-secondary px-4 py-6 rounded-2xl w-full h-20 text-lg text-center"
+                  className="bg-primary hover:bg-secondary h-20 w-full rounded-2xl px-4 py-6 text-center text-lg"
                 >
                   {product.stock == 0 ? "OUT OF STOCK" : "ADD TO CART"}
                 </Button>
@@ -260,24 +260,24 @@ const ProductPage = ({ productId }: ViewProps) => {
             <Button
               variant={"outline"}
               onClick={handleFavoriteClick}
-              className="px-6 py-6 border border-primary rounded-2xl h-20 text-lg cursor-pointer"
+              className="border-primary h-20 cursor-pointer rounded-2xl border px-6 py-6 text-lg"
             >
               {isToggleFavorite ? (
                 <AnimateIcon loop animateOnView loopDelay={100}>
                   <Heart
-                    className="size-7 text-primary cursor-pointer"
+                    className="text-primary size-7 cursor-pointer"
                     animation="path"
                   />
                 </AnimateIcon>
               ) : isInFavorite ? (
                 <AnimateIcon animateOnView>
                   <Heart
-                    className="size-7 text-primary cursor-pointer"
+                    className="text-primary size-7 cursor-pointer"
                     animation="fill"
                   />
                 </AnimateIcon>
               ) : (
-                <Heart className="size-7 text-primary cursor-pointer" />
+                <Heart className="text-primary size-7 cursor-pointer" />
               )}
             </Button>
           </div>
@@ -286,11 +286,11 @@ const ProductPage = ({ productId }: ViewProps) => {
 
       {/* suggested products */}
       <div>
-        <div className="flex flex-col gap-8 mt-15">
+        <div className="mt-15 flex flex-col gap-8">
           <div className="text-primary text-3xl uppercase">
             MORE FROM {product?.category.name}
           </div>
-          <div className="gap-4 sm:gap-6 grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] w-full">
+          <div className="grid w-full grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-4 sm:gap-6">
             {relatedProducts?.map((product: ProductType) => (
               <ProductCard key={product.id} product={product} />
             ))}
