@@ -95,13 +95,13 @@ const AddAddressPage = () => {
     <div>
       <div className="text-primary text-3xl">Edit {values?.title} Address</div>
       <form onSubmit={handleSubmit}>
-        <div className="flex flex-col bg-[#1a1a1a]/20 backdrop-blur-md mt-6 px-8 py-8 border border-primary rounded-3xl w-full h-fit">
-          <div className="font-semibold text-lg">Address Details</div>
-          <div className="flex flex-wrap gap-6 mt-5">
+        <div className="border-primary mt-6 flex h-fit w-full flex-col rounded-3xl border bg-[#1a1a1a]/20 px-8 py-8 backdrop-blur-md">
+          <div className="text-lg font-semibold">Address Details</div>
+          <div className="mt-5 flex flex-wrap gap-6">
             <div className="flex flex-col">
               <FieldLabel
                 htmlFor="addressTitle"
-                className="mb-2 text-primary text-sm"
+                className="text-primary mb-2 text-sm"
               >
                 Address Title
               </FieldLabel>
@@ -110,8 +110,7 @@ const AddAddressPage = () => {
                   onClick={() => setFieldValue("title", "Home")}
                   type="button"
                   variant={"outline"}
-                  className={` border border-primary rounded-lg outline-none hover:cursor-pointer
-                      ${values.title === "Home" ? "ring-secondary! ring-2! bg-secondary/10!" : ""}`}
+                  className={`border-primary rounded-lg border outline-none hover:cursor-pointer ${values.title === "Home" ? "ring-secondary! bg-secondary/10! ring-2!" : ""}`}
                 >
                   Home
                 </Button>
@@ -119,8 +118,7 @@ const AddAddressPage = () => {
                   type="button"
                   onClick={() => setFieldValue("title", "Work")}
                   variant={"outline"}
-                  className={` border border-primary rounded-lg outline-none hover:cursor-pointer
-                      ${values.title === "Work" ? "ring-secondary! ring-2! bg-secondary/10!" : ""}`}
+                  className={`border-primary rounded-lg border outline-none hover:cursor-pointer ${values.title === "Work" ? "ring-secondary! bg-secondary/10! ring-2!" : ""}`}
                 >
                   Work
                 </Button>
@@ -128,8 +126,7 @@ const AddAddressPage = () => {
                   type="button"
                   variant={"outline"}
                   onClick={() => setFieldValue("title", "Other")}
-                  className={`border border-primary rounded-lg outline-none hover:cursor-pointer
-                      ${values.title === "Other" ? "ring-secondary! ring-2! bg-secondary/10!" : ""}`}
+                  className={`border-primary rounded-lg border outline-none hover:cursor-pointer ${values.title === "Other" ? "ring-secondary! bg-secondary/10! ring-2!" : ""}`}
                 >
                   Other
                 </Button>
@@ -162,7 +159,7 @@ const AddAddressPage = () => {
               aria-invalid={!!errors.addressDetails && !!touched.addressDetails}
             />
 
-            <div className="flex gap-3 w-full">
+            <div className="flex w-full gap-3">
               <Field>
                 <FieldLabel className="text-primary text-sm">
                   Country<span className="text-destructive">*</span>
@@ -245,9 +242,9 @@ const AddAddressPage = () => {
           </div>
         </div>
 
-        <div className="flex flex-col bg-[#1a1a1a]/20 backdrop-blur-md mt-6 px-8 py-8 border border-primary rounded-3xl w-full h-fit">
-          <div className="font-semibold text-lg">Receiver Details</div>
-          <div className="flex flex-wrap gap-6 mt-5">
+        <div className="border-primary mt-6 flex h-fit w-full flex-col rounded-3xl border bg-[#1a1a1a]/20 px-8 py-8 backdrop-blur-md">
+          <div className="text-lg font-semibold">Receiver Details</div>
+          <div className="mt-5 flex flex-wrap gap-6">
             <Input
               id="name"
               name="name"
@@ -332,7 +329,7 @@ const AddAddressPage = () => {
             isPending={isAdding}
             pendingText="Creating"
             type="submit"
-            className="flex justify-center mt-6 p-6 rounded-lg outline-none text-md hover:cursor-pointer"
+            className="text-md mt-6 flex justify-center rounded-lg p-6 outline-none hover:cursor-pointer"
           >
             Create Address
           </Button>

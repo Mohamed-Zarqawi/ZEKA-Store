@@ -9,6 +9,7 @@ export type User = {
   email: string;
   password: string;
   phoneNumber?: string;
+  phoneCode?: string;
   cart: {
     id: number;
     product: ProductType;

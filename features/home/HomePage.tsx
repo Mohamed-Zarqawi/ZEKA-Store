@@ -24,7 +24,7 @@ const HomePage = () => {
             </div>
 
             <div className="flex flex-col items-start gap-6 md:gap-10">
-              <div className="text-[26px] md:text-4xl md:text-6xl">
+              <div className="text-[26px] md:text-4xl lg:text-6xl">
                 PUSH YOUR <span className="text-primary">LIMITS</span> FURTHER
               </div>
               <div className="w-[90%] text-[12px] md:mr-0 md:w-lg md:text-base">

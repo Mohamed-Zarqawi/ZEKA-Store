@@ -166,6 +166,7 @@ export const FilterBar = ({
               </FieldDescription>
               <Slider
                 value={tempPrice}
+                isDot={true}
                 onValueChange={(val) => setTempPrice(val)}
                 min={minPrice}
                 max={maxPrice}

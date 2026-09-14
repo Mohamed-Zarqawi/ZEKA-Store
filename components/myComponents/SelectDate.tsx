@@ -44,20 +44,20 @@ const SelectDate = ({ date, onChange, isLoading }: SelectDateProps) => {
 
   return (
     <div>
-      <Field className="w-100">
+      <Field className="w-[calc(100dvw-80px)] md:w-100">
         <FieldLabel htmlFor="date" className="text-primary text-sm">
           Birthday
         </FieldLabel>
         <Popover open={open} onOpenChange={setOpen}>
           <PopoverTrigger asChild>
             {isLoading ? (
-              <Skeleton className={cn("rounded-lg h-13")} />
+              <Skeleton className={cn("h-13 rounded-lg")} />
             ) : (
               <Button
                 type="button"
                 variant="outline"
                 id="date"
-                className="justify-start bg-background! p-6 border border-primary rounded-lg outline-none w-100 h-13 text-md"
+                className="bg-background! border-primary text-md h-13 justify-start rounded-lg border p-6 outline-none md:w-100"
               >
                 {formatBirthday(date)}
               </Button>
@@ -65,7 +65,7 @@ const SelectDate = ({ date, onChange, isLoading }: SelectDateProps) => {
           </PopoverTrigger>
 
           <PopoverContent
-            className="p-0 w-fit overflow-hidden text-xse"
+            className="w-fit overflow-hidden p-0 text-xs"
             align="start"
           >
             <Calendar

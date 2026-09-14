@@ -6,10 +6,10 @@ export default function ProfileLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="mx-10 mb-10">
-      <div className="flex items-start gap-10 mt-15">
+    <div className="mx-4 mt-6 md:mx-10 md:mb-10">
+      <div className="flex items-start gap-10 md:mt-15">
         <ProfileLeftBar />
-        <div className="flex flex-col flex-1 w-full">{children}</div>
+        <div className="flex w-full flex-1 flex-col">{children}</div>
       </div>
     </div>
   );

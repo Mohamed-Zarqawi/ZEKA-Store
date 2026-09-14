@@ -4,6 +4,11 @@ import { Slider as SliderPrimitive } from "radix-ui";
 import * as React from "react";
 
 import { cn } from "@/lib/utils";
+import { boolean } from "yup";
+
+type InputProps = {
+  isDot?: boolean;
+};
 
 function Slider({
   className,
@@ -11,8 +16,9 @@ function Slider({
   value,
   min = 0,
   max = 100,
+  isDot,
   ...props
-}: React.ComponentProps<typeof SliderPrimitive.Root>) {
+}: React.ComponentProps<typeof SliderPrimitive.Root> & InputProps) {
   const _values = React.useMemo(
     () =>
       Array.isArray(value)
@@ -31,27 +37,32 @@ function Slider({
       min={min}
       max={max}
       className={cn(
-        "relative flex data-vertical:flex-col items-center data-disabled:opacity-50 w-full data-vertical:w-auto data-vertical:h-full data-vertical:min-h-40 touch-none select-none",
+        "relative flex w-full touch-none items-center select-none data-disabled:opacity-100 data-vertical:h-full data-vertical:min-h-40 data-vertical:w-auto data-vertical:flex-col",
         className,
       )}
       {...props}
     >
       <SliderPrimitive.Track
         data-slot="slider-track"
-        className="relative bg-muted rounded-md data-horizontal:w-full data-vertical:w-1 data-horizontal:h-1 data-vertical:h-full overflow-hidden grow"
+        className="bg-muted relative grow overflow-hidden rounded-md data-horizontal:h-1 data-horizontal:w-full data-vertical:h-full data-vertical:w-1"
       >
         <SliderPrimitive.Range
           data-slot="slider-range"
-          className="absolute bg-primary data-vertical:w-full data-horizontal:h-full select-none"
+          className="bg-primary absolute select-none data-horizontal:h-full data-vertical:w-full"
         />
       </SliderPrimitive.Track>
-      {Array.from({ length: _values.length }, (_, index) => (
-        <SliderPrimitive.Thumb
-          data-slot="slider-thumb"
-          key={index}
-          className="block after:absolute relative after:-inset-2 bg-white disabled:opacity-50 border border-ring rounded-md focus-visible:outline-hidden ring-ring/30 hover:ring-2 focus-visible:ring-2 active:ring-2 size-3 transition-[color,box-shadow] disabled:pointer-events-none select-none shrink-0"
-        />
-      ))}
+
+      {isDot ? (
+        <>
+          {Array.from({ length: _values.length }, (_, index) => (
+            <SliderPrimitive.Thumb
+              data-slot="slider-thumb"
+              key={index}
+              className="border-ring ring-ring/30 relative block size-3 shrink-0 rounded-md border bg-white transition-[color,box-shadow] select-none after:absolute after:-inset-2 hover:ring-2 focus-visible:ring-2 focus-visible:outline-hidden active:ring-2 disabled:pointer-events-none disabled:opacity-100"
+            />
+          ))}
+        </>
+      ) : null}
     </SliderPrimitive.Root>
   );
 }

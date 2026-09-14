@@ -69,7 +69,7 @@ export const useLogin = () => {
         position: "bottom-right",
         richColors: true,
       });
-      router.push("/profile");
+      router.push("/shop");
     },
     onError: (error: unknown) => {
       toast.error("Invalid email or password, register first", {
@@ -113,7 +113,7 @@ export const useSignUp = () => {
         position: "bottom-right",
         richColors: true,
       });
-      router.push("/profile");
+      router.push("/shop");
     },
     onError: () => {
       toast.error("This account already exists, please login", {

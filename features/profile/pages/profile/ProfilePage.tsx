@@ -12,6 +12,27 @@ import { useGetCurrentUser } from "@/features/auth/pages/hooks/useAuth";
 import { updateProfileSchema } from "@/types/auth/profile";
 import { getChangedValues } from "@/utils/getChangedValues";
 import { useUpdateProfile } from "../../hooks/useProfile";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Country } from "country-state-city";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+
+const ALL_COUNTRIES = Country.getAllCountries();
 
 const ProfilePage = () => {
   const { data: currentUser, isLoading: isCurrentUserLoading } =
@@ -22,14 +43,17 @@ const ProfilePage = () => {
   type ProfileFormValues = {
     first_name: string;
     last_name: string;
+    phoneNumber: string;
     gender: "male" | "female" | null;
     birthday: string | null;
+    phoneCode: string;
   };
   const {
     values,
     errors,
     touched,
     handleSubmit,
+    setFieldTouched,
     handleChange,
     setFieldValue,
     initialValues,
@@ -39,6 +63,8 @@ const ProfilePage = () => {
     initialValues: {
       first_name: currentUser?.first_name || "",
       last_name: currentUser?.last_name || "",
+      phoneNumber: currentUser?.phoneNumber || "",
+      phoneCode: currentUser?.phoneCode || "",
       gender: currentUser?.gender || null,
       birthday: currentUser?.birthday || null,
     },
@@ -57,36 +83,139 @@ const ProfilePage = () => {
 
   return (
     <div>
-      <div className="text-primary text-3xl">PROFILE</div>
-
-      {/* contact information */}
-      <div className="flex flex-col bg-[#1a1a1a]/20 backdrop-blur-md mt-10 px-8 py-10 border border-primary rounded-3xl w-full h-fit">
-        <div className="text-md">Contact Information</div>
-        <div className="flex flex-wrap gap-4 mt-5">
-          <Input
-            name="email"
-            type="text"
-            value={currentUser?.email}
-            onChange={handleChange}
-            className="w-100!"
-            readOnly
-            label="Email"
-            errors={errors}
-            touched={touched}
-            isLoading={isLoading}
-          />
-        </div>
+      <div className="text-primary text-2xl md:text-3xl">PROFILE</div>
+      <div className="text-muted-foreground mt-2 text-xs">
+        View & Update Your Personal and Contact Information
       </div>
-
-      {/* personal information */}
-
+      {/* contact information */}
       <form onSubmit={handleSubmit}>
-        <div className="flex flex-col bg-[#1a1a1a]/20 backdrop-blur-md mt-6 px-8 py-10 border border-primary rounded-3xl w-full h-fit">
+        <div className="border-primary mt-6 flex h-fit w-full flex-col rounded-3xl border bg-[#1a1a1a]/20 px-6 py-6 md:mt-10 md:px-8 md:py-10">
+          <div className="text-md">Contact Information</div>
+          <div className="mt-5 flex flex-col gap-6 md:flex-row md:gap-4">
+            <div>
+              <Input
+                name="email"
+                type="text"
+                value={currentUser?.email}
+                onChange={handleChange}
+                className="md:w-100!"
+                readOnly
+                label="Email"
+                errors={errors}
+                touched={touched}
+                isLoading={isLoading}
+              />
+            </div>
+
+            <Dialog>
+              <DialogTrigger>
+                <Input
+                  id="phoneNumber"
+                  name="phoneNumber"
+                  label="Phone Number"
+                  isRequired={true}
+                  errors={errors}
+                  touched={touched}
+                  isLoading={isLoading}
+                  readOnly
+                  value={
+                    values.phoneCode && values.phoneNumber
+                      ? "+" + values.phoneCode + "-" + values.phoneNumber
+                      : ""
+                  }
+                  placeholder="Add phone number"
+                  onChange={handleChange}
+                  className="w-full cursor-pointer md:w-100"
+                  aria-invalid={!!errors.phoneNumber && !!touched.phoneNumber}
+                />
+              </DialogTrigger>
+              <DialogContent className="w-full! min-w-fit!">
+                <DialogTitle>
+                  {currentUser?.phoneNumber == ""
+                    ? "Add phone number"
+                    : "Update phone number"}
+                </DialogTitle>
+                <div className="my-3 flex w-full items-center gap-2">
+                  <Select
+                    value={
+                      ALL_COUNTRIES.find(
+                        (c) =>
+                          c.phonecode.replace("+", "") ===
+                          String(values.phoneCode).replace("+", ""),
+                      )?.isoCode || ""
+                    }
+                    onValueChange={(selectedIso) => {
+                      const selectedCountry = ALL_COUNTRIES.find(
+                        (c) => c.isoCode === selectedIso,
+                      );
+                      if (selectedCountry) {
+                        setFieldValue(
+                          "phoneCode",
+                          selectedCountry.phonecode.replace("+", ""),
+                        );
+                      }
+                    }}
+                    onOpenChange={(open) => {
+                      if (!open) setFieldTouched("phoneCode", true);
+                    }}
+                  >
+                    <SelectTrigger className="w-fit shrink-0">
+                      <SelectValue placeholder="+" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        {ALL_COUNTRIES.map((country) => {
+                          const cleanCode = country.phonecode.replace("+", "");
+                          return (
+                            <SelectItem
+                              key={country.isoCode}
+                              value={country.isoCode}
+                            >
+                              +{cleanCode} ({country.isoCode})
+                            </SelectItem>
+                          );
+                        })}
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                  {/* 2. حقل رقم الهاتف (يأخذ باقي المساحة المتاحة بالكامل بفضل flex-1) */}
+                  <div className="flex-1">
+                    <Input
+                      id="phoneNumber"
+                      name="phoneNumber"
+                      type="tel"
+                      isRequired={true}
+                      touched={touched}
+                      value={values.phoneNumber}
+                      onChange={handleChange}
+                      className="w-full"
+                      aria-invalid={
+                        !!errors.phoneNumber && !!touched.phoneNumber
+                      }
+                    />
+                  </div>
+                </div>
+
+                <DialogFooter>
+                  <DialogClose asChild>
+                    <Button className="h-11" variant="default">
+                      Update Phone Number
+                    </Button>
+                  </DialogClose>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
+          </div>
+        </div>
+
+        {/* personal information */}
+
+        <div className="border-primary mt-6 flex h-fit w-full flex-col rounded-3xl border bg-[#1a1a1a]/20 px-6 py-6 md:mt-6 md:px-8 md:py-10">
           <div className="text-md">Personal Information</div>
-          <div className="flex flex-col gap-4 mt-5">
-            <div className="flex gap-4">
-              <div className="flex flex-col gap-2">
-                {/* first name */}
+          <div className="mt-5 flex flex-col gap-6 md:gap-4">
+            <div className="flex flex-col gap-6 md:flex-row md:gap-4">
+              {/* first name */}
+              <div>
                 <Input
                   id="first_name"
                   name="first_name"
@@ -94,23 +223,22 @@ const ProfilePage = () => {
                   isRequired={true}
                   value={values.first_name}
                   onChange={handleChange}
-                  className="w-100!"
+                  className="md:w-100!"
                   errors={errors}
                   touched={touched}
                   isLoading={isLoading}
                   aria-invalid={!!errors.first_name && !!touched.first_name}
                 />
               </div>
-
-              <div className="flex flex-col gap-2">
-                {/* last name */}
+              {/* last name */}
+              <div>
                 <Input
                   label="Last Name"
                   id="last_name"
                   name="last_name"
                   value={values.last_name}
                   onChange={handleChange}
-                  className="w-100!"
+                  className="md:w-100!"
                   errors={errors}
                   touched={touched}
                   isLoading={isLoading}
@@ -119,33 +247,29 @@ const ProfilePage = () => {
               </div>
             </div>
 
-            <div className="flex items-center gap-4">
-              <div>
-                {/* birthday */}
+            <div className="flex w-full flex-col items-center gap-6 md:flex-row md:gap-4">
+              {/* birthday */}
+              <SelectDate
+                date={values?.birthday}
+                onChange={(val) => setFieldValue("birthday", val)}
+                isLoading={isLoading}
+              />
 
-                <SelectDate
-                  date={values?.birthday}
-                  onChange={(val) => setFieldValue("birthday", val)}
-                  isLoading={isLoading}
-                />
-              </div>
-
-              <div className="flex flex-col justify-center gap-3">
+              <div className="flex w-full flex-col justify-center gap-3">
                 <Field>
                   <FieldLabel className="text-primary text-sm">
                     Gender
                   </FieldLabel>
-                  <div className="flex gap-2">
+                  <div className="flex w-full gap-3 md:gap-2">
                     {isLoading ? (
-                      <Skeleton className="rounded-lg w-35 h-13" />
+                      <Skeleton className="h-13 rounded-lg md:w-35" />
                     ) : (
                       <Button
                         variant={"outline"}
                         size={"icon-lg"}
                         type="button"
                         onClick={() => setFieldValue("gender", "male")}
-                        className={`p-6 text-md gap-2 border-primary rounded-lg outline-none w-35 hover:cursor-pointer transition-all
-                      ${values.gender === "male" ? "ring-secondary! ring-1! bg-secondary/10!" : ""}`}
+                        className={`text-md border-primary w-full flex-1 gap-2 rounded-lg p-6 transition-all outline-none hover:cursor-pointer md:w-35 md:flex-initial ${values.gender === "male" ? "ring-secondary! bg-secondary/10! ring-1!" : ""}`}
                       >
                         <Mars className="size-5" />
                         Male
@@ -153,15 +277,14 @@ const ProfilePage = () => {
                     )}
 
                     {isLoading ? (
-                      <Skeleton className="rounded-lg w-35 h-13" />
+                      <Skeleton className="h-13 rounded-lg md:w-35" />
                     ) : (
                       <Button
                         variant={"outline"}
                         size={"icon-lg"}
                         type="button"
                         onClick={() => setFieldValue("gender", "female")}
-                        className={`p-6 text-md gap-2 border-primary rounded-lg outline-none w-35 hover:cursor-pointer transition-all
-                      ${values.gender === "female" ? "ring-secondary! ring-1! bg-secondary/10!" : ""}`}
+                        className={`text-md border-primary w-full flex-1 gap-2 rounded-lg p-6 transition-all outline-none hover:cursor-pointer md:w-35 md:flex-initial ${values.gender === "female" ? "ring-secondary! bg-secondary/10! ring-1!" : ""}`}
                       >
                         <Venus className="size-5" />
                         Female
@@ -177,18 +300,29 @@ const ProfilePage = () => {
         {/* Security Information */}
 
         {/* Buttons */}
-        <div className="flex justify-end gap-3 mt-6">
+        <div className="mt-6 flex justify-end gap-3">
           <Button
             type="submit"
             variant="default"
             disabled={!dirty || isProfileUpdating}
             isPending={isProfileUpdating}
             pendingText="Updating"
-            className="p-6 rounded-lg outline-none text-md hover:cursor-pointer"
+            className="hidden w-full rounded-lg p-6 outline-none hover:cursor-pointer md:flex md:w-auto"
           >
             Update Profile
           </Button>
         </div>
+        <Button
+          type="submit"
+          variant={"none"}
+          size={"none"}
+          disabled={!dirty || isProfileUpdating}
+          isPending={isProfileUpdating}
+          pendingText="Updating"
+          className="bg-primary/60 border-primary sticky bottom-21 -mt-2 w-full rounded-xl px-3 py-4 text-center text-sm backdrop-blur-md transition-colors duration-300 disabled:static disabled:opacity-70 md:hidden"
+        >
+          Update Profile
+        </Button>
       </form>
     </div>
   );

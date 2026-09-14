@@ -36,7 +36,7 @@ const SecuritySettingsPage = () => {
       <div className="mt-10">
         <SecurityInfomationCard />
 
-        <div className="flex justify-between items-center bg-[#1a1a1a]/20 backdrop-blur-md mt-6 px-8 py-10 border border-primary rounded-3xl w-full h-fit">
+        <div className="border-primary mt-6 flex h-fit w-full items-center justify-between rounded-3xl border bg-[#1a1a1a]/20 px-8 py-10 backdrop-blur-md">
           <div className="flex flex-col gap-2">
             <div className="text-primary text-xl">Account Deletion</div>
             <div className="text-xs">
@@ -49,7 +49,7 @@ const SecuritySettingsPage = () => {
             <AlertDialogTrigger asChild>
               <Button
                 variant="destructive"
-                className="justify-start p-6 rounded-lg outline-none text-md"
+                className="text-md justify-start rounded-lg p-6 outline-none"
               >
                 Delete Account
               </Button>
