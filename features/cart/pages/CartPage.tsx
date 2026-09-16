@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { useGetCurrentUser } from "@/features/auth/pages/hooks/useAuth";
-import ItemCart from "@/features/cart/components/CartItemCard";
+import CartItem from "@/features/cart/components/CartItemCard";
 import { useCreateOrder } from "@/features/profile/pages/orders/pages/hooks/useOrder";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -54,7 +54,7 @@ const CartPage = () => {
             {/* left */}
             <div className="border-primary divide-primary/40 flex w-full flex-col divide-y overflow-hidden rounded-3xl border md:gap-6 md:border-0">
               {cart.map((item) => (
-                <ItemCart key={item.id} product={item.product} />
+                <CartItem key={item.id} product={item.product} />
               ))}
             </div>
 

@@ -29,7 +29,7 @@ const AddressesPage = () => {
 
       {/* contact information */}
       {addresses.length == 0 ? (
-        <div className="flex flex-col justify-center items-center gap-4 bg-[#1a1a1a]/20 backdrop-blur-md mt-10 px-8 py-10 border border-primary rounded-3xl w-full h-fit">
+        <div className="border-primary mt-10 flex h-fit w-full flex-col items-center justify-center gap-4 rounded-3xl border bg-[#1a1a1a]/20 px-8 py-10 backdrop-blur-md">
           <div className="text-md">You don't add any addresses.</div>
           <Button
             onClick={() => {
@@ -40,9 +40,9 @@ const AddressesPage = () => {
           </Button>
         </div>
       ) : (
-        <div className="flex flex-col bg-[#1a1a1a]/20 backdrop-blur-md mt-10 px-8 py-10 border border-primary rounded-3xl w-full h-fit">
+        <div className="border-primary mt-10 flex h-fit w-full flex-col rounded-3xl border bg-[#1a1a1a]/20 px-8 py-10 backdrop-blur-md">
           <div className="flex justify-between">
-            <div className="mb-10 text-md">Saved Addresses</div>
+            <div className="text-md mb-10">Saved Addresses</div>
             <Button
               onClick={() => {
                 router.push("addresses/add");
@@ -51,7 +51,7 @@ const AddressesPage = () => {
               Add New
             </Button>
           </div>
-          <div className="gap-4 grid grid-cols-2 w-full">
+          <div className="grid w-full grid-cols-2 gap-4">
             {addresses.map((Address, i) => {
               console.log(Address);
               return <AddressCard key={i} address={Address} />;

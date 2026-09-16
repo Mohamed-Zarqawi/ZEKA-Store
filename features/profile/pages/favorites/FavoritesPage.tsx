@@ -14,15 +14,15 @@ const FavoritesPage = () => {
   return (
     <div>
       {favoritesData.length === 0 ? (
-        <div className="flex h-[calc(100vh-155px)] flex-col justify-center">
+        <div className="flex min-h-[calc(100dvh-155px)] flex-col justify-center lg:min-h-[calc(100dvh-185px)]">
           {/* 1 */}
-          <div className="flex flex-col items-center gap-4">
-            <div className="text-primary text-3xl">
+          <div className="flex flex-col items-center gap-2 md:gap-4">
+            <div className="text-primary text-center text-2xl md:text-3xl">
               YOUR FAVORITES LOOK EMPTY !
             </div>
             <Link
               href="/shop"
-              className="bg-primary hover:bg-secondary mt-4 rounded-lg px-4 py-4 text-center font-extrabold transition-colors duration-300 hover:cursor-pointer"
+              className="bg-primary hover:bg-secondary mt-4 rounded-lg px-3 py-3 text-center text-sm transition-colors duration-300 hover:cursor-pointer md:px-4 md:py-4 md:text-base"
             >
               START SHOPPING HERE !
             </Link>
@@ -30,9 +30,15 @@ const FavoritesPage = () => {
         </div>
       ) : (
         <div>
-          <div className="text-primary text-3xl">FAVORITES</div>
+          <div className="text-primary text-2xl md:mb-10 md:text-3xl">
+            FAVORITES
+          </div>
 
-          <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
+          <div className="text-muted-foreground mt-2 mb-6 text-xs md:hidden">
+            {favoritesData.length} items
+          </div>
+
+          <div className="grid w-full grid-cols-2 gap-3 md:grid-cols-[repeat(auto-fill,minmax(240px,1fr))] lg:gap-6">
             {favoritesData.map((favorite, i) => (
               <ProductCard key={favorite.id} product={favorite.product} />
             ))}

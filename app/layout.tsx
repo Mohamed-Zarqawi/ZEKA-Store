@@ -1,4 +1,5 @@
 // app/layout.tsx
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import MobileBottomNav from "@/components/MobileBottomNav"; // استيراد الشريط السفلي
@@ -46,13 +47,15 @@ export default function RootLayout({
   return (
     <html lang="en" className={cn("dark font-sans", inter.variable)}>
       <body className={cn("flex min-h-screen flex-col", bruno.className)}>
-        <Providers>
-          <Header />
-          <main className="flex-1 pb-20 md:pb-0">{children}</main>
-          <Footer />
-          <MobileBottomNav />
-          <Toaster className="font-bruno! hidden md:flex" />
-        </Providers>
+        <NuqsAdapter>
+          <Providers>
+            <Header />
+            <main className="flex-1 pb-20 md:pb-0">{children}</main>
+            <Footer />
+            <MobileBottomNav />
+            <Toaster className="font-bruno! hidden md:flex" />
+          </Providers>
+        </NuqsAdapter>
       </body>
     </html>
   );

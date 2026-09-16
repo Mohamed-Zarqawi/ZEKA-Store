@@ -19,9 +19,9 @@ const AddressCard = ({ address }: { address: AddressType }) => {
     });
   };
   return (
-    <div className="bg-card px-4 py-5 border border-border rounded-md w-full">
-      <div className="flex flex-col gap-3 text-primary">
-        <div className="flex justify-between items-center my-auto mb-1.5">
+    <div className="bg-card border-border w-full rounded-md border px-4 py-5">
+      <div className="text-primary flex flex-col gap-3">
+        <div className="my-auto mb-1.5 flex items-center justify-between">
           <div className="capitalize">{address.title}</div>
           <div className="flex items-center gap-2">
             <Button
@@ -32,21 +32,21 @@ const AddressCard = ({ address }: { address: AddressType }) => {
               onClick={() => {
                 handleDelete(address.id);
               }}
-              className="p-2 border border-border cursor-pointer"
+              className="border-border cursor-pointer border p-2"
             >
-              <IconTrash className="w-4 h-4 text-destructive hover:cursor-pointer" />
+              <IconTrash className="text-destructive h-4 w-4 hover:cursor-pointer" />
             </Button>
 
             <Button
               variant="outline"
               size="icon-sm"
-              className="p-2 border border-border cursor-pointer"
+              className="border-border cursor-pointer border p-2"
               onClick={() => {
                 router.push(`addresses/${address.id}/edit`);
               }}
               disabled={isDeleting}
             >
-              <Edit className="w-4 h-4" />
+              <Edit className="h-4 w-4" />
             </Button>
 
             {address.isDefault ? (
@@ -54,7 +54,7 @@ const AddressCard = ({ address }: { address: AddressType }) => {
                 variant={"outline"}
                 size={"sm"}
                 disabled={address.isDefault}
-                className="p-2 border border-border! cursor-pointer"
+                className="border-border! cursor-pointer border p-2"
               >
                 Default
               </Button>
@@ -66,16 +66,16 @@ const AddressCard = ({ address }: { address: AddressType }) => {
                 onClick={() => {
                   handleSetDefault(address.id);
                 }}
-                className="p-2 border border-border cursor-pointer"
+                className="border-border cursor-pointer border p-2"
               >
-                <Pin className="w-4 h-4 hover:cursor-pointer" />
+                <Pin className="h-4 w-4 hover:cursor-pointer" />
               </Button>
             )}
           </div>
         </div>
-        <div className="bg-primary mb-4 w-full h-px" />
+        <div className="bg-primary mb-4 h-px w-full" />
       </div>
-      <div className="flex flex-col gap-3 text-muted-foreground text-sm">
+      <div className="text-muted-foreground flex flex-col gap-3 text-sm">
         <div className="text-primary">{address.name}</div>
         <div>{address.addressLine}</div>
         <div>{address.addressDetails}</div>
@@ -83,8 +83,8 @@ const AddressCard = ({ address }: { address: AddressType }) => {
           {address.country} - {address.city}
         </div>
         <div>
-          <span className="text-foreground">Phone Number :</span>{" "}
-          {address.phone}
+          <span className="text-foreground">Phone Number :</span> +
+          {address.phoneCode}-{address.phone}
         </div>
       </div>
     </div>

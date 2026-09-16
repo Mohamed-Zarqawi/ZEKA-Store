@@ -15,7 +15,7 @@ import { ProductType } from "@/types/shop/product";
 import Link from "next/link";
 import { toast } from "sonner";
 
-const ItemCart = ({ product }: { product: ProductType }) => {
+const CartItem = ({ product }: { product: ProductType }) => {
   // ==========================================
   // Hooks & State Management
   // ==========================================
@@ -121,4 +121,4 @@ const ItemCart = ({ product }: { product: ProductType }) => {
   );
 };
 
-export default ItemCart;
+export default CartItem;

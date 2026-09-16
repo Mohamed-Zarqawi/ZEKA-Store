@@ -18,6 +18,7 @@ export const useGetShopProducts = (
   brands: string[] = [],
   minPrice: number = 0,
   maxPrice: number = 1000,
+  search: string = "",
 ) => {
   return useQuery({
     queryKey: [
@@ -27,9 +28,10 @@ export const useGetShopProducts = (
       brands.join(","),
       minPrice,
       maxPrice,
+      search,
     ],
     queryFn: () =>
-      getShopProducts(page, categories, brands, minPrice, maxPrice),
+      getShopProducts(page, categories, brands, minPrice, maxPrice, search),
   });
 };
 

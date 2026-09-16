@@ -175,23 +175,26 @@ const AccountMobilePage = () => {
             <Link href="/profile">Edit</Link>
           </Button>
         </div>
-        <div className="flex flex-col gap-3">
-          <div className="flex gap-2">
-            <Slider
-              isDot={false}
-              value={[profilePercentage]}
-              defaultValue={[100]}
-              max={100}
-              step={1}
-              disabled
-              className="mx-auto w-full max-w-xs"
-            />
-            <Badge>{profilePercentage}%</Badge>
+
+        {profilePercentage < 100 ? (
+          <div className="flex flex-col gap-3">
+            <div className="flex gap-2">
+              <Slider
+                isDot={false}
+                value={[profilePercentage]}
+                defaultValue={[100]}
+                max={100}
+                step={1}
+                disabled
+                className="mx-auto w-full max-w-xs"
+              />
+              <Badge>{profilePercentage}%</Badge>
+            </div>
+            <div className="text-muted-foreground text-xs">
+              Complete your profile to personalize your experience!
+            </div>
           </div>
-          <div className="text-muted-foreground text-xs">
-            Complete your profile to personalize your experience!
-          </div>
-        </div>
+        ) : null}
       </div>
 
       {accountMenu.map((section, i) => {
@@ -250,12 +253,12 @@ const AccountMobilePage = () => {
       })}
       {/* 5 L */}
       <div className="border-primary/50 mx-auto my-2 flex w-40 items-center justify-center border-b"></div>
-      <div className="border-primary flex h-fit flex-col gap-5 rounded-3xl border bg-[#1a1a1a]/20 p-3 backdrop-blur-md">
+      <div
+        onClick={handleLogout}
+        className="border-primary flex h-fit flex-col gap-5 rounded-3xl border bg-[#1a1a1a]/20 p-3 backdrop-blur-md"
+      >
         <div className="flex flex-col items-start justify-center gap-3">
-          <div
-            onClick={handleLogout}
-            className="hover:bg-primary flex items-center gap-3 rounded-xl p-3 text-start transition-colors duration-400 outline-none hover:cursor-pointer"
-          >
+          <div className="hover:bg-primary flex items-center gap-3 rounded-xl p-3 text-start transition-colors duration-400 outline-none hover:cursor-pointer">
             <LogOut className="size-5" />
             <span>Sign Out</span>
           </div>

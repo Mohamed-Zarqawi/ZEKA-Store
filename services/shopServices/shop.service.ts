@@ -8,6 +8,7 @@ export const getShopProducts = async (
   brands: string[] = [],
   minPrice: number = 0,
   maxPrice: number = 1000,
+  search: string = "",
 ) => {
   const from = (page - 1) * 12;
   const to = from + 12 - 1;
@@ -24,6 +25,10 @@ export const getShopProducts = async (
 
   if (brands.length > 0) {
     query = query.in("brand_id", brands);
+  }
+
+  if (search.trim() !== "") {
+    query = query.ilike("name", `%${search}%`);
   }
 
   query = query

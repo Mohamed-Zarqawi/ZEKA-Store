@@ -9,31 +9,45 @@ import {
   Info,
   Phone,
   Store,
+  LogIn,
 } from "lucide-react";
 import { useGetCurrentUser } from "@/features/auth/pages/hooks/useAuth";
 import { useGetCart } from "@/features/cart/pages/hooks/useCart";
-import { Button } from "./ui/button";
+import { Skeleton } from "./ui/skeleton";
 
 export default function MobileBottomNav() {
   const pathname = usePathname();
-  const { data: currentUser } = useGetCurrentUser();
-  const { data: cart = [] } = useGetCart(currentUser?.id);
+  const { data: currentUser, isLoading: isCurrentUserLoading } =
+    useGetCurrentUser();
+  const { data: cart = [], isLoading: isCartLoading } = useGetCart(
+    currentUser?.id,
+  );
 
   const navItems = [
-    { href: "/", icon: Home },
-
-    { href: "/shop", icon: Store },
+    {
+      title: "1",
+      href: "/",
+      icon: Home,
+    },
 
     {
+      title: "2",
+      href: "/shop",
+      icon: Store,
+    },
+
+    {
+      title: "3",
       href: currentUser ? "/cart" : "/contact",
       icon: currentUser ? ShoppingCart : Phone,
       badge: currentUser && cart.length > 0 ? cart.length : null,
     },
 
     {
+      title: "4",
       name: currentUser ? null : "LOGIN",
       href: currentUser ? "/accountMoblie" : "/login",
-      icon: currentUser ? UserIcon : UserIcon,
+      icon: currentUser ? UserIcon : LogIn,
     },
   ];
 
@@ -52,18 +66,23 @@ export default function MobileBottomNav() {
                 isActive ? "text-primary" : "text-white"
               }`}
             >
-              <div className="relative">
-                <Icon className="h-6 w-6" />
-                {item.badge && (
-                  <span className="bg-primary absolute -top-1.5 -right-2 flex h-4 w-4 items-center justify-center rounded-full text-[9px] text-white">
-                    {item.badge}
-                  </span>
-                )}
-              </div>
+              {(isCurrentUserLoading || isCartLoading) &&
+              (item.title == "3" || item.title == "4") ? (
+                <Skeleton className="h-7 w-7 rounded-full" />
+              ) : (
+                <div className="relative">
+                  <Icon className="h-6 w-6" />
+                  {item.badge && (
+                    <span className="bg-primary absolute -top-1.5 -right-2 flex h-4 w-4 items-center justify-center rounded-full text-[9px] text-white">
+                      {item.badge}
+                    </span>
+                  )}
+                </div>
+              )}
 
-              {item.name ? (
+              {/* {item.name ? (
                 <span className="text-[9px]">{item.name}</span>
-              ) : null}
+              ) : null} */}
             </Link>
           );
         })}

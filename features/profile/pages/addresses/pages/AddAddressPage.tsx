@@ -10,6 +10,17 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { useGetCurrentUser } from "@/features/auth/pages/hooks/useAuth";
 import { AddAddressSchema, AddressType } from "@/types/profile/address";
 import { City, Country } from "country-state-city";
@@ -95,22 +106,25 @@ const AddAddressPage = () => {
     <div>
       <div className="text-primary text-3xl">Edit {values?.title} Address</div>
       <form onSubmit={handleSubmit}>
-        <div className="border-primary mt-6 flex h-fit w-full flex-col rounded-3xl border bg-[#1a1a1a]/20 px-8 py-8 backdrop-blur-md">
+        <div className="border-primary mt-6 flex h-fit w-full flex-col rounded-3xl border bg-[#1a1a1a]/20 px-6 py-6 md:mt-10 md:px-8 md:py-10">
           <div className="text-lg font-semibold">Address Details</div>
           <div className="mt-5 flex flex-wrap gap-6">
-            <div className="flex flex-col">
+            <div className="flex w-full flex-col">
               <FieldLabel
                 htmlFor="addressTitle"
                 className="text-primary mb-2 text-sm"
               >
                 Address Title
               </FieldLabel>
-              <div id="addressTitle" className="flex gap-3">
+              <div
+                id="addressTitle"
+                className="flex w-full items-center gap-2 md:gap-3"
+              >
                 <Button
                   onClick={() => setFieldValue("title", "Home")}
                   type="button"
                   variant={"outline"}
-                  className={`border-primary rounded-lg border outline-none hover:cursor-pointer ${values.title === "Home" ? "ring-secondary! bg-secondary/10! ring-2!" : ""}`}
+                  className={`border-primary h-12 flex-1 rounded-lg border outline-none hover:cursor-pointer md:h-auto ${values.title === "Home" ? "ring-secondary! bg-secondary/10! ring-2!" : ""}`}
                 >
                   Home
                 </Button>
@@ -118,7 +132,7 @@ const AddAddressPage = () => {
                   type="button"
                   onClick={() => setFieldValue("title", "Work")}
                   variant={"outline"}
-                  className={`border-primary rounded-lg border outline-none hover:cursor-pointer ${values.title === "Work" ? "ring-secondary! bg-secondary/10! ring-2!" : ""}`}
+                  className={`border-primary h-12 flex-1 rounded-lg border outline-none hover:cursor-pointer md:h-auto ${values.title === "Work" ? "ring-secondary! bg-secondary/10! ring-2!" : ""}`}
                 >
                   Work
                 </Button>
@@ -126,7 +140,7 @@ const AddAddressPage = () => {
                   type="button"
                   variant={"outline"}
                   onClick={() => setFieldValue("title", "Other")}
-                  className={`border-primary rounded-lg border outline-none hover:cursor-pointer ${values.title === "Other" ? "ring-secondary! bg-secondary/10! ring-2!" : ""}`}
+                  className={`border-primary h-12 flex-1 rounded-lg border outline-none hover:cursor-pointer md:h-auto ${values.title === "Other" ? "ring-secondary! bg-secondary/10! ring-2!" : ""}`}
                 >
                   Other
                 </Button>
@@ -159,7 +173,7 @@ const AddAddressPage = () => {
               aria-invalid={!!errors.addressDetails && !!touched.addressDetails}
             />
 
-            <div className="flex w-full gap-3">
+            <div className="flex w-full flex-col gap-3 md:flex-row">
               <Field>
                 <FieldLabel className="text-primary text-sm">
                   Country<span className="text-destructive">*</span>
@@ -242,7 +256,7 @@ const AddAddressPage = () => {
           </div>
         </div>
 
-        <div className="border-primary mt-6 flex h-fit w-full flex-col rounded-3xl border bg-[#1a1a1a]/20 px-8 py-8 backdrop-blur-md">
+        <div className="border-primary mt-6 flex h-fit w-full flex-col rounded-3xl border bg-[#1a1a1a]/20 px-6 py-6 md:mt-10 md:px-8 md:py-10">
           <div className="text-lg font-semibold">Receiver Details</div>
           <div className="mt-5 flex flex-wrap gap-6">
             <Input
@@ -258,68 +272,102 @@ const AddAddressPage = () => {
               aria-invalid={!!errors.name && !!touched.name}
             />
 
-            <div className="flex gap-3">
-              <Field>
-                <FieldLabel className="text-primary text-sm">
-                  Country Code
-                </FieldLabel>
-                <Select
+            <Dialog>
+              <DialogTrigger>
+                <Input
+                  id="phone"
+                  name="phone"
+                  label="Phone Number"
+                  isRequired={true}
+                  errors={errors}
+                  touched={touched}
+                  readOnly
                   value={
-                    ALL_COUNTRIES.find(
-                      (c) =>
-                        c.phonecode.replace("+", "") ===
-                        String(values.phoneCode).replace("+", ""),
-                    )?.isoCode || ""
+                    values.phoneCode && values.phone
+                      ? "+" + values.phoneCode + "-" + values.phone
+                      : ""
                   }
-                  onValueChange={(selectedIso) => {
-                    const selectedCountry = ALL_COUNTRIES.find(
-                      (c) => c.isoCode === selectedIso,
-                    );
-                    if (selectedCountry) {
-                      setFieldValue(
-                        "phoneCode",
-                        selectedCountry.phonecode.replace("+", ""),
-                      );
+                  placeholder="Add phone number"
+                  onChange={handleChange}
+                  className="w-full cursor-pointer md:w-100"
+                  aria-invalid={!!errors.phone && !!touched.phone}
+                />
+              </DialogTrigger>
+              <DialogContent className="w-full! min-w-fit!">
+                <DialogTitle>
+                  {currentUser?.phoneNumber == ""
+                    ? "Add phone number"
+                    : "Update phone number"}
+                </DialogTitle>
+                <div className="my-3 flex w-full items-center gap-2">
+                  <Select
+                    value={
+                      ALL_COUNTRIES.find(
+                        (c) =>
+                          c.phonecode.replace("+", "") ===
+                          String(values.phoneCode).replace("+", ""),
+                      )?.isoCode || ""
                     }
-                  }}
-                  onOpenChange={(open) => {
-                    if (!open) setFieldTouched("phoneCode", true);
-                  }}
-                >
-                  <SelectTrigger className="w-40">
-                    <SelectValue placeholder="+" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectGroup>
-                      {ALL_COUNTRIES.map((country) => {
-                        const cleanCode = country.phonecode.replace("+", "");
-                        return (
-                          <SelectItem
-                            key={country.isoCode}
-                            value={country.isoCode}
-                          >
-                            +{cleanCode} ({country.isoCode})
-                          </SelectItem>
+                    onValueChange={(selectedIso) => {
+                      const selectedCountry = ALL_COUNTRIES.find(
+                        (c) => c.isoCode === selectedIso,
+                      );
+                      if (selectedCountry) {
+                        setFieldValue(
+                          "phoneCode",
+                          selectedCountry.phonecode.replace("+", ""),
                         );
-                      })}
-                    </SelectGroup>
-                  </SelectContent>
-                </Select>
-              </Field>
+                      }
+                    }}
+                    onOpenChange={(open) => {
+                      if (!open) setFieldTouched("phoneCode", true);
+                    }}
+                  >
+                    <SelectTrigger className="w-fit shrink-0">
+                      <SelectValue placeholder="+" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        {ALL_COUNTRIES.map((country) => {
+                          const cleanCode = country.phonecode.replace("+", "");
+                          return (
+                            <SelectItem
+                              key={country.isoCode}
+                              value={country.isoCode}
+                            >
+                              +{cleanCode} ({country.isoCode})
+                            </SelectItem>
+                          );
+                        })}
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                  {/* 2. حقل رقم الهاتف (يأخذ باقي المساحة المتاحة بالكامل بفضل flex-1) */}
+                  <div className="flex-1">
+                    <Input
+                      id="phone"
+                      name="phone"
+                      placeholder="Phone number"
+                      isRequired={true}
+                      errors={errors}
+                      touched={touched}
+                      value={values.phone}
+                      onChange={handleChange}
+                      className="w-fulla"
+                      aria-invalid={!!errors.phone && !!touched.phone}
+                    />
+                  </div>
+                </div>
 
-              <Input
-                id="phone"
-                name="phone"
-                label="Phone Number"
-                isRequired={true}
-                errors={errors}
-                touched={touched}
-                value={values.phone}
-                onChange={handleChange}
-                className="w-full sm:w-96"
-                aria-invalid={!!errors.phone && !!touched.phone}
-              />
-            </div>
+                <DialogFooter>
+                  <DialogClose asChild>
+                    <Button className="h-11" variant="default">
+                      Update Phone Number
+                    </Button>
+                  </DialogClose>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
           </div>
         </div>
         <div className="flex justify-end">

@@ -15,17 +15,19 @@ const OrdersPage = () => {
 
   if (orders?.length === 0) {
     return (
-      <div className="flex flex-col justify-center h-[calc(100vh-155px)]">
-        <div className="flex flex-col items-center gap-4">
-          <div className="font-bold text-primary text-3xl">
+      <div className="flex min-h-[calc(100dvh-155px)] flex-col justify-center lg:min-h-[calc(100dvh-185px)]">
+        <div className="flex flex-col items-center gap-2 md:gap-4">
+          <div className="text-primary text-center text-2xl md:text-3xl">
             YOU HAVEN&apos;T PLACED ANY ORDERS YET !
           </div>
 
-          <div className="text-xl">WHAT ARE YOU WAITING FOR?</div>
+          <div className="text-center text-base md:text-xl">
+            WHAT ARE YOU WAITING FOR?
+          </div>
 
           <Link
             href="/shop"
-            className="bg-primary hover:bg-secondary mt-4 px-4 py-4 rounded-lg font-extrabold text-center transition-colors duration-300 hover:cursor-pointer"
+            className="bg-primary hover:bg-secondary mt-4 rounded-lg px-3 py-3 text-center text-sm transition-colors duration-300 hover:cursor-pointer md:px-4 md:py-4 md:text-base"
           >
             START SHOPPING NOW!
           </Link>
@@ -36,7 +38,7 @@ const OrdersPage = () => {
 
   if (isOrdersLoading || isCurrentUserLoading) {
     return (
-      <div className="flex justify-center items-center gap-2 h-[calc(100vh-270px)] text-primary text-4xl">
+      <div className="flex min-h-[calc(100dvh-155px)] justify-center lg:min-h-[calc(100dvh-185px)]">
         <Spinner className="size-8" data-icon="inline-start" />
         Loading orders . . .
       </div>
@@ -44,9 +46,11 @@ const OrdersPage = () => {
   }
   return (
     <div>
-      <div className="text-primary text-3xl">ORDERS</div>
-
-      <div>
+      <div className="text-primary text-2xl md:text-3xl">ORDERS</div>
+      <div className="text-muted-foreground mt-2 text-xs">
+        View & Update Your Personal and Contact Information
+      </div>
+      <div className="-mt-4 md:mt-10">
         {orders?.map((order) => (
           <OrderCard key={order.id} order={order} />
         ))}

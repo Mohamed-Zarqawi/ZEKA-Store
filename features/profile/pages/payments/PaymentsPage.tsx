@@ -9,26 +9,26 @@ const PaymentsPage = () => {
     <div>
       <div className="text-primary text-3xl">PAYMENTS</div>
 
-      <div className="flex flex-col bg-[#1a1a1a]/20 backdrop-blur-md mt-10 px-8 py-10 border border-primary rounded-3xl w-full h-fit">
-        <div className="flex justify-between gap-8">
-          <div className="border border-primary border-dashed rounded-3xl w-full h-fit overflow-hidden hover:cursor-pointer">
-            <div className="flex flex-col justify-center items-center p-21.5 rounded-3xl overflow-hidden text-black">
+      <div className="border-primary mt-6 flex h-fit w-full flex-col rounded-3xl border bg-[#1a1a1a]/20 px-6 py-6 md:mt-10 md:px-8 md:py-10">
+        <div className="flex flex-col justify-between gap-8 md:flex-row">
+          <div className="border-primary h-fit w-full overflow-hidden rounded-3xl border border-dashed hover:cursor-pointer">
+            <div className="flex flex-col items-center justify-center overflow-hidden rounded-3xl p-21.5 text-black">
               <Plus className="size-20 text-white" />
               <div className="text-white">Add New Payment</div>
             </div>
           </div>
 
-          <div className="border border-primary rounded-3xl w-full h-fit overflow-hidden">
-            <div className="flex flex-col gap-20 bg-[#F3F4F8] mt-[-2] p-6 rounded-3xl overflow-hidden text-black">
+          <div className="border-primary h-fit w-full overflow-hidden rounded-3xl border">
+            <div className="mt-[-2] flex flex-col gap-20 overflow-hidden rounded-3xl bg-[#F3F4F8] p-6 text-black">
               <div className="text-md">Mohamed Zarqawi</div>
 
               <div className="flex flex-col gap-1">
-                <div className="flex justify-between items-centers">
+                <div className="items-centers flex justify-between">
                   <div className="text-xs">Card number</div>
                   <div className="text-xs">Exp.date</div>
                 </div>
 
-                <div className="flex justify-between items-center text-black">
+                <div className="flex items-center justify-between text-black">
                   <div className="text-md">
                     <span className="text-zinc-400">XXXX-XXXX-XXXX-</span>
                     3821
@@ -38,7 +38,7 @@ const PaymentsPage = () => {
               </div>
             </div>
 
-            <div className="flex justify-between items-center gap-3 px-6 pt-6 pb-6">
+            <div className="flex items-center justify-between gap-3 px-6 pt-6 pb-6">
               <div>
                 <FieldGroup className="w-full max-w-40">
                   <Field orientation="horizontal">
