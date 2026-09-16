@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const Footer = () => {
   return (
-    <footer className="border-t-border mt-10 hidden w-full flex-col items-center justify-between gap-2 border border-x-0 border-b-0 bg-[#1a1a1a]/20 px-25 py-6 md:flex md:flex-row">
+    <footer className="border-t-border mt-10 hidden w-full flex-col items-center justify-between gap-2 border border-x-0 border-b-0 bg-[#1a1a1a] px-25 py-6 md:flex md:flex-row">
       <div className="text-primary text-xs font-normal!">
         <span className="font-serif">&copy;</span> {new Date().getFullYear()}{" "}
         ZEKA. All rights reserved
