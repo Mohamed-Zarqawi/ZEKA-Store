@@ -184,7 +184,7 @@ const AccountMobilePage = () => {
                     max={100}
                     step={1}
                     disabled
-                    className="mx-auto w-full max-w-xs"
+                    className="mx-auto w-full"
                   />
                   <Badge>{profilePercentage}%</Badge>
                 </div>
@@ -208,13 +208,13 @@ const AccountMobilePage = () => {
                     <Link
                       key={item.href}
                       href={item.href}
-                      className={`hover:bg-primary border-primary flex w-full rounded-3xl border py-6 pr-3 pl-5.5 text-start outline-none hover:cursor-pointer`}
+                      className={`border-primary flex w-full rounded-3xl border py-6 pr-3 pl-5.5 text-start outline-none hover:cursor-pointer`}
                     >
                       <div className="flex w-full items-center gap-3">
                         <Icon className="size-5" />
                         <div className="flex flex-col gap-1">
                           <span className="text-sm">{item.name}</span>
-                          <span className="text-muted-foreground text-[10px]">
+                          <span className="text-muted-foreground text-[9px]">
                             {item.describtion}
                           </span>
                         </div>
@@ -235,7 +235,7 @@ const AccountMobilePage = () => {
                       <Link
                         key={item.href}
                         href={item.href}
-                        className={`hover:bg-primary flex items-center justify-between py-5 text-start transition-colors outline-none hover:cursor-pointer`}
+                        className={`flex items-center justify-between py-5 text-start transition-colors outline-none hover:cursor-pointer`}
                       >
                         <div className="flex items-center gap-4">
                           <Icon className="size-5" />
@@ -258,7 +258,7 @@ const AccountMobilePage = () => {
         className="border-primary flex h-fit flex-col gap-5 rounded-3xl border bg-[#1a1a1a]/20 p-3 backdrop-blur-md"
       >
         <div className="flex flex-col items-start justify-center gap-3">
-          <div className="hover:bg-primary flex items-center gap-3 rounded-xl p-3 text-start transition-colors duration-400 outline-none hover:cursor-pointer">
+          <div className="flex items-center gap-3 rounded-xl p-3 text-start transition-colors duration-400 outline-none hover:cursor-pointer">
             <LogOut className="size-5" />
             <span>Sign Out</span>
           </div>

@@ -131,7 +131,7 @@ export const FilterPopover = ({
   return (
     <Popover open={isOpen} onOpenChange={setIsOpen}>
       <PopoverTrigger asChild>
-        <Button className="block h-13 lg:hidden">Filters</Button>
+        <Button className="block h-12 rounded-lg lg:hidden">Filters</Button>
       </PopoverTrigger>
 
       <PopoverContent

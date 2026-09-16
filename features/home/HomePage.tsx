@@ -17,7 +17,7 @@ const HomePage = () => {
       <div className="flex flex-col">
         {/* first slide */}
 
-        <div className="relative mt-10 flex h-75 items-start justify-end gap-6 overflow-x-hidden md:mt-15 md:h-fit md:flex-row md:items-center md:justify-center md:gap-0 md:overflow-visible">
+        <div className="relative mt-10 flex h-75 items-start justify-between gap-6 overflow-x-hidden md:mt-15 md:h-fit md:flex-row md:items-center md:overflow-visible">
           <div className="z-20 flex flex-col gap-6 px-6 md:static md:gap-10 md:px-0">
             <div className="text-primary font-bold md:text-xl">
               NEW COLLECTION
