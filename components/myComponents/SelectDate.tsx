@@ -57,7 +57,7 @@ const SelectDate = ({ date, onChange, isLoading }: SelectDateProps) => {
                 type="button"
                 variant="outline"
                 id="date"
-                className="bg-background! border-primary text-md h-13 justify-start rounded-lg border p-6 outline-none md:w-100"
+                className="bg-background! border-primary h-13 justify-start rounded-lg border p-6 text-base outline-none md:w-100"
               >
                 {formatBirthday(date)}
               </Button>

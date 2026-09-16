@@ -84,8 +84,8 @@ const CartPage = () => {
 
               <div className="flex flex-col gap-6">
                 <div className="flex justify-between">
-                  <div className="text-md md:text-xl">TOTAL</div>
-                  <div className="text-primary text-md md:text-xl">
+                  <div className="text-base md:text-xl">TOTAL</div>
+                  <div className="text-primary text-base md:text-xl">
                     ${total.toFixed(2)}
                   </div>
                 </div>

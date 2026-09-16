@@ -5,41 +5,6 @@ import Link from "next/link";
 
 const OrderProduct = ({ product }: { product: ProductType }) => {
   return (
-    // <div className="flex items-center justify-between gap-5">
-    //   {/* 1 */}
-
-    //   <div className="flex flex-col gap-3">
-    //     <div className="flex items-center gap-5">
-    //       {/* image */}
-
-    //       <img
-    //         src={product?.images[0]}
-    //         className="border-primary h-18 w-18 rounded-xl border object-cover object-center hover:cursor-pointer"
-    //       />
-
-    //       {/* content */}
-
-    //       <div className="flex flex-col gap-1">
-    //         <div className="text-primary">{product?.name}</div>
-
-    //         {/* price */}
-    //         <div className="min-w-3 text-sm font-bold">
-    //           ${product?.price.toFixed(2)}
-    //         </div>
-    //       </div>
-    //     </div>
-    //   </div>
-
-    //   {/* 2 */}
-    //   <div className="flex items-center justify-between gap-6">
-    //     <Link href={`/shop/${product?.id}`} className="block">
-    //       <Button variant="outline" size="lg">
-    //         Buy Again
-    //       </Button>
-    //     </Link>
-    //   </div>
-    // </div>
-
     <div className="flex h-35 flex-col items-center py-5 md:h-fit md:flex-row md:justify-between md:gap-5">
       {/* Product Image & Details Container */}
       <div className="flex h-full w-full items-start gap-3 md:h-fit md:items-center md:gap-5">
@@ -97,16 +62,6 @@ const OrderCard = ({ order }: OrderCardProps) => {
     hour12: true,
   });
   return (
-    // <div className="border-primary mt-10 flex w-full flex-col gap-4 rounded-3xl border bg-[#1a1a1a]/20 p-6">
-    //   <div>Delevired at {date}</div>
-
-    //   <div className="divide-primary/40 flex w-full flex-col divide-y">
-    //     {order.order_items.map((item, j) => (
-    //       <OrderProduct key={j} product={item.product} />
-    //     ))}
-    //   </div>
-    // </div>
-
     <div className="border-primary mt-10 flex w-full flex-col gap-4 rounded-3xl border bg-[#1a1a1a]/20 p-5 md:p-7">
       <div className="-mb-4 text-sm text-zinc-400">Delivered at {date}</div>
       <div className="border-primary my-4 -mb-3 w-full border-b"></div>

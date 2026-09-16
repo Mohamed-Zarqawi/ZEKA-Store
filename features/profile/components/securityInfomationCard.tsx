@@ -72,9 +72,11 @@ const SecurityInformationCard = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="flex justify-between items-center bg-[#1a1a1a]/20 backdrop-blur-md mt-6 px-8 py-10 border border-primary rounded-3xl w-full h-fit">
-        <div className="flex flex-col gap-2">
-          <div className="text-primary text-xl">Reset Password</div>
+      <div className="border-primary mt-6 flex h-fit w-full flex-col rounded-3xl border bg-[#1a1a1a]/20 px-6 py-6 md:mt-10 md:flex-row md:items-center md:justify-between md:px-8 md:py-10">
+        <div className="flex flex-col gap-1 md:gap-2">
+          <div className="text-primary text-base md:text-xl">
+            Reset Password
+          </div>
           <div className="text-muted-foreground text-xs">
             We will send a reset link to your email address
           </div>
@@ -86,7 +88,7 @@ const SecurityInformationCard = () => {
           isPending={isEmailSending}
           pendingText="Sending reset link"
           disabled={isEmailSending || cooldown > 0}
-          className="justify-start p-6 rounded-lg outline-none text-md"
+          className="mt-3 w-full rounded-lg p-6 text-base md:mt-0 md:w-auto md:justify-start"
         >
           {cooldown > 0 ? `Resend link in ${cooldown}s` : "Send Reset Link"}
         </Button>

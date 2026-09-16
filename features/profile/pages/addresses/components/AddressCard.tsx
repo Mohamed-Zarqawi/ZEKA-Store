@@ -19,9 +19,9 @@ const AddressCard = ({ address }: { address: AddressType }) => {
     });
   };
   return (
-    <div className="bg-card border-border w-full rounded-md border px-4 py-5">
+    <div className="bg-card border-border w-full rounded-md border px-4 py-3 md:py-5">
       <div className="text-primary flex flex-col gap-3">
-        <div className="my-auto mb-1.5 flex items-center justify-between">
+        <div className="my-auto flex items-center justify-between md:mb-1.5">
           <div className="capitalize">{address.title}</div>
           <div className="flex items-center gap-2">
             <Button
@@ -73,9 +73,9 @@ const AddressCard = ({ address }: { address: AddressType }) => {
             )}
           </div>
         </div>
-        <div className="bg-primary mb-4 h-px w-full" />
+        <div className="bg-primary mb-4 h-px w-full md:mb-4" />
       </div>
-      <div className="text-muted-foreground flex flex-col gap-3 text-sm">
+      <div className="text-muted-foreground flex flex-col gap-2 text-sm md:gap-3">
         <div className="text-primary">{address.name}</div>
         <div>{address.addressLine}</div>
         <div>{address.addressDetails}</div>
@@ -83,8 +83,8 @@ const AddressCard = ({ address }: { address: AddressType }) => {
           {address.country} - {address.city}
         </div>
         <div>
-          <span className="text-foreground">Phone Number :</span> +
-          {address.phoneCode}-{address.phone}
+          <span className="text-foreground">Phone Number :</span>{" "}
+          <br className="block md:hidden" />+{address.phoneCode}-{address.phone}
         </div>
       </div>
     </div>

@@ -27,6 +27,7 @@ import { City, Country } from "country-state-city";
 import { useFormik } from "formik";
 import { useMemo } from "react";
 import { useAddAddress } from "../hooks/useAddresses";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const ALL_COUNTRIES = Country.getAllCountries();
 const AddAddressPage = () => {
@@ -99,52 +100,59 @@ const AddAddressPage = () => {
     );
   }, [selectedCountryObj]);
 
-  if (isCurrentUserLoading || !ALL_COUNTRIES) {
-    return <div>Loading...</div>;
-  }
+  const isLoading = isCurrentUserLoading || !ALL_COUNTRIES;
+
   return (
     <div>
-      <div className="text-primary text-3xl">Edit {values?.title} Address</div>
+      <div className="text-primary text-2xl md:text-3xl">Add New Address</div>
       <form onSubmit={handleSubmit}>
         <div className="border-primary mt-6 flex h-fit w-full flex-col rounded-3xl border bg-[#1a1a1a]/20 px-6 py-6 md:mt-10 md:px-8 md:py-10">
-          <div className="text-lg font-semibold">Address Details</div>
-          <div className="mt-5 flex flex-wrap gap-6">
-            <div className="flex w-full flex-col">
+          <div className="text-lg">Address Details</div>
+          <div className="mt-5 flex flex-wrap gap-4 md:gap-6">
+            <div className="flex w-full flex-col md:w-auto">
               <FieldLabel
                 htmlFor="addressTitle"
                 className="text-primary mb-2 text-sm"
               >
                 Address Title
               </FieldLabel>
-              <div
-                id="addressTitle"
-                className="flex w-full items-center gap-2 md:gap-3"
-              >
-                <Button
-                  onClick={() => setFieldValue("title", "Home")}
-                  type="button"
-                  variant={"outline"}
-                  className={`border-primary h-12 flex-1 rounded-lg border outline-none hover:cursor-pointer md:h-auto ${values.title === "Home" ? "ring-secondary! bg-secondary/10! ring-2!" : ""}`}
+              {isLoading ? (
+                <div className="flex w-full items-center gap-2 md:w-auto md:gap-3">
+                  <Skeleton className="h-12 flex-1" />
+                  <Skeleton className="h-12 flex-1" />
+                  <Skeleton className="h-12 flex-1" />
+                </div>
+              ) : (
+                <div
+                  id="addressTitle"
+                  className="flex w-full items-center gap-2 md:w-auto md:gap-3"
                 >
-                  Home
-                </Button>
-                <Button
-                  type="button"
-                  onClick={() => setFieldValue("title", "Work")}
-                  variant={"outline"}
-                  className={`border-primary h-12 flex-1 rounded-lg border outline-none hover:cursor-pointer md:h-auto ${values.title === "Work" ? "ring-secondary! bg-secondary/10! ring-2!" : ""}`}
-                >
-                  Work
-                </Button>
-                <Button
-                  type="button"
-                  variant={"outline"}
-                  onClick={() => setFieldValue("title", "Other")}
-                  className={`border-primary h-12 flex-1 rounded-lg border outline-none hover:cursor-pointer md:h-auto ${values.title === "Other" ? "ring-secondary! bg-secondary/10! ring-2!" : ""}`}
-                >
-                  Other
-                </Button>
-              </div>
+                  <Button
+                    onClick={() => setFieldValue("title", "Home")}
+                    type="button"
+                    variant={"outline"}
+                    className={`border-primary h-12 flex-1 rounded-lg border outline-none hover:cursor-pointer md:h-11 ${values.title === "Home" ? "ring-secondary! bg-secondary/10! ring-2!" : ""}`}
+                  >
+                    Home
+                  </Button>
+                  <Button
+                    type="button"
+                    onClick={() => setFieldValue("title", "Work")}
+                    variant={"outline"}
+                    className={`border-primary h-12 flex-1 rounded-lg border outline-none hover:cursor-pointer md:h-11 ${values.title === "Work" ? "ring-secondary! bg-secondary/10! ring-2!" : ""}`}
+                  >
+                    Work
+                  </Button>
+                  <Button
+                    type="button"
+                    variant={"outline"}
+                    onClick={() => setFieldValue("title", "Other")}
+                    className={`border-primary h-12 flex-1 rounded-lg border outline-none hover:cursor-pointer md:h-11 ${values.title === "Other" ? "ring-secondary! bg-secondary/10! ring-2!" : ""}`}
+                  >
+                    Other
+                  </Button>
+                </div>
+              )}
             </div>
 
             <Input
@@ -153,6 +161,7 @@ const AddAddressPage = () => {
               label="Address Line"
               isRequired={true}
               errors={errors}
+              isLoading={isLoading}
               touched={touched}
               value={values.addressLine}
               onChange={handleChange}
@@ -167,13 +176,14 @@ const AddAddressPage = () => {
               isRequired={true}
               errors={errors}
               touched={touched}
+              isLoading={isLoading}
               value={values.addressDetails}
               onChange={handleChange}
               className="w-full"
               aria-invalid={!!errors.addressDetails && !!touched.addressDetails}
             />
 
-            <div className="flex w-full flex-col gap-3 md:flex-row">
+            <div className="flex w-full flex-col gap-4 md:flex-row md:gap-6">
               <Field>
                 <FieldLabel className="text-primary text-sm">
                   Country<span className="text-destructive">*</span>
@@ -188,9 +198,14 @@ const AddAddressPage = () => {
                     if (!open) setFieldTouched("country", true);
                   }}
                 >
-                  <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Select Country" />
-                  </SelectTrigger>
+                  {isLoading ? (
+                    <Skeleton className="h-12.5 rounded-lg md:h-13" />
+                  ) : (
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Select Country" />
+                    </SelectTrigger>
+                  )}
+
                   <SelectContent>
                     <SelectGroup>
                       {ALL_COUNTRIES.map((country, i) => (
@@ -219,9 +234,14 @@ const AddAddressPage = () => {
                     if (!open) setFieldTouched("city", true);
                   }}
                 >
-                  <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Select City" />
-                  </SelectTrigger>
+                  {isLoading ? (
+                    <Skeleton className="h-12.5 rounded-lg md:h-13" />
+                  ) : (
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Select City" />
+                    </SelectTrigger>
+                  )}
+
                   <SelectContent>
                     <SelectGroup>
                       {uniqueCities.map((city) => (
@@ -244,6 +264,7 @@ const AddAddressPage = () => {
                 id="zip"
                 name="zip"
                 label="ZIP Code"
+                isLoading={isLoading}
                 isRequired={false}
                 errors={errors}
                 touched={touched}
@@ -266,19 +287,21 @@ const AddAddressPage = () => {
               isRequired={true}
               errors={errors}
               touched={touched}
+              isLoading={isLoading}
               value={values.name}
               onChange={handleChange}
-              className="w-full sm:w-96"
+              className="w-full md:w-100!"
               aria-invalid={!!errors.name && !!touched.name}
             />
 
             <Dialog>
-              <DialogTrigger>
+              <DialogTrigger className="w-full">
                 <Input
                   id="phone"
                   name="phone"
                   label="Phone Number"
                   isRequired={true}
+                  isLoading={isLoading}
                   errors={errors}
                   touched={touched}
                   readOnly
@@ -289,7 +312,7 @@ const AddAddressPage = () => {
                   }
                   placeholder="Add phone number"
                   onChange={handleChange}
-                  className="w-full cursor-pointer md:w-100"
+                  className="w-full cursor-pointer md:w-100!"
                   aria-invalid={!!errors.phone && !!touched.phone}
                 />
               </DialogTrigger>
@@ -377,7 +400,7 @@ const AddAddressPage = () => {
             isPending={isAdding}
             pendingText="Creating"
             type="submit"
-            className="text-md mt-6 flex justify-center rounded-lg p-6 outline-none hover:cursor-pointer"
+            className="mt-6 flex justify-center rounded-lg p-6 text-base outline-none hover:cursor-pointer"
           >
             Create Address
           </Button>

@@ -90,7 +90,7 @@ const ProfilePage = () => {
       {/* contact information */}
       <form onSubmit={handleSubmit}>
         <div className="border-primary mt-6 flex h-fit w-full flex-col rounded-3xl border bg-[#1a1a1a]/20 px-6 py-6 md:mt-10 md:px-8 md:py-10">
-          <div className="text-md">Contact Information</div>
+          <div className="text-base">Contact Information</div>
           <div className="mt-5 flex flex-col gap-6 md:flex-row md:gap-4">
             <div>
               <Input
@@ -211,7 +211,7 @@ const ProfilePage = () => {
         {/* personal information */}
 
         <div className="border-primary mt-6 flex h-fit w-full flex-col rounded-3xl border bg-[#1a1a1a]/20 px-6 py-6 md:mt-6 md:px-8 md:py-10">
-          <div className="text-md">Personal Information</div>
+          <div className="text-base">Personal Information</div>
           <div className="mt-5 flex flex-col gap-6 md:gap-4">
             <div className="flex flex-col gap-6 md:flex-row md:gap-4">
               {/* first name */}
@@ -269,7 +269,7 @@ const ProfilePage = () => {
                         size={"icon-lg"}
                         type="button"
                         onClick={() => setFieldValue("gender", "male")}
-                        className={`text-md border-primary w-full flex-1 gap-2 rounded-lg p-6 transition-all outline-none hover:cursor-pointer md:w-35 md:flex-initial ${values.gender === "male" ? "ring-secondary! bg-secondary/10! ring-1!" : ""}`}
+                        className={`border-primary w-full flex-1 gap-2 rounded-lg p-6 text-base transition-all outline-none hover:cursor-pointer md:w-35 md:flex-initial ${values.gender === "male" ? "ring-secondary! bg-secondary/10! ring-1!" : ""}`}
                       >
                         <Mars className="size-5" />
                         Male
@@ -284,7 +284,7 @@ const ProfilePage = () => {
                         size={"icon-lg"}
                         type="button"
                         onClick={() => setFieldValue("gender", "female")}
-                        className={`text-md border-primary w-full flex-1 gap-2 rounded-lg p-6 transition-all outline-none hover:cursor-pointer md:w-35 md:flex-initial ${values.gender === "female" ? "ring-secondary! bg-secondary/10! ring-1!" : ""}`}
+                        className={`border-primary w-full flex-1 gap-2 rounded-lg p-6 text-base transition-all outline-none hover:cursor-pointer md:w-35 md:flex-initial ${values.gender === "female" ? "ring-secondary! bg-secondary/10! ring-1!" : ""}`}
                       >
                         <Venus className="size-5" />
                         Female

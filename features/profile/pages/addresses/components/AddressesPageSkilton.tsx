@@ -1,47 +1,60 @@
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Plus } from "lucide-react";
 
 export const AddressesPageSkeleton = () => {
   return (
     <div className="w-full animate-pulse">
       {/* عنوان الصفحة */}
-      <div className="text-primary text-3xl">ADDRESSES</div>
+      <div className="text-primary text-2xl md:text-3xl">ADDRESSES</div>
+      <div className="text-muted-foreground mt-2 text-xs">
+        Manage your saved addresses for fast and easy checkout across our
+        marketplaces
+      </div>
 
       {/* الحاوية الرئيسية */}
-      <div className="flex flex-col bg-[#1a1a1a]/20 backdrop-blur-md mt-10 px-8 py-10 border border-primary rounded-3xl w-full h-fit">
+      <div className="border-primary mt-6 flex h-fit w-full flex-col rounded-3xl border bg-[#1a1a1a]/20 px-6 py-6 md:mt-10 md:px-8 md:py-10">
         {/* شريط الهيدر (العنوان + زر إضافة عنوان) */}
-        <div className="flex justify-between">
-          <div className="mb-10 text-md">Saved Addresses</div>
-          <Button>Add New</Button>
+        <div className="mb-5 flex items-center justify-between">
+          <div className="text-base">Saved Addresses</div>
+          <Button className="hidden md:block">Add New</Button>
         </div>
 
         {/* شبكة العناوين (Grid of 2) */}
-        <div className="gap-4 grid grid-cols-2 w-full">
-          {[1, 2, 3].map((i) => (
+        <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-2">
+          <Button
+            size={"sm"}
+            variant={"none"}
+            className="border-primary flex h-11 items-center justify-center border-dashed md:hidden"
+          >
+            <Plus />
+            Add New
+          </Button>
+          {[1, 2].map((i) => (
             <div
               key={i}
-              className="flex flex-col gap-4 bg-card px-4 py-5 border border-border rounded-md w-full"
+              className="bg-card border-border flex w-full flex-col gap-4 rounded-md border px-4 py-3 md:py-5"
             >
               {/* شريط بطاقة العنوان العلوي */}
-              <div className="flex justify-between items-center">
-                <Skeleton className="bg-primary/20 rounded-md w-24 h-5" />
+              <div className="flex items-center justify-between">
+                <Skeleton className="bg-primary/20 h-5 w-19 rounded-md" />
                 <div className="flex items-center gap-2">
-                  <Skeleton className="bg-primary/20 rounded-md w-10 h-8" />
-                  <Skeleton className="bg-primary/20 rounded-md w-12 h-8" />
-                  <Skeleton className="bg-primary/20 rounded-md w-14 h-8" />
+                  <Skeleton className="h-8 w-8 rounded-md" />
+                  <Skeleton className="h-8 w-12 rounded-md" />
+                  <Skeleton className="h-8 w-16 rounded-md" />
                 </div>
               </div>
 
               {/* خط الفاصل */}
-              <Skeleton className="bg-primary/20 my-1 w-full h-px" />
+              <Skeleton className="bg-primary/20 h-px w-full md:mt-0.5 md:mb-1" />
 
               {/* تفاصيل العنوان */}
               <div className="flex flex-col gap-4">
-                <Skeleton className="bg-primary/20 rounded-md w-1/3 h-4" />
-                <Skeleton className="bg-primary/20 rounded-md w-3/4 h-4" />
-                <Skeleton className="bg-primary/20 rounded-md w-1/2 h-4" />
-                <Skeleton className="bg-primary/20 rounded-md w-2/3 h-4" />
-                <Skeleton className="bg-primary/20 rounded-md w-1/2 h-4" />
+                <Skeleton className="bg-primary/20 h-4 w-1/3 rounded-md" />
+                <Skeleton className="h-4 w-3/4 rounded-md" />
+                <Skeleton className="h-4 w-1/2 rounded-md" />
+                <Skeleton className="h-4 w-2/3 rounded-md" />
+                <Skeleton className="h-5 w-1/2 rounded-md" />
               </div>
             </div>
           ))}

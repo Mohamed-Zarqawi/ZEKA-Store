@@ -205,7 +205,7 @@ const EditProductPage = ({ productId }: EditProductPageProps) => {
       <div>
         <form onSubmit={handleSubmit}>
           {/* Header Bar */}
-          <div className="flex justify-between items-center">
+          <div className="flex items-center justify-between">
             <div className="text-primary text-3xl">Edit {product.name}</div>
             <Button
               type="button"
@@ -219,9 +219,9 @@ const EditProductPage = ({ productId }: EditProductPageProps) => {
           </div>
 
           {/* Basic information */}
-          <div className="flex flex-col bg-[#1a1a1a]/20 backdrop-blur-md mt-10 px-8 py-8 border border-primary rounded-3xl w-full h-fit">
-            <div className="font-semibold text-lg">Basic Information</div>
-            <div className="flex flex-wrap gap-6 mt-5">
+          <div className="border-primary mt-10 flex h-fit w-full flex-col rounded-3xl border bg-[#1a1a1a]/20 px-8 py-8 backdrop-blur-md">
+            <div className="text-lg font-semibold">Basic Information</div>
+            <div className="mt-5 flex flex-wrap gap-6">
               <Field>
                 <FieldLabel className="text-primary text-sm">ID</FieldLabel>
                 <div className="text-muted-foreground">{product.id}</div>
@@ -257,10 +257,10 @@ const EditProductPage = ({ productId }: EditProductPageProps) => {
           </div>
 
           {/* Product details */}
-          <div className="flex flex-col bg-[#1a1a1a]/20 backdrop-blur-md mt-6 px-8 py-8 border border-primary rounded-3xl w-full h-fit">
-            <div className="font-semibold text-lg">Product Details</div>
-            <div className="flex flex-wrap gap-6 mt-5">
-              <div className="flex flex-col gap-4 w-full sm:w-96">
+          <div className="border-primary mt-6 flex h-fit w-full flex-col rounded-3xl border bg-[#1a1a1a]/20 px-8 py-8 backdrop-blur-md">
+            <div className="text-lg font-semibold">Product Details</div>
+            <div className="mt-5 flex flex-wrap gap-6">
+              <div className="flex w-full flex-col gap-4 sm:w-96">
                 {/* Category */}
                 <Field>
                   <FieldLabel className="text-primary text-sm">
@@ -363,9 +363,9 @@ const EditProductPage = ({ productId }: EditProductPageProps) => {
           </div>
 
           {/* Product Photos */}
-          <div className="flex flex-col bg-[#1a1a1a]/20 backdrop-blur-md mt-6 px-8 py-8 border border-primary rounded-3xl w-full h-fit">
-            <div className="flex justify-between items-center">
-              <div className="font-semibold text-lg">Product Photos</div>
+          <div className="border-primary mt-6 flex h-fit w-full flex-col rounded-3xl border bg-[#1a1a1a]/20 px-8 py-8 backdrop-blur-md">
+            <div className="flex items-center justify-between">
+              <div className="text-lg font-semibold">Product Photos</div>
               <div>
                 <Button variant="default" type="button" asChild>
                   <label htmlFor="image" className="cursor-pointer">
@@ -393,16 +393,16 @@ const EditProductPage = ({ productId }: EditProductPageProps) => {
                 />
               </div>
             </div>
-            <div className="flex flex-wrap gap-6 mt-5">
+            <div className="mt-5 flex flex-wrap gap-6">
               <Field>
-                <FieldLabel className="mb-3 text-primary text-sm">
+                <FieldLabel className="text-primary mb-3 text-sm">
                   Main photo
                 </FieldLabel>
-                <div className="relative flex gap-8 w-full max-w-2xl">
+                <div className="relative flex w-full max-w-2xl gap-8">
                   {values?.images?.length > 0 ? (
                     <img
                       src={mainImage}
-                      className="border border-primary rounded-2xl w-58 h-58 object-center object-cover"
+                      className="border-primary h-58 w-58 rounded-2xl border object-cover object-center"
                     />
                   ) : (
                     <div className="text-muted-foreground text-sm">
@@ -413,7 +413,7 @@ const EditProductPage = ({ productId }: EditProductPageProps) => {
               </Field>
 
               <Field>
-                <FieldLabel className="mb-2 text-primary text-sm">
+                <FieldLabel className="text-primary mb-2 text-sm">
                   Existing Photos
                   {values?.images?.length > 0 ? (
                     <div>({values?.images?.length})</div>
@@ -428,7 +428,7 @@ const EditProductPage = ({ productId }: EditProductPageProps) => {
                           <img
                             src={image}
                             alt={product.name}
-                            className="border border-primary rounded-2xl w-32 h-32 object-center object-cover"
+                            className="border-primary h-32 w-32 rounded-2xl border object-cover object-center"
                           />
 
                           <Button
@@ -436,14 +436,14 @@ const EditProductPage = ({ productId }: EditProductPageProps) => {
                             variant="outline"
                             size="rounded-icon-sm"
                             onClick={() => handleRemoveImage(image)}
-                            className="top-2 right-2 absolute border border-border rounded-full text-white cursor-pointer hover:cursor-pointer"
+                            className="border-border absolute top-2 right-2 cursor-pointer rounded-full border text-white hover:cursor-pointer"
                           >
-                            <IconTrash className="w-4 h-4 text-destructive hover:cursor-pointer" />
+                            <IconTrash className="text-destructive h-4 w-4 hover:cursor-pointer" />
                           </Button>
                           {mainImage == image ? (
                             <Badge
                               variant="outline"
-                              className="top-3 left-2 absolute border border-border rounded-full text-white cursor-pointer hover:cursor-pointer"
+                              className="border-border absolute top-3 left-2 cursor-pointer rounded-full border text-white hover:cursor-pointer"
                             >
                               Main
                             </Badge>
@@ -453,9 +453,9 @@ const EditProductPage = ({ productId }: EditProductPageProps) => {
                               variant="outline"
                               size={"rounded-icon-sm"}
                               onClick={() => handleSetMainImage(image)}
-                              className="top-2 left-2 absolute border border-border rounded-full text-white cursor-pointer hover:cursor-pointer"
+                              className="border-border absolute top-2 left-2 cursor-pointer rounded-full border text-white hover:cursor-pointer"
                             >
-                              <Pin className="w-4 h-4 hover:cursor-pointer" />
+                              <Pin className="h-4 w-4 hover:cursor-pointer" />
                             </Button>
                           )}
                         </div>
@@ -470,15 +470,15 @@ const EditProductPage = ({ productId }: EditProductPageProps) => {
 
               <div className="w-full">
                 {selectedImages.length > 0 && (
-                  <div className="flex flex-wrap gap-4 pt-4 border-primary/40 border-t w-full">
-                    <FieldLabel className="w-full text-primary text-sm">
+                  <div className="border-primary/40 flex w-full flex-wrap gap-4 border-t pt-4">
+                    <FieldLabel className="text-primary w-full text-sm">
                       New photos to upload ({selectedImages.length})
                     </FieldLabel>
                     {selectedImages.map((image, index) => (
-                      <div key={index} className="relative w-32 h-32">
+                      <div key={index} className="relative h-32 w-32">
                         <img
                           src={image.previewUrl}
-                          className="border-2 border-primary border-dashed rounded-2xl w-32 h-32 object-cover"
+                          className="border-primary h-32 w-32 rounded-2xl border-2 border-dashed object-cover"
                         />
 
                         <Button
@@ -486,9 +486,9 @@ const EditProductPage = ({ productId }: EditProductPageProps) => {
                           variant="outline"
                           size="rounded-icon-sm"
                           onClick={() => handleRemoveSelectedImage(index)}
-                          className="top-2 right-2 absolute border border-border rounded-full text-white cursor-pointer hover:cursor-pointer"
+                          className="border-border absolute top-2 right-2 cursor-pointer rounded-full border text-white hover:cursor-pointer"
                         >
-                          <IconTrash className="w-4 h-4 text-destructive hover:cursor-pointer" />
+                          <IconTrash className="text-destructive h-4 w-4 hover:cursor-pointer" />
                         </Button>
                       </div>
                     ))}
@@ -499,7 +499,7 @@ const EditProductPage = ({ productId }: EditProductPageProps) => {
           </div>
 
           {/* Actions */}
-          <div className="flex gap-3 mt-6">
+          <div className="mt-6 flex gap-3">
             <Button
               type="submit"
               variant="default"
@@ -510,7 +510,7 @@ const EditProductPage = ({ productId }: EditProductPageProps) => {
                 isUpdating ||
                 isMediaUploading
               }
-              className="p-6 rounded-lg text-md hover:cursor-pointer"
+              className="rounded-lg p-6 text-base hover:cursor-pointer"
             >
               "Update Product"
             </Button>

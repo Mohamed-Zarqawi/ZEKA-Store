@@ -5,6 +5,7 @@ import { useGetCurrentUser } from "@/features/auth/pages/hooks/useAuth";
 import Link from "next/link";
 import OrderCard from "../components/OrderCard";
 import { useGetOrders } from "./hooks/useOrder";
+import OrderCardSkeleton from "../components/OrderCardSkelton";
 
 const OrdersPage = () => {
   const { data: currentUser, isLoading: isCurrentUserLoading } =
@@ -37,12 +38,7 @@ const OrdersPage = () => {
   }
 
   if (isOrdersLoading || isCurrentUserLoading) {
-    return (
-      <div className="flex min-h-[calc(100dvh-155px)] justify-center lg:min-h-[calc(100dvh-185px)]">
-        <Spinner className="size-8" data-icon="inline-start" />
-        Loading orders . . .
-      </div>
-    );
+    return <OrderCardSkeleton />;
   }
   return (
     <div>

@@ -1,19 +1,6 @@
 "use client";
 
 import React from "react";
-// import {
-//   IconBell,
-//   IconCreditCard,
-//   IconGiftCard,
-//   IconHeart,
-//   IconLogout2,
-//   IconMapPin,
-//   IconQrcode,
-//   IconShieldHalfFilled,
-// } from "@tabler/icons-react";
-
-// import { CircleUser, ShoppingBag } from "lucide-react";
-
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -30,7 +17,6 @@ import {
   ShoppingBasketIcon,
 } from "@animateicons/react/lucide";
 import { Heart } from "@/components/animate-ui/icons/heart";
-import { User } from "@/components/animate-ui/icons/user";
 import { MapPin } from "@/components/animate-ui/icons/map-pin";
 import { Bell } from "@/components/animate-ui/icons/bell";
 import { LogOut } from "@/components/animate-ui/icons/log-out";
