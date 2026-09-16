@@ -1,10 +1,11 @@
+import { Suspense } from "react";
 import ShopPage from "@/features/shop/pages/shop/ShopPage";
 
 const Shop = () => {
   return (
-    <div>
+    <Suspense fallback={null}>
       <ShopPage />
-    </div>
+    </Suspense>
   );
 };
 
