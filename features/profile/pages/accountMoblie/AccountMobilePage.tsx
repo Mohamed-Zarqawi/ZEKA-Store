@@ -1,14 +1,17 @@
 "use client";
 
-import React from "react";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { Bell } from "@/components/animate-ui/icons/bell";
+import { Heart } from "@/components/animate-ui/icons/heart";
+import { LogOut } from "@/components/animate-ui/icons/log-out";
+import { MapPin } from "@/components/animate-ui/icons/map-pin";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Slider } from "@/components/ui/slider";
 import {
   useGetCurrentUser,
   useLogout,
 } from "@/features/auth/pages/hooks/useAuth";
-import { useGetFavorites } from "../favorites/hooks/useFavorites";
 import {
   BoltIcon,
   CreditCardIcon,
@@ -16,14 +19,10 @@ import {
   QrCodeIcon,
   ShoppingBasketIcon,
 } from "@animateicons/react/lucide";
-import { Heart } from "@/components/animate-ui/icons/heart";
-import { MapPin } from "@/components/animate-ui/icons/map-pin";
-import { Bell } from "@/components/animate-ui/icons/bell";
-import { LogOut } from "@/components/animate-ui/icons/log-out";
 import { ChevronRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Slider } from "@/components/ui/slider";
-import { Badge } from "@/components/ui/badge";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useGetFavorites } from "../favorites/hooks/useFavorites";
 
 const AccountMobilePage = () => {
   const router = useRouter();
@@ -41,9 +40,6 @@ const AccountMobilePage = () => {
     logout();
     router.push("/login");
   };
-  if (!currentUser) {
-    return null;
-  }
 
   const CalculateProfilePercentage = () => {
     let percentage = 0;
@@ -73,6 +69,8 @@ const AccountMobilePage = () => {
 
   const profilePercentage = CalculateProfilePercentage();
 
+  const isLoading =
+    isFavoritesDataLoading || isCurrentUserLoading || !currentUser;
   const accountMenu = [
     {
       title: "1",
@@ -85,7 +83,11 @@ const AccountMobilePage = () => {
         },
         {
           name: "Wishlists",
-          describtion: `${favoritesCount} saved items`,
+          describtion: isLoading ? (
+            <Skeleton className="mt-0.75 h-3 w-auto" />
+          ) : (
+            `${favoritesCount} saved items`
+          ),
           href: "/profile/favorites",
           icon: Heart,
         },
@@ -94,12 +96,6 @@ const AccountMobilePage = () => {
     {
       title: "My Account",
       items: [
-        // {
-        //   name: "Profile",
-        //   describtion: "",
-        //   href: "/profile",
-        //   icon: User,
-        // },
         {
           name: "Adresses",
           describtion: "",
@@ -151,9 +147,19 @@ const AccountMobilePage = () => {
         {/* 1 L */}
         <div className="flex items-center justify-between">
           <div className="flex flex-col gap-2">
-            <div>Hello, {currentUser.first_name} !</div>
+            <div className="flex">
+              {isLoading ? (
+                <Skeleton className="h-5 w-40" />
+              ) : (
+                "Hello," + currentUser?.first_name + "!"
+              )}
+            </div>
             <div className="text-muted-foreground text-xs">
-              {currentUser.email}
+              {isLoading ? (
+                <Skeleton className="mt-0.5 h-5 w-50" />
+              ) : (
+                currentUser?.email
+              )}
             </div>
           </div>
 
@@ -161,26 +167,34 @@ const AccountMobilePage = () => {
             <Link href="/profile">Edit</Link>
           </Button>
         </div>
-
-        {profilePercentage < 100 ? (
+        {isLoading ? (
           <div className="flex flex-col gap-3">
-            <div className="flex gap-2">
-              <Slider
-                isDot={false}
-                value={[profilePercentage]}
-                defaultValue={[100]}
-                max={100}
-                step={1}
-                disabled
-                className="mx-auto w-full max-w-xs"
-              />
-              <Badge>{profilePercentage}%</Badge>
-            </div>
-            <div className="text-muted-foreground text-xs">
-              Complete your profile to personalize your experience!
-            </div>
+            <Skeleton className="h-5 w-full" />
+            <Skeleton className="h-7.5 w-full" />
           </div>
-        ) : null}
+        ) : (
+          <>
+            {profilePercentage < 100 ? (
+              <div className="flex flex-col gap-3">
+                <div className="flex gap-2">
+                  <Slider
+                    isDot={false}
+                    value={[profilePercentage]}
+                    defaultValue={[100]}
+                    max={100}
+                    step={1}
+                    disabled
+                    className="mx-auto w-full max-w-xs"
+                  />
+                  <Badge>{profilePercentage}%</Badge>
+                </div>
+                <div className="text-muted-foreground text-xs">
+                  Complete your profile to personalize your experience!
+                </div>
+              </div>
+            ) : null}
+          </>
+        )}
       </div>
 
       {accountMenu.map((section, i) => {

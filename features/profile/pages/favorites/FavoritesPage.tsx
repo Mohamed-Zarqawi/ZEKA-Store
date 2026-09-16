@@ -1,7 +1,9 @@
 "use client";
 
+import { Skeleton } from "@/components/ui/skeleton";
 import { useGetCurrentUser } from "@/features/auth/pages/hooks/useAuth";
 import ProductCard from "@/features/shop/components/ProductCard";
+import { ProductCardSkeleton } from "@/features/shop/components/ProductCardSkilton";
 import Link from "next/link";
 import { useGetFavorites } from "./hooks/useFavorites";
 
@@ -9,8 +11,30 @@ const FavoritesPage = () => {
   const { data: currentUser, isLoading: isCurrentUserLoading } =
     useGetCurrentUser();
 
-  const { data: favoritesData = [] } = useGetFavorites(currentUser?.id);
+  const { data: favoritesData = [], isLoading: isFavoritesLoading } =
+    useGetFavorites(currentUser?.id);
 
+  const isLoading = isCurrentUserLoading || isFavoritesLoading;
+
+  if (isLoading) {
+    return (
+      <div>
+        <div className="text-primary text-2xl md:mb-10 md:text-3xl">
+          FAVORITES
+        </div>
+
+        <div className="text-muted-foreground mt-2 mb-6 text-xs md:hidden">
+          <Skeleton className="h-4 w-15" />
+        </div>
+
+        <div className="grid w-full grid-cols-2 gap-3 md:grid-cols-[repeat(auto-fill,minmax(240px,1fr))] lg:gap-6">
+          {[1, 2, 3, 4, 5, 6].map((i) => (
+            <ProductCardSkeleton key={i} />
+          ))}
+        </div>
+      </div>
+    );
+  }
   return (
     <div>
       {favoritesData.length === 0 ? (

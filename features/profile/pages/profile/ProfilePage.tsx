@@ -6,12 +6,15 @@ import { useFormik } from "formik";
 import { Mars, Venus } from "lucide-react";
 
 import SelectDate from "@/components/myComponents/SelectDate";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogFooter,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { Field, FieldLabel } from "@/components/ui/field";
-import { Skeleton } from "@/components/ui/skeleton";
-import { useGetCurrentUser } from "@/features/auth/pages/hooks/useAuth";
-import { updateProfileSchema } from "@/types/auth/profile";
-import { getChangedValues } from "@/utils/getChangedValues";
-import { useUpdateProfile } from "../../hooks/useProfile";
 import {
   Select,
   SelectContent,
@@ -20,17 +23,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useGetCurrentUser } from "@/features/auth/pages/hooks/useAuth";
+import { updateProfileSchema } from "@/types/auth/profile";
+import { getChangedValues } from "@/utils/getChangedValues";
 import { Country } from "country-state-city";
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { useUpdateProfile } from "../../hooks/useProfile";
 
 const ALL_COUNTRIES = Country.getAllCountries();
 
@@ -262,7 +260,7 @@ const ProfilePage = () => {
                   </FieldLabel>
                   <div className="flex w-full gap-3 md:gap-2">
                     {isLoading ? (
-                      <Skeleton className="h-13 rounded-lg md:w-35" />
+                      <Skeleton className="h-12.5 w-full rounded-lg md:h-13 md:w-35" />
                     ) : (
                       <Button
                         variant={"outline"}
@@ -277,7 +275,7 @@ const ProfilePage = () => {
                     )}
 
                     {isLoading ? (
-                      <Skeleton className="h-13 rounded-lg md:w-35" />
+                      <Skeleton className="h-12.5 w-full rounded-lg md:h-13 md:w-35" />
                     ) : (
                       <Button
                         variant={"outline"}
