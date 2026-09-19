@@ -87,7 +87,10 @@ const ProductPage = ({ productId }: ViewProps) => {
 
   // ------------- Handle image switching functionality -------------
 
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const image = product?.images?.[0];
+  const [selectedImage, setSelectedImage] = useState<string | null>(
+    image || null,
+  );
   const imageUrl =
     selectedImage || product?.images?.[0] || "/images/placeholder.jpeg";
 
@@ -226,8 +229,8 @@ const ProductPage = ({ productId }: ViewProps) => {
               {!isProductLoading ? (
                 <Image
                   src={imageUrl}
-                  width={500}
-                  height={500}
+                  width={2000}
+                  height={2000}
                   className="border-primary aspect-square w-full rounded-2xl border object-cover object-center hover:cursor-pointer md:h-130 md:max-w-130"
                   alt={product?.name}
                 />
@@ -235,7 +238,9 @@ const ProductPage = ({ productId }: ViewProps) => {
             </div>
 
             {/* Horizontal thumbnail image scroller for mobile view */}
-            <div className="no-scrollbar border-primary md:bg-background flex w-full flex-row gap-3 overflow-x-auto rounded-2xl border bg-[#1a1a1a]/20 p-3 md:hidden">
+            <div
+              className={`no-scrollbar border-primary md:bg-background flex w-full flex-row gap-3 rounded-2xl sm:border sm:bg-[#1a1a1a]/20 sm:p-3 md:hidden md:overflow-x-auto`}
+            >
               {product?.images?.length ? (
                 product.images.map((image, i) => (
                   <Image
@@ -244,7 +249,7 @@ const ProductPage = ({ productId }: ViewProps) => {
                     width={500}
                     height={100}
                     onClick={() => handleChangeImage(image)}
-                    className="border-primary/30 aspect-square h-28 w-28 rounded-xl border object-cover object-center hover:cursor-pointer"
+                    className={`transition-color aspect-square h-25 w-25 rounded-xl border object-cover object-center duration-500 hover:cursor-pointer ${image == (selectedImage || imageUrl) ? "border-primary" : "border-primary/30"} `}
                     alt={product.name}
                   />
                 ))
