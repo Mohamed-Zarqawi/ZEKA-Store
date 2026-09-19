@@ -239,7 +239,7 @@ const ProductPage = ({ productId }: ViewProps) => {
 
             {/* Horizontal thumbnail image scroller for mobile view */}
             <div
-              className={`no-scrollbar border-primary md:bg-background flex w-full flex-row gap-3 rounded-2xl sm:border sm:bg-[#1a1a1a]/20 sm:p-3 md:hidden md:overflow-x-auto`}
+              className={`no-scrollbar border-primary md:bg-background flex w-full flex-row gap-3 overflow-x-auto rounded-2xl px-1 sm:border sm:bg-[#1a1a1a]/20 sm:p-3 md:hidden md:overflow-x-auto`}
             >
               {product?.images?.length ? (
                 product.images.map((image, i) => (
