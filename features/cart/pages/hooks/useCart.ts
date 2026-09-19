@@ -40,9 +40,7 @@ export const useToggleCart = () => {
       }
     },
     onError: (error: Error) => {
-      toast.error(error.message || "Failed to update cart", {
-        richColors: true,
-      });
+      toast.error(error.message || "Failed to update cart", {});
     },
   });
 };

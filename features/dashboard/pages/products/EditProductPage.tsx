@@ -79,16 +79,10 @@ const EditProductPage = ({ productId }: EditProductPageProps) => {
       { productId, updatedData },
       {
         onSuccess: () => {
-          toast.success("Product updated successfully!", {
-            position: "bottom-right",
-            richColors: true,
-          });
+          toast.success("Product updated successfully!", {});
         },
         onError: (error) => {
-          toast.error("Failed to update product!", {
-            position: "bottom-right",
-            richColors: true,
-          });
+          toast.error("Failed to update product!", {});
           console.error(error);
         },
       },

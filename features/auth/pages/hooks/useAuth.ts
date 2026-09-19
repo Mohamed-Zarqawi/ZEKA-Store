@@ -65,20 +65,15 @@ export const useLogin = () => {
     onSuccess: (res) => {
       notifyAuthTokenChanged();
       queryClient.invalidateQueries({ queryKey: ["currentUser"] });
-      toast.success("Login Successfully", {
-        position: "bottom-right",
-        richColors: true,
-      });
+      toast.success("Login Successfully", {});
       router.push("/shop");
     },
     onError: (error: unknown) => {
       toast.error("Invalid email or password, register first", {
-        position: "bottom-right",
         action: {
           label: "Register",
           onClick: () => router.push("/signup"),
         },
-        richColors: true,
       });
     },
   });
@@ -109,20 +104,15 @@ export const useSignUp = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["currentUser"] });
-      toast.success("Account Created Successfully", {
-        position: "bottom-right",
-        richColors: true,
-      });
+      toast.success("Account Created Successfully", {});
       router.push("/shop");
     },
     onError: () => {
       toast.error("This account already exists, please login", {
-        position: "bottom-right",
         action: {
           label: "Login",
           onClick: () => router.push("/login"),
         },
-        richColors: true,
       });
     },
   });
@@ -144,10 +134,7 @@ export const useForgotPassword = () => {
   return useMutation({
     mutationFn: (email: reqForgotPassword) => forgotPassword(email),
     onSuccess: (_, variables) => {
-      toast.success(`Please check your email ${variables.email}`, {
-        position: "bottom-right",
-        richColors: true,
-      });
+      toast.success(`Please check your email ${variables.email}`, {});
     },
     onError: (error: any) => {
       const message =
@@ -155,10 +142,7 @@ export const useForgotPassword = () => {
         error?.message ||
         "Failed to send recovery email. Please try again.";
 
-      toast.error(message, {
-        position: "bottom-right",
-        richColors: true,
-      });
+      toast.error(message, {});
     },
   });
 };
@@ -167,17 +151,11 @@ export const useResetPassword = () => {
   return useMutation({
     mutationFn: (password: string) => resetPassword(password),
     onSuccess: () => {
-      toast.success("Password updated successfully!", {
-        position: "bottom-right",
-        richColors: true,
-      });
+      toast.success("Password updated successfully!", {});
     },
     onError: (error: unknown) => {
       console.log(error);
-      toast.error("Failed to update password", {
-        position: "bottom-right",
-        richColors: true,
-      });
+      toast.error("Failed to update password", {});
     },
   });
 };
@@ -197,9 +175,7 @@ export const useDeleteAccount = () => {
       router.refresh();
     },
     onError: (error: Error) => {
-      toast.error(error.message || "Failed to delete account.", {
-        richColors: true,
-      });
+      toast.error(error.message || "Failed to delete account.", {});
     },
   });
 };

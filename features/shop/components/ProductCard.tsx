@@ -39,10 +39,7 @@ const ProductCard = ({ product }: { product: ProductType }) => {
     e.preventDefault();
 
     if (!currentUser?.id) {
-      toast.error("Please login to manage your cart", {
-        position: "bottom-right",
-        richColors: true,
-      });
+      toast.error("Please login to manage your cart", {});
       return;
     }
 
@@ -63,10 +60,7 @@ const ProductCard = ({ product }: { product: ProductType }) => {
     e.preventDefault();
 
     if (!currentUser?.id) {
-      toast.error("Please login to manage you favorites", {
-        position: "bottom-right",
-        richColors: true,
-      });
+      toast.error("Please login to manage you favorites", {});
       return;
     }
 

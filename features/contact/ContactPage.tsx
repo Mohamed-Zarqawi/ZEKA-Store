@@ -16,7 +16,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { MailIcon, MapPinIcon, PhoneIcon } from "@animateicons/react/lucide";
-import { toast } from "sonner";
 
 const ContactPage = () => {
   const formRef = useRef<HTMLFormElement | null>(null);
@@ -48,89 +47,60 @@ const ContactPage = () => {
   };
 
   return (
-    <div className="mx-10">
+    <div className="mx-4 md:mx-10">
       {/* body */}
 
-      <div className="flex justify-center items-center -mb-10 h-[calc(100vh-155px)]">
-        <div className="flex justify-between items-center gap-14 bg-[#1a1a1a]/20 backdrop-blur-md mx-20 p-6 border border-primary rounded-3xl">
+      <div className="flex flex-col gap-6 md:h-[calc(100dvh-155px)] md:flex-wrap md:items-center md:justify-center md:gap-10 lg:max-h-[calc(100dvh-185px)]">
+        <div className="border-primary flex flex-col justify-between gap-6 md:flex-row md:items-center md:rounded-3xl md:border md:bg-[#1a1a1a]/20 md:p-6">
           {/* Left */}
 
-          <div className="flex flex-col justify-start gap-8 py-10 pl-10 w-full">
-            <div className="flex flex-col gap-5">
-              <div className="font-extrabold text-4xl">
+          <div className="flex w-full flex-col justify-start gap-8 py-10 md:pl-10">
+            <div className="flex flex-col gap-2 md:gap-5">
+              <div className="text-2xl md:text-4xl">
                 GET IN <span className="text-primary">TOUCH</span>
               </div>
 
-              <div className="text-zinc-400 text-lg">
+              <div className="text-muted-foreground text-sm md:text-lg">
                 Have questions about our gear? Our experts are here to help!
               </div>
             </div>
 
-            <div className="font-extrabold text-primary text-xl">
+            <div className="text-primary text-sm font-extrabold md:text-xl">
               CONTACT INFORMATION
             </div>
             <div className="flex flex-col gap-5">
               {/* 1 */}
-              <div
-                className="flex items-center gap-4 hover:cursor-pointer"
-                onClick={() => {
-                  navigator.clipboard.writeText("+1 234 567 890");
-                  toast.success("Copied phone number to clipboard", {
-                    position: "bottom-right",
-                    richColors: true,
-                  });
-                }}
-              >
+              <div className="flex items-center gap-3 md:gap-4">
                 <Button
                   variant={"outline"}
                   size="icon"
-                  className="border border-primary rounded-lg"
+                  className="border-primary rounded-lg border"
                 >
-                  <PhoneIcon duration={1} className="size-5 text-primary" />
+                  <PhoneIcon duration={1} className="text-primary size-5" />
                 </Button>
                 <div>+1 (555) 000-0000</div>
               </div>
 
               {/* 2 */}
-              <div
-                className="flex items-center gap-4 hover:cursor-pointer"
-                onClick={() => {
-                  navigator.clipboard.writeText("info@myshop.com");
-                  toast.success("Copied email to clipboard", {
-                    position: "bottom-right",
-                    richColors: true,
-                  });
-                }}
-              >
+              <div className="flex items-center gap-4">
                 <Button
                   variant={"outline"}
                   size="icon"
-                  className="p-1.75 border border-primary rounded-lg"
+                  className="border-primary rounded-lg border p-1.75"
                 >
-                  <MailIcon duration={1} className="size-5 text-primary" />
+                  <MailIcon duration={1} className="text-primary size-5" />
                 </Button>
                 <div>support@zekastore.com</div>
               </div>
 
               {/* 3 */}
-              <div
-                className="flex items-center gap-4 hover:cursor-pointer"
-                onClick={() => {
-                  navigator.clipboard.writeText(
-                    "123 Main Street, City, Country",
-                  );
-                  toast.success("Copied address to clipboard", {
-                    position: "bottom-right",
-                    richColors: true,
-                  });
-                }}
-              >
+              <div className="flex items-center gap-4">
                 <Button
                   variant={"outline"}
                   size="icon"
-                  className="p-1.75 border border-primary rounded-lg"
+                  className="border-primary rounded-lg border p-1.75"
                 >
-                  <MapPinIcon duration={2} className="size-5 text-primary" />
+                  <MapPinIcon duration={2} className="text-primary size-5" />
                 </Button>
                 <div>81 New Cairo, Cairo, Egypt</div>
               </div>
@@ -142,15 +112,15 @@ const ContactPage = () => {
           <form
             ref={formRef}
             onSubmit={handleSubmit}
-            className="flex flex-col gap-6 py-10 pr-10 w-full"
+            className="flex w-full flex-col gap-6 md:py-10 md:pr-10"
           >
-            <div className="flex flex-col gap-4">
+            <div className="flex w-full flex-col gap-4">
               <Input
                 type="text"
                 name="name"
                 isRequired={true}
-                placeholder="Full Name "
-                className="bg-transparent px-4 py-3 border border-primary rounded-lg outline-none focus:ring-2 focus:ring-secondary w-full text-white"
+                placeholder="Full Name"
+                className="border-primary focus:ring-secondary w-full rounded-lg border bg-transparent px-4 py-3 text-white outline-none focus:ring-2"
                 required
               />
 
@@ -173,19 +143,19 @@ const ContactPage = () => {
 
             <Button
               type="submit"
-              className="bg-primary hover:bg-secondary px-4 py-8 rounded-lg w-full text-white text-xl text-center transition-colors duration-300 hover:cursor-pointer"
+              className="bg-primary hover:bg-secondary w-full rounded-lg px-4 py-8 text-center text-xl text-white transition-colors duration-300 hover:cursor-pointer"
             >
               {buttonText}
             </Button>
 
             <AlertDialog open={isAlertOpen} onOpenChange={setIsAlertOpen}>
-              <AlertDialogContent className="flex flex-col gap-6 bg-[#1a1a1a]/90 backdrop-blur-md p-6 border border-primary rounded-3xl">
-                <AlertDialogHeader className="flex flex-col gap-4 w-full text-center">
-                  <AlertDialogTitle className="flex flex-col w-full font-bold text-[16px] text-primary text-center">
+              <AlertDialogContent className="border-primary flex flex-col gap-6 rounded-3xl border bg-[#1a1a1a]/90 p-6 backdrop-blur-md">
+                <AlertDialogHeader className="flex w-full flex-col gap-4 text-center">
+                  <AlertDialogTitle className="text-primary flex w-full flex-col text-center text-[16px] font-bold">
                     THANK YOU FOR CONTACTING US!
                   </AlertDialogTitle>
 
-                  <AlertDialogDescription className="flex flex-col justify-center items-center gap-3 w-full font-bold text-zinc-300 text-center">
+                  <AlertDialogDescription className="flex w-full flex-col items-center justify-center gap-3 text-center font-bold text-zinc-300">
                     We appreciate you reaching out and will get back to you as
                     soon as possible.
                   </AlertDialogDescription>
@@ -194,7 +164,7 @@ const ContactPage = () => {
                 <AlertDialogFooter>
                   <AlertDialogAction
                     onClick={() => setIsAlertOpen(false)}
-                    className="bg-primary hover:bg-secondary px-5 py-6 rounded-lg w-full text-white text-center transition-colors duration-300 hover:cursor-pointer"
+                    className="bg-primary hover:bg-secondary w-full rounded-lg px-5 py-6 text-center text-white transition-colors duration-300 hover:cursor-pointer"
                   >
                     CLOSE
                   </AlertDialogAction>

@@ -44,10 +44,7 @@ export const columns = (): ColumnDef<Product>[] => [
           variant="link"
           onClick={() => {
             navigator.clipboard.writeText(row.getValue<string>("documentId"));
-            toast.success("Copied to clipboard", {
-              position: "bottom-right",
-              richColors: true,
-            });
+            toast.success("Copied to clipboard", {});
           }}
         >
           {row.getValue("id")}
@@ -72,7 +69,7 @@ export const columns = (): ColumnDef<Product>[] => [
           <img
             src={imageUrl}
             alt={row.original.name}
-            className="rounded-lg w-12 h-12 object-cover hover:scale-105 transition-transform duration-300"
+            className="h-12 w-12 rounded-lg object-cover transition-transform duration-300 hover:scale-105"
           />
         </div>
       );
@@ -101,10 +98,7 @@ export const columns = (): ColumnDef<Product>[] => [
           variant="link"
           onClick={() => {
             navigator.clipboard.writeText(row.getValue<string>("name"));
-            toast.success("Copied to clipboard", {
-              position: "bottom-right",
-              richColors: true,
-            });
+            toast.success("Copied to clipboard", {});
           }}
         >
           {row.getValue("name")}
@@ -174,7 +168,7 @@ export const columns = (): ColumnDef<Product>[] => [
   // ---------------- actions ----------------
   {
     id: "actions",
-    header: () => <div className="flex justify-end mr-4">Actions</div>,
+    header: () => <div className="mr-4 flex justify-end">Actions</div>,
 
     cell: ({ row }) => {
       const id = row.getValue<string>("id");

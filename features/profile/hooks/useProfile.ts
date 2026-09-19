@@ -20,16 +20,10 @@ export const useUpdateProfile = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["currentUser"] });
-      toast.success("Profile Updated Successfully !", {
-        position: "bottom-right",
-        richColors: true,
-      });
+      toast.success("Profile Updated Successfully !", {});
     },
     onError: () => {
-      toast.error("Could not update profile, please try again later.", {
-        position: "bottom-right",
-        richColors: true,
-      });
+      toast.error("Could not update profile, please try again later.", {});
     },
   });
 };
@@ -45,10 +39,7 @@ export const useGetProfile = () => {
       queryClient.invalidateQueries({ queryKey: ["currentUser"] });
     },
     onError: (error: unknown) => {
-      toast.error("Could not get profile", {
-        position: "bottom-right",
-        richColors: true,
-      });
+      toast.error("Could not get profile", {});
     },
   });
 };

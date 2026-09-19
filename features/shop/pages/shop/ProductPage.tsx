@@ -60,18 +60,12 @@ const ProductPage = ({ productId }: ViewProps) => {
     e.preventDefault(); // منع فتح الرابط عند الضغط على الزر
 
     if (!currentUser?.id) {
-      toast.error("Please login to manage your cart", {
-        position: "bottom-right",
-        richColors: true,
-      });
+      toast.error("Please login to manage your cart", {});
       return;
     }
 
     if (!product) {
-      toast.error("Faild to get cart", {
-        position: "bottom-right",
-        richColors: true,
-      });
+      toast.error("Faild to get cart", {});
       return;
     }
 
@@ -109,10 +103,7 @@ const ProductPage = ({ productId }: ViewProps) => {
     e.preventDefault();
 
     if (!currentUser?.id) {
-      toast.error("Please login to manage you favorites", {
-        position: "bottom-right",
-        richColors: true,
-      });
+      toast.error("Please login to manage you favorites", {});
       return;
     }
 

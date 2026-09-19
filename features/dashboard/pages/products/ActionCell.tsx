@@ -23,23 +23,17 @@ export const ActionCell = ({ product, viewHref }: ActionCellProps) => {
 
     deleteProduct(product.id, {
       onSuccess: () => {
-        toast.success("Product deleted successfully!", {
-          position: "bottom-right",
-          richColors: true,
-        });
+        toast.success("Product deleted successfully!", {});
       },
       onError: (error) => {
-        toast.error("Failed to delete product!", {
-          position: "bottom-right",
-          richColors: true,
-        });
+        toast.error("Failed to delete product!", {});
         console.error(error);
       },
     });
   };
 
   return (
-    <div className="flex justify-end items-center gap-2 mr-4">
+    <div className="mr-4 flex items-center justify-end gap-2">
       {/* View button  */}
       <Button
         variant="outline"
@@ -47,23 +41,23 @@ export const ActionCell = ({ product, viewHref }: ActionCellProps) => {
         onClick={() => {
           router.push(viewHref);
         }}
-        className="p-2 border border-border cursor-pointer"
+        className="border-border cursor-pointer border p-2"
         disabled={isDeleting}
       >
-        <Eye className="w-4 h-4 hover:cursor-pointer" />
+        <Eye className="h-4 w-4 hover:cursor-pointer" />
       </Button>
 
       {/* Edit Button */}
       <Button
         variant="outline"
         size="icon-sm"
-        className="p-2 border border-border cursor-pointer"
+        className="border-border cursor-pointer border p-2"
         onClick={() => {
           router.push(`/admin/products/${product.id}/edit`);
         }}
         disabled={isDeleting}
       >
-        <Edit className="w-4 h-4" />
+        <Edit className="h-4 w-4" />
       </Button>
 
       {/* Delete Button */}
@@ -73,9 +67,9 @@ export const ActionCell = ({ product, viewHref }: ActionCellProps) => {
         isPending={isDeleting}
         disabled={isDeleting}
         onClick={handleDelete}
-        className="p-2 border border-border cursor-pointer"
+        className="border-border cursor-pointer border p-2"
       >
-        <IconTrash className="w-4 h-4 text-destructive hover:cursor-pointer" />
+        <IconTrash className="text-destructive h-4 w-4 hover:cursor-pointer" />
       </Button>
     </div>
   );

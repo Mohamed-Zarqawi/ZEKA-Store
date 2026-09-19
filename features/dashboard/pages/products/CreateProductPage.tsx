@@ -83,10 +83,7 @@ const CreateProductPage = () => {
 
   const handleCreate = (data: ReqCreateProductType) => {
     CreateProduct(data).then(() => {
-      toast.success("Product created successfully!", {
-        position: "bottom-right",
-        richColors: true,
-      });
+      toast.success("Product created successfully!", {});
       router.push("/admin/products");
       refetchProducts();
     });

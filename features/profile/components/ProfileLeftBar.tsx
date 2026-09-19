@@ -5,6 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useRef } from "react";
 import { Button } from "../../../components/animate-ui/primitives/buttons/button";
 
+import type { IconHandle } from "@animateicons/react";
 import {
   BoltIcon,
   CreditCardIcon,
@@ -12,8 +13,9 @@ import {
   QrCodeIcon,
   ShoppingBasketIcon,
 } from "@animateicons/react/lucide";
-import type { IconHandle } from "@animateicons/react";
 
+import { AnimateIcon } from "@/components/animate-ui/icons/icon";
+import { User } from "@/components/animate-ui/icons/user";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
@@ -21,8 +23,6 @@ import {
   useLogout,
 } from "@/features/auth/pages/hooks/useAuth";
 import { handleHover } from "@/lib/handle-hover";
-import { User } from "@/components/animate-ui/icons/user";
-import { AnimateIcon } from "@/components/animate-ui/icons/icon";
 import { Bell } from "../../../components/animate-ui/icons/bell";
 import { Heart } from "../../../components/animate-ui/icons/heart";
 import { LogOut } from "../../../components/animate-ui/icons/log-out";

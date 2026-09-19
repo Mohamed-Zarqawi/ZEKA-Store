@@ -13,10 +13,7 @@ export const useMedia = () => {
       queryClient.invalidateQueries({ queryKey: ["media"] });
     },
     onError: () => {
-      toast.error("Failed upload media", {
-        position: "bottom-right",
-        richColors: true,
-      });
+      toast.error("Failed upload media", {});
     },
   });
 };

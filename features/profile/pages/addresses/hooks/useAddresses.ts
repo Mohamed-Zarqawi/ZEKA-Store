@@ -61,21 +61,12 @@ export const useUpdateAddress = () => {
       queryClient.invalidateQueries({ queryKey: ["addresses"] });
       {
         variables.action == "pin"
-          ? toast.success(`Address Seted As Default Successfully!`, {
-              position: "bottom-right",
-              richColors: true,
-            })
-          : toast.success("Address Updated Successfully !", {
-              position: "bottom-right",
-              richColors: true,
-            });
+          ? toast.success(`Address Seted As Default Successfully!`, {})
+          : toast.success("Address Updated Successfully !", {});
       }
     },
     onError: () => {
-      toast.error("Could not update Address, please try again later.", {
-        position: "bottom-right",
-        richColors: true,
-      });
+      toast.error("Could not update Address, please try again later.", {});
     },
   });
 };

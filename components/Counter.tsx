@@ -43,7 +43,7 @@ const Counter = ({
     e.preventDefault();
 
     if (!currentUser?.id) {
-      toast.error("Please login to manage your cart", { richColors: true });
+      toast.error("Please login to manage your cart", {});
       return;
     }
 
