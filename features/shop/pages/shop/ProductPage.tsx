@@ -342,7 +342,7 @@ const ProductPage = ({ productId }: ViewProps) => {
           <div className="text-primary text-3xl uppercase">
             MORE FROM {product?.category.name}
           </div>
-          <div className="grid w-full grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-4 sm:gap-6">
+          <div className="grid w-full grid-cols-2 gap-3 md:grid-cols-[repeat(auto-fill,minmax(240px,1fr))] md:gap-6">
             {relatedProducts?.map((product: ProductType) => (
               <ProductCard key={product.id} product={product} />
             ))}
