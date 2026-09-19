@@ -10,7 +10,7 @@ export const UpdateAddressSkeleton = () => {
 
       {/* القسم الأول: تفاصيل العنوان (Address Details) */}
       <div className="border-primary/30 mt-6 flex h-fit w-full flex-col rounded-3xl border bg-[#1a1a1a]/20 px-8 py-8 backdrop-blur-md">
-        <div className="text-lg font-semibold">Address Details</div>
+        <div className="-semibold text-lg">Address Details</div>
 
         <div className="mt-5 flex flex-wrap gap-6">
           {/* عنوان العنوان (Address Title Buttons) */}
@@ -76,7 +76,7 @@ export const UpdateAddressSkeleton = () => {
 
       {/* القسم الثاني: تفاصيل المستلم (Receiver Details) */}
       <div className="border-primary/30 mt-6 flex h-fit w-full flex-col rounded-3xl border bg-[#1a1a1a]/20 px-8 py-8 backdrop-blur-md">
-        <div className="text-lg font-semibold">Receiver Details</div>
+        <div className="-semibold text-lg">Receiver Details</div>
 
         <div className="mt-5 flex flex-wrap gap-6">
           {/* Full Name Input */}

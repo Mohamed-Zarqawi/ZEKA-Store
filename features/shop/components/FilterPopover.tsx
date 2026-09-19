@@ -27,6 +27,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { SlidersHorizontal } from "lucide-react";
 
 type Option = {
   label: string;
@@ -87,15 +88,18 @@ export const FilterPopover = ({
 
   // مزامنة الحالات عند التغيير الخارجي
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setTempCategories(selectedCategories);
   }, [selectedCategories]);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setTempBrands(selectedBrands);
   }, [selectedBrands]);
 
   useEffect(() => {
     if (priceValues?.length) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setTempPrice([minPrice, maxPrice]);
     }
   }, [prices]);
@@ -131,7 +135,9 @@ export const FilterPopover = ({
   return (
     <Popover open={isOpen} onOpenChange={setIsOpen}>
       <PopoverTrigger asChild>
-        <Button className="block h-12 rounded-lg lg:hidden">Filters</Button>
+        <Button size={"icon-sm"} className="flex lg:hidden">
+          <SlidersHorizontal />
+        </Button>
       </PopoverTrigger>
 
       <PopoverContent
@@ -178,9 +184,7 @@ export const FilterPopover = ({
 
           {/* Brand Select */}
           <Field>
-            <FieldLabel className="text-primary text-sm font-semibold">
-              Brand
-            </FieldLabel>
+            <FieldLabel className="text-primary text-sm">Brand</FieldLabel>
             <Select
               value={currentBrandValue}
               onValueChange={(val) => setTempBrands(val === "all" ? [] : [val])}

@@ -65,44 +65,46 @@ const ContactPage = () => {
               </div>
             </div>
 
-            <div className="text-primary text-sm font-extrabold md:text-xl">
-              CONTACT INFORMATION
-            </div>
-            <div className="flex flex-col gap-5">
+            <div className="flex flex-col gap-5 md:gap-6">
               {/* 1 */}
-              <div className="flex items-center gap-3 md:gap-4">
-                <Button
-                  variant={"outline"}
-                  size="icon"
-                  className="border-primary rounded-lg border"
-                >
-                  <PhoneIcon duration={1} className="text-primary size-5" />
-                </Button>
-                <div>+1 (555) 000-0000</div>
+              <div className="text-primary text-sm md:text-xl">
+                CONTACT INFORMATION
               </div>
+              <div className="flex flex-col gap-4 md:gap-5">
+                <div className="flex items-center gap-3 md:gap-4">
+                  <Button
+                    variant={"outline"}
+                    size="icon"
+                    className="border-primary rounded-lg border"
+                  >
+                    <PhoneIcon duration={1} className="text-primary size-5" />
+                  </Button>
+                  <div>+1 (555) 000-0000</div>
+                </div>
 
-              {/* 2 */}
-              <div className="flex items-center gap-4">
-                <Button
-                  variant={"outline"}
-                  size="icon"
-                  className="border-primary rounded-lg border p-1.75"
-                >
-                  <MailIcon duration={1} className="text-primary size-5" />
-                </Button>
-                <div>support@zekastore.com</div>
-              </div>
+                {/* 2 */}
+                <div className="flex items-center gap-4">
+                  <Button
+                    variant={"outline"}
+                    size="icon"
+                    className="border-primary rounded-lg border p-1.75"
+                  >
+                    <MailIcon duration={1} className="text-primary size-5" />
+                  </Button>
+                  <div>support@zekastore.com</div>
+                </div>
 
-              {/* 3 */}
-              <div className="flex items-center gap-4">
-                <Button
-                  variant={"outline"}
-                  size="icon"
-                  className="border-primary rounded-lg border p-1.75"
-                >
-                  <MapPinIcon duration={2} className="text-primary size-5" />
-                </Button>
-                <div>81 New Cairo, Cairo, Egypt</div>
+                {/* 3 */}
+                <div className="flex items-center gap-4">
+                  <Button
+                    variant={"outline"}
+                    size="icon"
+                    className="border-primary rounded-lg border p-1.75"
+                  >
+                    <MapPinIcon duration={2} className="text-primary size-5" />
+                  </Button>
+                  <div>81 New Cairo, Cairo, Egypt</div>
+                </div>
               </div>
             </div>
           </div>
@@ -114,36 +116,41 @@ const ContactPage = () => {
             onSubmit={handleSubmit}
             className="flex w-full flex-col gap-6 md:py-10 md:pr-10"
           >
-            <div className="flex w-full flex-col gap-4">
-              <Input
-                type="text"
-                name="name"
-                isRequired={true}
-                placeholder="Full Name"
-                className="border-primary focus:ring-secondary w-full rounded-lg border bg-transparent px-4 py-3 text-white outline-none focus:ring-2"
-                required
-              />
+            <div className="flex w-full flex-col gap-5 md:gap-6">
+              <div className="text-primary text-sm md:text-xl">CONTACT US</div>
+              <div className="flex flex-col gap-4 md:gap-5">
+                <Input
+                  type="text"
+                  name="name"
+                  isRequired={true}
+                  placeholder="Full Name"
+                  className="border-primary focus:ring-secondary w-full rounded-lg border bg-transparent px-4 py-3 text-white outline-none focus:ring-2"
+                  required
+                />
 
-              <Input
-                type="email"
-                name="email"
-                isRequired={true}
-                placeholder="Email Address"
-                required
-              />
+                <Input
+                  type="email"
+                  name="email"
+                  isRequired={true}
+                  placeholder="Email Address"
+                  required
+                />
 
-              <Textarea
-                name="message"
-                isRequired={true}
-                placeholder="How can we help you?"
-                rows={4}
-                required
-              />
+                <Textarea
+                  name="message"
+                  isRequired={true}
+                  placeholder="How can we help you?"
+                  rows={4}
+                  required
+                />
+              </div>
             </div>
 
             <Button
               type="submit"
-              className="bg-primary hover:bg-secondary w-full rounded-lg px-4 py-8 text-center text-xl text-white transition-colors duration-300 hover:cursor-pointer"
+              size={"none"}
+              variant={"none"}
+              className="bg-primary hover:bg-secondary h-13 w-full rounded-lg px-4 py-4 text-center hover:cursor-pointer md:h-15"
             >
               {buttonText}
             </Button>
@@ -151,11 +158,11 @@ const ContactPage = () => {
             <AlertDialog open={isAlertOpen} onOpenChange={setIsAlertOpen}>
               <AlertDialogContent className="border-primary flex flex-col gap-6 rounded-3xl border bg-[#1a1a1a]/90 p-6 backdrop-blur-md">
                 <AlertDialogHeader className="flex w-full flex-col gap-4 text-center">
-                  <AlertDialogTitle className="text-primary flex w-full flex-col text-center text-[16px] font-bold">
+                  <AlertDialogTitle className="text-primary flex w-full flex-col text-center text-[16px]">
                     THANK YOU FOR CONTACTING US!
                   </AlertDialogTitle>
 
-                  <AlertDialogDescription className="flex w-full flex-col items-center justify-center gap-3 text-center font-bold text-zinc-300">
+                  <AlertDialogDescription className="flex w-full flex-col items-center justify-center gap-3 text-center text-zinc-300">
                     We appreciate you reaching out and will get back to you as
                     soon as possible.
                   </AlertDialogDescription>

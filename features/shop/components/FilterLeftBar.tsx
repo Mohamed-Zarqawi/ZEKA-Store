@@ -157,12 +157,8 @@ export const FilterBar = ({
               <FieldTitle className="text-primary text-lg">PRICE</FieldTitle>
               <FieldDescription className="text-sm">
                 ($
-                <span className="font-medium tabular-nums">
-                  {tempPrice[0]}
-                </span>{" "}
-                -{" "}
-                <span className="font-medium tabular-nums">{tempPrice[1]}</span>
-                )
+                <span className="tabular-nums">{tempPrice[0]}</span> -{" "}
+                <span className="tabular-nums">{tempPrice[1]}</span>)
               </FieldDescription>
               <Slider
                 value={tempPrice}

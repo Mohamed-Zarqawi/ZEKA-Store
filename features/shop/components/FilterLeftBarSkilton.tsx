@@ -30,7 +30,7 @@ export function FilterLeftBarSkeleton() {
 
         {/* Section 2: Brands (6 Items) */}
         <div className="flex flex-col gap-4">
-          <div className="text-primary text-lg font-bold">BRAND</div>
+          <div className="text-primary text-lg">BRAND</div>
           <div className="mt-1 flex flex-col gap-6">
             {Array.from({ length: 6 }).map((_, i) => (
               <div key={i} className="flex items-center gap-3">

@@ -6,12 +6,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { loginSchema } from "@/types/auth/login";
 import { useFormik } from "formik";
-import { useGetCurrentUser, useLogin } from "../hooks/useAuth";
+import { useLogin } from "../hooks/useAuth";
 
 const LoginPage = () => {
   const { mutate: handleLogin, isPending: isLogin } = useLogin();
-  const { data: currentUser, isLoading: isCurrentUserLoading } =
-    useGetCurrentUser();
 
   const { values, errors, dirty, touched, handleSubmit, handleChange } =
     useFormik({
@@ -25,17 +23,6 @@ const LoginPage = () => {
         await handleLogin(values);
       },
     });
-
-  // if (isCurrentUserLoading) {
-  //   return (
-  //     <div className="flex justify-center items-center gap-2 h-[calc(100vh-155px)] text-primary text-4xl">
-  //       <Spinner className="size-8" data-icon="inline-start" />
-  //       Loading . . .
-  //     </div>
-  //   );
-  // }
-
-  if (currentUser) return null;
 
   return (
     <div className="mx-6 md:mx-10">
@@ -110,7 +97,7 @@ const LoginPage = () => {
             </Button>
 
             <div className="text-sm md:text-base">
-              Don't have an account?{" "}
+              Don&apos;t have an account?{" "}
               <Link
                 href="/signup"
                 className="text-primary hover:text-secondary transition-colors duration-300"

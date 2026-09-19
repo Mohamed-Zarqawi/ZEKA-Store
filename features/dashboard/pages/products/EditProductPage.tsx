@@ -214,7 +214,7 @@ const EditProductPage = ({ productId }: EditProductPageProps) => {
 
           {/* Basic information */}
           <div className="border-primary mt-10 flex h-fit w-full flex-col rounded-3xl border bg-[#1a1a1a]/20 px-8 py-8 backdrop-blur-md">
-            <div className="text-lg font-semibold">Basic Information</div>
+            <div className="-semibold text-lg">Basic Information</div>
             <div className="mt-5 flex flex-wrap gap-6">
               <Field>
                 <FieldLabel className="text-primary text-sm">ID</FieldLabel>
@@ -252,7 +252,7 @@ const EditProductPage = ({ productId }: EditProductPageProps) => {
 
           {/* Product details */}
           <div className="border-primary mt-6 flex h-fit w-full flex-col rounded-3xl border bg-[#1a1a1a]/20 px-8 py-8 backdrop-blur-md">
-            <div className="text-lg font-semibold">Product Details</div>
+            <div className="-semibold text-lg">Product Details</div>
             <div className="mt-5 flex flex-wrap gap-6">
               <div className="flex w-full flex-col gap-4 sm:w-96">
                 {/* Category */}
@@ -359,7 +359,7 @@ const EditProductPage = ({ productId }: EditProductPageProps) => {
           {/* Product Photos */}
           <div className="border-primary mt-6 flex h-fit w-full flex-col rounded-3xl border bg-[#1a1a1a]/20 px-8 py-8 backdrop-blur-md">
             <div className="flex items-center justify-between">
-              <div className="text-lg font-semibold">Product Photos</div>
+              <div className="-semibold text-lg">Product Photos</div>
               <div>
                 <Button variant="default" type="button" asChild>
                   <label htmlFor="image" className="cursor-pointer">

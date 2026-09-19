@@ -8,12 +8,12 @@ const PrivacyPolicyPage = () => {
       {/* body */}
 
       <div className="flex flex-col">
-        <div className="flex justify-between items-center mt-15">
+        <div className="mt-15 flex items-center justify-between">
           {/* text */}
 
-          <div className="flex flex-col gap-15 ml-20">
+          <div className="ml-20 flex flex-col gap-15">
             <div className="flex flex-col gap-10">
-              <div className="flex justify-between items-center gap-3 text-primary text-4xl">
+              <div className="text-primary flex items-center justify-between gap-3 text-4xl">
                 PRIVACY POLICY
                 <span className="text-muted-foreground text-xs">
                   (Last updated: 07 May 2026)
@@ -30,15 +30,15 @@ const PrivacyPolicyPage = () => {
 
                 <div className="flex flex-col gap-7">
                   <Field>
-                    <FieldLabel className="mb-2 font-medium text-primary text-xl">
+                    <FieldLabel className="text-primary mb-2 text-xl">
                       1. Information We Collect
                     </FieldLabel>
-                    <div className="flex flex-col gap-2 text-muted-foreground leading-relaxed">
+                    <div className="text-muted-foreground flex flex-col gap-2 leading-relaxed">
                       <p>
                         We collect personal information to provide you with the
                         best possible shopping experience, including:
                       </p>
-                      <ul className="flex flex-col gap-1.5 mt-1 pl-5 list-disc">
+                      <ul className="mt-1 flex list-disc flex-col gap-1.5 pl-5">
                         <li>
                           <strong className="text-foreground">
                             Account & Identity Data:
@@ -73,15 +73,15 @@ const PrivacyPolicyPage = () => {
                   </Field>
 
                   <Field>
-                    <FieldLabel className="mb-2 font-medium text-primary text-xl">
+                    <FieldLabel className="text-primary mb-2 text-xl">
                       2. How We Use Your Information
                     </FieldLabel>
-                    <div className="flex flex-col gap-2 text-muted-foreground leading-relaxed">
+                    <div className="text-muted-foreground flex flex-col gap-2 leading-relaxed">
                       <p>
                         We use the information we collect for the following
                         purposes:
                       </p>
-                      <ul className="flex flex-col gap-1.5 mt-1 pl-5 list-disc">
+                      <ul className="mt-1 flex list-disc flex-col gap-1.5 pl-5">
                         <li>
                           Processing and fulfilling your orders for sports gear
                           and products.
@@ -103,16 +103,16 @@ const PrivacyPolicyPage = () => {
                   </Field>
 
                   <Field>
-                    <FieldLabel className="mb-2 font-medium text-primary text-xl">
+                    <FieldLabel className="text-primary mb-2 text-xl">
                       3. Data Sharing & Third Parties
                     </FieldLabel>
-                    <div className="flex flex-col gap-2 text-muted-foreground leading-relaxed">
+                    <div className="text-muted-foreground flex flex-col gap-2 leading-relaxed">
                       <p>
                         We do not sell, rent, or trade your personal data to
                         third parties. We only share necessary information with
                         trusted partners to complete your transactions:
                       </p>
-                      <ul className="flex flex-col gap-1.5 mt-1 pl-5 list-disc">
+                      <ul className="mt-1 flex list-disc flex-col gap-1.5 pl-5">
                         <li>
                           <strong className="text-foreground">
                             Shipping & Logistics Providers:
@@ -130,7 +130,7 @@ const PrivacyPolicyPage = () => {
                   </Field>
 
                   <Field>
-                    <FieldLabel className="mb-2 font-medium text-primary text-xl">
+                    <FieldLabel className="text-primary mb-2 text-xl">
                       4. Data Security
                     </FieldLabel>
                     <div className="text-muted-foreground leading-relaxed">
@@ -142,7 +142,7 @@ const PrivacyPolicyPage = () => {
                   </Field>
 
                   <Field>
-                    <FieldLabel className="mb-2 font-medium text-primary text-xl">
+                    <FieldLabel className="text-primary mb-2 text-xl">
                       5. Cookies
                     </FieldLabel>
                     <div className="text-muted-foreground leading-relaxed">
@@ -153,12 +153,12 @@ const PrivacyPolicyPage = () => {
                   </Field>
 
                   <Field>
-                    <FieldLabel className="mb-2 font-medium text-primary text-xl">
+                    <FieldLabel className="text-primary mb-2 text-xl">
                       6. Your Rights
                     </FieldLabel>
-                    <div className="flex flex-col gap-2 text-muted-foreground leading-relaxed">
+                    <div className="text-muted-foreground flex flex-col gap-2 leading-relaxed">
                       <p>You have the right to:</p>
-                      <ul className="flex flex-col gap-1.5 mt-1 pl-5 list-disc">
+                      <ul className="mt-1 flex list-disc flex-col gap-1.5 pl-5">
                         <li>
                           Access, update, or correct your personal data through
                           your profile settings.
@@ -175,15 +175,15 @@ const PrivacyPolicyPage = () => {
                   </Field>
 
                   <Field>
-                    <FieldLabel className="mb-2 font-medium text-primary text-xl">
+                    <FieldLabel className="text-primary mb-2 text-xl">
                       7. Contact Us
                     </FieldLabel>
-                    <div className="flex flex-col gap-1 text-muted-foreground leading-relaxed">
+                    <div className="text-muted-foreground flex flex-col gap-1 leading-relaxed">
                       <p>
                         If you have any questions or concerns regarding this
                         Privacy Policy, please contact us at:
                       </p>
-                      <div className="flex flex-col gap-1 mt-2">
+                      <div className="mt-2 flex flex-col gap-1">
                         <div>
                           <strong className="text-foreground">Email:</strong>{" "}
                           support@zekastore.com

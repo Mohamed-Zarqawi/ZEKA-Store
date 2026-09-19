@@ -15,19 +15,17 @@ import {
   Dialog,
   DialogClose,
   DialogContent,
-  DialogDescription,
   DialogFooter,
-  DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useGetCurrentUser } from "@/features/auth/pages/hooks/useAuth";
 import { AddAddressSchema, AddressType } from "@/types/profile/address";
 import { City, Country } from "country-state-city";
 import { useFormik } from "formik";
 import { useMemo } from "react";
 import { useAddAddress } from "../hooks/useAddresses";
-import { Skeleton } from "@/components/ui/skeleton";
 
 const ALL_COUNTRIES = Country.getAllCountries();
 const AddAddressPage = () => {
@@ -278,7 +276,7 @@ const AddAddressPage = () => {
         </div>
 
         <div className="border-primary mt-6 flex h-fit w-full flex-col rounded-3xl border bg-[#1a1a1a]/20 px-6 py-6 md:mt-10 md:px-8 md:py-10">
-          <div className="text-lg font-semibold">Receiver Details</div>
+          <div className="-semibold text-lg">Receiver Details</div>
           <div className="mt-5 flex flex-wrap gap-6">
             <Input
               id="name"

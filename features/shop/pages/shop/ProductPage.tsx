@@ -11,9 +11,11 @@ import {
   useToggleFavorites,
 } from "@/features/profile/pages/favorites/hooks/useFavorites";
 
+import { ShareButton } from "@/components/myComponents/ShareButton";
 import { FavoriteItem } from "@/types/shop/favoriteItem";
 import { ProductType } from "@/types/shop/product";
 import { IconStar, IconStarFilled } from "@tabler/icons-react";
+import Image from "next/image";
 import { useState } from "react";
 import { toast } from "sonner";
 import ProductCard from "../../components/ProductCard";
@@ -36,8 +38,7 @@ const ProductPage = ({ productId }: ViewProps) => {
     refetch: reGetProduct,
   } = useGetShopProduct(Number(productId));
 
-  const { data: currentUser, isLoading: isCurrentUserLoading } =
-    useGetCurrentUser();
+  const { data: currentUser } = useGetCurrentUser();
   const { data: cart = [], refetch: reGetCart } = useGetCart(currentUser?.id);
   const { mutateAsync: toggleCart, isPending } = useToggleCart();
 
@@ -127,43 +128,103 @@ const ProductPage = ({ productId }: ViewProps) => {
 
   if (!product) return;
   return (
-    <div className="mx-10 my-15">
-      <div className="flex h-fit w-full items-center gap-6">
+    <div className="mx-4 mt-6 md:mx-10 md:my-15">
+      <div className="flex h-fit w-full flex-col items-center gap-6 md:flex-row">
         {/* left */}
         <div className="relative flex w-full max-w-155 gap-8">
-          <div className="no-scrollbar flex h-130 w-31 flex-col gap-4 overflow-y-auto rounded-2xl">
+          <div className="no-scrollbar hidden h-130 w-31 flex-col gap-4 overflow-y-auto rounded-2xl md:flex">
             {product?.images?.length ? (
               product.images.map((image, i) => (
-                <img
+                <Image
                   key={i}
                   src={image}
+                  width={124}
+                  height={100}
                   onClick={() => handleChangeImage(image)}
                   className="border-primary h-25 w-full rounded-2xl border object-cover object-center hover:cursor-pointer"
                   alt={product.name}
                 />
               ))
             ) : (
-              <img
+              <Image
                 src="/images/placeholder.jpeg"
+                width={124}
+                height={100}
                 className="border-primary h-25 w-full rounded-2xl border object-cover object-center"
                 alt={product?.name}
               />
             )}
           </div>
 
-          <div className="w-full max-w-130">
-            {!isProductLoading ? (
-              <img
-                src={imageUrl}
-                className="border-primary h-130 w-full max-w-130 rounded-2xl border object-cover object-center hover:cursor-pointer"
-                alt={product?.name}
-              />
-            ) : null}
+          <div className="flex w-full flex-col gap-3">
+            <div className="flex w-full flex-col gap-2 md:hidden">
+              <div className="text-sm">
+                <span className="text-primary uppercase">
+                  {product?.category?.name || "Uncategorized"} |{" "}
+                </span>
+                <span className="text-primary uppercase">
+                  {product?.brand?.name}
+                </span>
+              </div>
+
+              <div className="mt-0.75 text-xl md:text-5xl">{product?.name}</div>
+
+              {/* Rates */}
+              <div className="flex w-full justify-between">
+                <div className="bg-chart-5 flex w-fit items-center gap-1 rounded-sm px-3 py-1">
+                  <IconStarFilled className="text-primary size-4 cursor-pointer" />
+                  <div className="text-sm">4.5</div>
+                </div>
+
+                <div className="flex gap-2">
+                  {/* add to favorites button */}
+                  <Button
+                    size={"none"}
+                    onClick={handleFavoriteClick}
+                    className="bg-chart-5 w-fit cursor-pointer border p-2 text-lg"
+                  >
+                    {isToggleFavorite ? (
+                      <AnimateIcon loop animateOnView loopDelay={100}>
+                        <Heart
+                          className="text-primary size-5 cursor-pointer"
+                          animation="path"
+                        />
+                      </AnimateIcon>
+                    ) : isInFavorite ? (
+                      <AnimateIcon animateOnView>
+                        <Heart
+                          className="text-primary size-5 cursor-pointer"
+                          animation="fill"
+                        />
+                      </AnimateIcon>
+                    ) : (
+                      <Heart className="text-primary size-5 cursor-pointer" />
+                    )}
+                  </Button>
+                  <ShareButton
+                    iconClassName="text-primary size-5 cursor-pointer"
+                    className="bg-chart-5 w-fit cursor-pointer border p-2 text-lg"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="w-full md:max-w-130">
+              {!isProductLoading ? (
+                <Image
+                  src={imageUrl}
+                  width={520}
+                  height={520}
+                  className="border-primary w-full rounded-2xl border object-cover object-center hover:cursor-pointer md:h-130 md:max-w-130"
+                  alt={product?.name}
+                />
+              ) : null}
+            </div>
           </div>
         </div>
 
         {/* right */}
-        <div className="flex h-130 w-full flex-col justify-between gap-4">
+        <div className="hidden h-130 w-full flex-col justify-between gap-4 md:flex">
           <div className="w-full">
             <span className="text-primary uppercase">
               {product?.category?.name || "Uncategorized"} |{" "}

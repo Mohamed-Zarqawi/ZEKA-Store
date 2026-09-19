@@ -1,24 +1,28 @@
+import Image from "next/image";
 import Link from "next/link";
 
 const CategoryCard = () => {
   return (
     <Link href="/category/gym">
-      <div className="group relative border border-zinc-700 rounded-3xl w-100 h-150 overflow-hidden">
+      <div className="group relative h-150 w-100 overflow-hidden rounded-3xl border border-zinc-700">
         {/* image */}
-        <img
+        <Image
           src="/images/basketball.jpeg"
-          className="blur-[2px] w-full h-full object-cover object-left group-hover:scale-107 transition-transform duration-600 group-hover:cursor-pointer"
+          alt="Basketball equipment"
+          fill
+          sizes="400px"
+          className="h-full w-full object-cover object-left blur-[2px] transition-transform duration-600 group-hover:scale-107 group-hover:cursor-pointer"
         />
 
         {/* dark overlay */}
         <div className="absolute inset-0 bg-black/40"></div>
 
         {/* text */}
-        <div className="absolute inset-0 flex flex-col justify-center items-center">
-          <h2 className="font-bold text-primary text-3xl">GYM & FITNESS</h2>
+        <div className="absolute inset-0 flex flex-col items-center justify-center">
+          <h2 className="text-primary text-3xl">GYM & FITNESS</h2>
         </div>
-        <div className="absolute inset-0 flex flex-col justify-end items-center mb-5">
-          <h3 className="font-light text-sm">80 PRODUCTS</h3>
+        <div className="absolute inset-0 mb-5 flex flex-col items-center justify-end">
+          <h3 className="text-sm">80 PRODUCTS</h3>
         </div>
       </div>
     </Link>

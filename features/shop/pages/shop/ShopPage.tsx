@@ -23,6 +23,10 @@ type Option = {
   label: string;
   value: string;
 };
+type categoryType = {
+  name: string;
+  id: string;
+};
 
 const ShopPage = () => {
   // ----------- Showing Products Processes ------------
@@ -32,15 +36,17 @@ const ShopPage = () => {
   const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
   const [priceRange, setPriceRange] = useState<number[]>([0, 1000]);
   const [value, setValue] = useState<number[]>([0, 1000]);
-  const { data: prices, isLoading: isPricesLoading } = useGetProductPrices();
+  const { isLoading: isPricesLoading } = useGetProductPrices();
 
   const [searchQuery, setSearchQuery] = useQueryState(
     "search",
     parseAsString.withDefault("").withOptions({
-      limitUrlUpdates: debounce(400), // تمنع التحديث السريع للرابط أثناء الكتابة
+      limitUrlUpdates: debounce(1000),
       history: "replace",
     }),
   );
+  const [searchValue, setSearchValue] = useState<string>(searchQuery ?? "");
+
   const { data: products, isLoading: isProductsLoading } = useGetShopProducts(
     currentPage,
     selectedCategories,
@@ -57,14 +63,14 @@ const ShopPage = () => {
   const { data: brands, isLoading: isBrandsLoading } = useGetShopBrands();
 
   const categoriesOptions: Option[] = Array.isArray(categories)
-    ? categories.map((category: any) => ({
+    ? categories.map((category: categoryType) => ({
         label: category.name,
         value: category.id,
       }))
     : [];
 
   const brandsOptions: Option[] = Array.isArray(brands)
-    ? brands.map((brand: any) => ({
+    ? brands.map((brand: categoryType) => ({
         label: brand.name,
         value: brand.id,
       }))
@@ -143,36 +149,24 @@ const ShopPage = () => {
       <div className="flex min-h-screen w-full flex-1 flex-col gap-6 md:gap-10">
         {/* 1 R - Header */}
         <div className="flex w-full flex-col items-start justify-between gap-4 md:flex-row">
-          <div className="flex w-full flex-col gap-1 md:gap-2">
-            <div className="text-primary text-xl md:text-2xl lg:text-3xl">
-              PRODUCTS
-            </div>
-            {isProductsLoading ? (
-              <Skeleton className="h-4 w-65 rounded-sm bg-zinc-800 md:h-5" />
-            ) : (
-              <div className="text-xs whitespace-nowrap text-zinc-400 md:text-sm">
-                Showing{" "}
-                <span className="text-primary">
-                  {fromItem} - {toItem}
-                </span>{" "}
-                of <span className="text-primary">{productsNumber}</span>{" "}
-                products
+          <div className="flex w-full items-center">
+            <div className="flex w-full flex-col gap-1 md:gap-2">
+              <div className="text-primary text-xl md:text-2xl lg:text-3xl">
+                PRODUCTS
               </div>
-            )}
-          </div>
-
-          <div className="flex w-full items-center gap-2 md:w-auto">
-            <Input
-              type="text"
-              placeholder="Search products..."
-              value={searchQuery}
-              onChange={(e) => {
-                setSearchQuery(e.target.value);
-                setCurrentPage(1);
-              }}
-              className="h-12 w-full md:h-auto md:w-100!"
-            />
-
+              {isProductsLoading ? (
+                <Skeleton className="h-4 w-65 rounded-sm bg-zinc-800 md:h-5" />
+              ) : (
+                <div className="text-xs whitespace-nowrap text-zinc-400 md:text-sm">
+                  Showing{" "}
+                  <span className="text-primary">
+                    {fromItem} - {toItem}
+                  </span>{" "}
+                  of <span className="text-primary">{productsNumber}</span>{" "}
+                  products
+                </div>
+              )}
+            </div>
             <FilterPopover
               filterMenu={filterMenu}
               selectedCategories={selectedCategories}
@@ -185,6 +179,26 @@ const ShopPage = () => {
               setPriceRange={setPriceRange}
               setCurrentPage={setCurrentPage}
             />
+          </div>
+          <div className="flex w-full items-center gap-2 md:w-auto">
+            <Input
+              type="text"
+              placeholder="Search products..."
+              value={searchValue}
+              onChange={(e) => {
+                setSearchValue(e.target.value);
+              }}
+              className="h-12 w-full md:h-auto md:w-100!"
+            />
+            <Button
+              className="h-12 rounded-lg"
+              onClick={() => {
+                setSearchQuery(String(searchValue));
+                setCurrentPage(1);
+              }}
+            >
+              Search
+            </Button>
           </div>
         </div>
 

@@ -14,6 +14,7 @@ input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
 ::-webkit-scrollbar {
   display: none;
 }
@@ -22,6 +23,7 @@ input[type="number"]::-webkit-inner-spin-button {
 input[type="number"] {
   -moz-appearance: textfield;
 }
+
 * {
   scrollbar-width: none;
 }
@@ -75,9 +77,11 @@ input[type="number"] {
   * {
     @apply border-border outline-ring/50 box-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }
+
   html {
     @apply font-sans;
   }
@@ -86,6 +90,7 @@ input[type="number"] {
 .menu-item {
   @apply after:bg-primary relative rounded-full after:absolute after:-bottom-0.75 after:left-1/2 after:h-0.5 after:w-full after:origin-center after:-translate-x-1/2 after:rounded-full after:transition-transform after:content-[''] hover:rounded-full;
 }
+
 .menu-item-inactive {
   @apply after:bg-primary after:scale-x-0 hover:after:scale-x-100;
 }

@@ -158,7 +158,7 @@
 //       return (
 //         <div className="flex justify-center">
 //           <span
-//             className={`inline-flex items-center px-1.5 py-1 rounded-full text-xs font-black tracking-wider border ${
+//             className={`inline-flex items-center px-1.5 py-1 rounded-full text-xs -black tracking-wider border ${
 //               isAvailable
 //                 ? "bg-emerald-500/10 text-emerald-500 border-emerald-500/20"
 //                 : "bg-destructive/10 text-destructive border-destructive/20"

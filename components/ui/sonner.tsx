@@ -69,7 +69,7 @@ const Toaster = ({ ...props }: ToasterProps) => {
 
           title: "font-extrabold text-xs ",
 
-          description: "font-bold text-xs text-muted-foreground uppercase ",
+          description: " text-xs text-muted-foreground uppercase ",
 
           actionButton:
             "group-[.toast]:bg-primary group-[.toast]:text-primary-foreground font-extrabold uppercase text-xs rounded-lg",

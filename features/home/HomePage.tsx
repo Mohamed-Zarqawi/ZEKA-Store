@@ -19,9 +19,7 @@ const HomePage = () => {
 
         <div className="relative mt-10 flex h-75 items-start justify-between gap-6 overflow-x-hidden md:mt-15 md:h-fit md:flex-row md:items-center md:overflow-visible">
           <div className="z-20 flex flex-col gap-6 px-6 md:static md:gap-10 md:px-0">
-            <div className="text-primary font-bold md:text-xl">
-              NEW COLLECTION
-            </div>
+            <div className="text-primary md:text-xl">NEW COLLECTION</div>
 
             <div className="flex flex-col items-start gap-6 md:gap-10">
               <div className="text-[26px] md:text-4xl lg:text-6xl">
@@ -110,7 +108,7 @@ export default HomePage;
 
 //         <div className="mt-10 flex items-center justify-between gap-2 md:mt-15 md:gap-0">
 //           <div className="flex flex-col gap-4 md:gap-15 md:gap-15">
-//             <div className="text-primary text-xs font-bold md:text-base md:text-base">
+//             <div className="text-primary text-xs  md:text-base md:text-base">
 //               NEW COLLECTION
 //             </div>
 

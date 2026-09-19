@@ -72,7 +72,7 @@ const CartItem = ({ product }: { product: ProductType }) => {
           {/* Title and Price */}
           <div className="mt-1 flex flex-col gap-1 md:mt-0">
             <div className="text-xs md:text-base">{product.name}</div>
-            <div className="text-primary min-w-3 text-sm font-bold">
+            <div className="text-primary min-w-3 text-sm">
               ${product?.price}
             </div>
           </div>
