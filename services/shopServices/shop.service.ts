@@ -17,7 +17,8 @@ export const getShopProducts = async (
     .from("products")
     .select("* , category:categories(*) , brand:brands(*) ", {
       count: "exact",
-    });
+    })
+    .eq("isDeleted", false);
 
   if (categories.length > 0) {
     query = query.in("category_id", categories);

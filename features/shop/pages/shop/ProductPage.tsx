@@ -140,8 +140,9 @@ const ProductPage = ({ productId }: ViewProps) => {
 
   // Return nothing early if product data is missing
   if (!product) return;
+
   return (
-    <div className="mt-6 md:my-15 md:mx-10 mx-0">
+    <div className="mx-0 mt-6 md:mx-10 md:my-15">
       <div className="flex h-fit w-full flex-col items-center gap-3 md:flex-row md:gap-6">
         {/* Left column: Thumbnails and main product imagery */}
         <div className="relative flex w-full max-w-155 gap-6 md:gap-8">
@@ -172,7 +173,7 @@ const ProductPage = ({ productId }: ViewProps) => {
 
           <div className="flex w-full flex-col gap-3">
             {/* Top meta info and quick actions for mobile screens */}
-            <div className="flex w-full flex-col gap-1 md:hidden md:px-0 px-4">
+            <div className="flex w-full flex-col gap-1 px-4 md:hidden md:px-0">
               <div className="text-xs">
                 <span className="text-primary uppercase">
                   {product?.category?.name || "Uncategorized"} |{" "}
@@ -180,7 +181,7 @@ const ProductPage = ({ productId }: ViewProps) => {
                 </span>
               </div>
 
-              <div className="text-xl ">{product?.name}</div>
+              <div className="text-xl">{product?.name}</div>
 
               <div className="mt-1 flex w-full justify-between">
                 {/* Rating score badge */}
@@ -225,7 +226,7 @@ const ProductPage = ({ productId }: ViewProps) => {
             </div>
 
             {/* Main large display image container */}
-            <div className="w-full md:max-w-130 md:px-0 px-4">
+            <div className="w-full px-4 md:max-w-130 md:px-0">
               {!isProductLoading ? (
                 <Image
                   src={imageUrl}
@@ -239,7 +240,7 @@ const ProductPage = ({ productId }: ViewProps) => {
 
             {/* Horizontal thumbnail image scroller for mobile view */}
             <div
-              className={`no-scrollbar border-primary md:bg-background flex w-full flex-row gap-3 md:px-0 px-4 overflow-x-scroll sm:border sm:bg-[#1a1a1a]/20 sm:p-3 md:hidden md:overflow-x-auto`}
+              className={`no-scrollbar border-primary md:bg-background flex w-full flex-row gap-3 overflow-x-scroll px-4 sm:border sm:bg-[#1a1a1a]/20 sm:p-3 md:hidden md:overflow-x-auto md:px-0`}
             >
               {product?.images?.length ? (
                 product.images.map((image, i) => (
@@ -267,7 +268,7 @@ const ProductPage = ({ productId }: ViewProps) => {
         </div>
 
         {/* Right column: Product title, pricing, specifications, and cart controls */}
-        <div className="flex h-fit w-full flex-col justify-between gap-4 md:h-130 md:px-0 px-4">
+        <div className="flex h-fit w-full flex-col justify-between gap-4 px-4 md:h-130 md:px-0">
           <div className="w-full">
             <span className="text-primary hidden uppercase md:block">
               {product?.category?.name || "Uncategorized"} |{" "}
@@ -342,15 +343,21 @@ const ProductPage = ({ productId }: ViewProps) => {
               ) : (
                 <Button
                   size={"none"}
-                  disabled={product.stock == 0 || isPending}
+                  disabled={
+                    product.stock == 0 || isPending || product.isDeleted
+                  }
                   isPending={isPending}
                   onClick={(e) => {
                     handleCartClick(e, "add");
                   }}
 
-                  className="bg-primary hover:bg-secondary h-13 w-full rounded-lg px-4 py-6 text-center text-lg md:h-20 md:rounded-2xl"
+                  className="bg-primary hover:bg-secondary h-13 w-full rounded-lg px-4 py-6 text-center text-lg uppercase md:h-20 md:rounded-2xl"
                 >
-                  {product.stock == 0 ? "OUT OF STOCK" : "ADD TO CART"}
+                  {product.isDeleted == true
+                    ? "product is currently unavailable"
+                    : product.stock == 0
+                      ? "OUT OF STOCK"
+                      : "ADD TO CART"}
                 </Button>
               )}
             </div>
@@ -383,16 +390,16 @@ const ProductPage = ({ productId }: ViewProps) => {
       </div>
 
       {/* Recommended or related category products section */}
-        <div className="mt-6 flex flex-col gap-6 md:mt-15 md:gap-8 md:px-0 px-4">
-          <div className="text-primary text-lg uppercase md:text-3xl">
-            MORE FROM {product?.category.name}
-          </div>
-          <div className="grid w-full grid-cols-2 gap-3 md:grid-cols-[repeat(auto-fill,minmax(240px,1fr))] md:gap-6">
-            {relatedProducts?.map((product: ProductType) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
+      <div className="mt-6 flex flex-col gap-6 px-4 md:mt-15 md:gap-8 md:px-0">
+        <div className="text-primary text-lg uppercase md:text-3xl">
+          MORE FROM {product?.category.name}
         </div>
+        <div className="grid w-full grid-cols-2 gap-3 md:grid-cols-[repeat(auto-fill,minmax(240px,1fr))] md:gap-6">
+          {relatedProducts?.map((product: ProductType) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
+      </div>
     </div>
   );
 };

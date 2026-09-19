@@ -331,6 +331,7 @@ const EditProductPage = ({ productId }: EditProductPageProps) => {
                   isRequired={true}
                   errors={errors}
                   touched={touched}
+                  onWheel={(e) => e.currentTarget.blur()}
                   value={values.price}
                   onChange={handleChange}
                   className="w-full"
@@ -344,6 +345,7 @@ const EditProductPage = ({ productId }: EditProductPageProps) => {
                   name="stock"
                   type="number"
                   label="Stock"
+                  onWheel={(e) => e.currentTarget.blur()}
                   isRequired={true}
                   errors={errors}
                   touched={touched}

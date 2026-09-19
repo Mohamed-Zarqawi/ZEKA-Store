@@ -24,4 +24,5 @@ export type ProductType = {
   featured: boolean;
   isFavorite: boolean;
   favoriteDocId: string | null;
+  isDeleted: boolean;
 };
