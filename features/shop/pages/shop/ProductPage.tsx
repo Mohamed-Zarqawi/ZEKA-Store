@@ -25,24 +25,28 @@ import {
   useGetShopRelatedProductsByCategory,
 } from "./hooks/useShop";
 
+// Define the expected props interface containing the product ID
 interface ViewProps {
   productId: string;
 }
 
 const ProductPage = ({ productId }: ViewProps) => {
+  // Local state to manage the product's star rating
   const [rating, setRating] = useState(3);
 
+  // Fetch basic product details using the parsed numeric ID
   const {
     data: product,
     isLoading: isProductLoading,
     refetch: reGetProduct,
   } = useGetShopProduct(Number(productId));
 
+  // Fetch current user info, cart data, and cart toggle mutation hook
   const { data: currentUser } = useGetCurrentUser();
   const { data: cart = [], refetch: reGetCart } = useGetCart(currentUser?.id);
   const { mutateAsync: toggleCart, isPending } = useToggleCart();
 
-  // ------------- get related product by category -------------
+  // ------------- Fetch related products based on the product's category -------------
   const {
     data: relatedProducts = [],
     isLoading: isRelatedCategoryLoading,
@@ -50,15 +54,17 @@ const ProductPage = ({ productId }: ViewProps) => {
   } = useGetShopRelatedProductsByCategory(product?.category?.id);
 
   // -----------------------------------------------------------
+  // Check whether the current product already exists in the cart
   const cartItem = cart.find((item) => item.productId === product?.id);
   console.log(cartItem);
   const isInCart = !!cartItem;
 
+  // Handler for adding or decreasing product quantities in the cart
   const handleCartClick = async (
     e: React.MouseEvent,
     action: "add" | "decrease",
   ) => {
-    e.preventDefault(); // منع فتح الرابط عند الضغط على الزر
+    e.preventDefault(); // Prevent wrapper links from triggering
 
     if (!currentUser?.id) {
       toast.error("Please login to manage your cart", {});
@@ -79,7 +85,7 @@ const ProductPage = ({ productId }: ViewProps) => {
     await Promise.all([reGetCart(), reGetProduct(), reGetRelatd()]);
   };
 
-  // ------------- handle change images -------------
+  // ------------- Handle image switching functionality -------------
 
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const imageUrl =
@@ -89,17 +95,19 @@ const ProductPage = ({ productId }: ViewProps) => {
     setSelectedImage(url);
   };
 
-  // ------------- handle favorites -------------
+  // ------------- Handle user wishlist/favorites functionality -------------
 
   const { data: favorites = [] } = useGetFavorites(currentUser?.id);
   const { mutate: toggleFavorites, isPending: isToggleFavorite } =
     useToggleFavorites();
 
+  // Check if the current product is saved in favorites
   const favoriteItem = favorites.find(
     (item: FavoriteItem) => item.productId === product?.id,
   );
   const isInFavorite = !!favoriteItem;
 
+  // Handler for toggling a product's favorite status
   const handleFavoriteClick = (e: React.MouseEvent) => {
     e.preventDefault();
 
@@ -118,6 +126,7 @@ const ProductPage = ({ productId }: ViewProps) => {
     });
   };
 
+  // Render a skeleton loader while product or related data is being fetched
   if (isProductLoading || isRelatedCategoryLoading) {
     return (
       <div>
@@ -126,20 +135,22 @@ const ProductPage = ({ productId }: ViewProps) => {
     );
   }
 
+  // Return nothing early if product data is missing
   if (!product) return;
   return (
     <div className="mx-4 mt-6 md:mx-10 md:my-15">
-      <div className="flex h-fit w-full flex-col items-center gap-6 md:flex-row">
-        {/* left */}
-        <div className="relative flex w-full max-w-155 gap-8">
+      <div className="flex h-fit w-full flex-col items-center gap-3 md:flex-row md:gap-6">
+        {/* Left column: Thumbnails and main product imagery */}
+        <div className="relative flex w-full max-w-155 gap-6 md:gap-8">
+          {/* Vertical thumbnail image list for desktop view */}
           <div className="no-scrollbar hidden h-130 w-31 flex-col gap-4 overflow-y-auto rounded-2xl md:flex">
             {product?.images?.length ? (
               product.images.map((image, i) => (
                 <Image
                   key={i}
                   src={image}
-                  width={124}
-                  height={100}
+                  width={500}
+                  height={500}
                   onClick={() => handleChangeImage(image)}
                   className="border-primary h-25 w-full rounded-2xl border object-cover object-center hover:cursor-pointer"
                   alt={product.name}
@@ -148,8 +159,8 @@ const ProductPage = ({ productId }: ViewProps) => {
             ) : (
               <Image
                 src="/images/placeholder.jpeg"
-                width={124}
-                height={100}
+                width={500}
+                height={500}
                 className="border-primary h-25 w-full rounded-2xl border object-cover object-center"
                 alt={product?.name}
               />
@@ -157,29 +168,29 @@ const ProductPage = ({ productId }: ViewProps) => {
           </div>
 
           <div className="flex w-full flex-col gap-3">
-            <div className="flex w-full flex-col gap-2 md:hidden">
-              <div className="text-sm">
+            {/* Top meta info and quick actions for mobile screens */}
+            <div className="flex w-full flex-col gap-1 md:hidden">
+              <div className="text-xs">
                 <span className="text-primary uppercase">
                   {product?.category?.name || "Uncategorized"} |{" "}
-                </span>
-                <span className="text-primary uppercase">
                   {product?.brand?.name}
                 </span>
               </div>
 
-              <div className="mt-0.75 text-xl md:text-5xl">{product?.name}</div>
+              <div className="text-xl">{product?.name}</div>
 
-              {/* Rates */}
-              <div className="flex w-full justify-between">
-                <div className="bg-chart-5 flex w-fit items-center gap-1 rounded-sm px-3 py-1">
+              <div className="mt-1 flex w-full justify-between">
+                {/* Rating score badge */}
+                <div className="bg-chart-5 flex w-fit items-center gap-1 rounded-sm px-3">
                   <IconStarFilled className="text-primary size-4 cursor-pointer" />
                   <div className="text-sm">4.5</div>
                 </div>
 
                 <div className="flex gap-2">
-                  {/* add to favorites button */}
+                  {/* Mobile favorite action button */}
                   <Button
                     size={"none"}
+                    variant={"none"}
                     onClick={handleFavoriteClick}
                     className="bg-chart-5 w-fit cursor-pointer border p-2 text-lg"
                   >
@@ -201,6 +212,7 @@ const ProductPage = ({ productId }: ViewProps) => {
                       <Heart className="text-primary size-5 cursor-pointer" />
                     )}
                   </Button>
+                  {/* Share action button */}
                   <ShareButton
                     iconClassName="text-primary size-5 cursor-pointer"
                     className="bg-chart-5 w-fit cursor-pointer border p-2 text-lg"
@@ -209,34 +221,58 @@ const ProductPage = ({ productId }: ViewProps) => {
               </div>
             </div>
 
+            {/* Main large display image container */}
             <div className="w-full md:max-w-130">
               {!isProductLoading ? (
                 <Image
                   src={imageUrl}
-                  width={520}
-                  height={520}
-                  className="border-primary w-full rounded-2xl border object-cover object-center hover:cursor-pointer md:h-130 md:max-w-130"
+                  width={500}
+                  height={500}
+                  className="border-primary aspect-square w-full rounded-2xl border object-cover object-center hover:cursor-pointer md:h-130 md:max-w-130"
                   alt={product?.name}
                 />
               ) : null}
             </div>
+
+            {/* Horizontal thumbnail image scroller for mobile view */}
+            <div className="no-scrollbar border-primary md:bg-background flex w-full flex-row gap-3 overflow-x-auto rounded-2xl border bg-[#1a1a1a]/20 p-3 md:hidden">
+              {product?.images?.length ? (
+                product.images.map((image, i) => (
+                  <Image
+                    key={i}
+                    src={image}
+                    width={500}
+                    height={100}
+                    onClick={() => handleChangeImage(image)}
+                    className="border-primary/30 aspect-square h-28 w-28 rounded-xl border object-cover object-center hover:cursor-pointer"
+                    alt={product.name}
+                  />
+                ))
+              ) : (
+                <Image
+                  src="/images/placeholder.jpeg"
+                  width={124}
+                  height={100}
+                  className="border-primary aspect-square h-25 w-25 rounded-2xl border object-cover object-center"
+                  alt={product?.name}
+                />
+              )}
+            </div>
           </div>
         </div>
 
-        {/* right */}
-        <div className="hidden h-130 w-full flex-col justify-between gap-4 md:flex">
+        {/* Right column: Product title, pricing, specifications, and cart controls */}
+        <div className="flex h-fit w-full flex-col justify-between gap-4 md:h-130">
           <div className="w-full">
-            <span className="text-primary uppercase">
+            <span className="text-primary hidden uppercase md:block">
               {product?.category?.name || "Uncategorized"} |{" "}
-            </span>
-            <span className="text-primary uppercase">
               {product?.brand?.name || "No Brand"}
             </span>
 
-            <div className="mt-6 text-5xl">{product?.name}</div>
+            <div className="mt-6 hidden text-5xl md:block">{product?.name}</div>
 
-            {/* Rates */}
-            <div className="mt-5 flex items-center gap-2">
+            {/* Interactive review stars component for desktop view */}
+            <div className="mt-5 hidden items-center gap-2 md:flex">
               {rating !== 0 && <div className="text-sm">{rating}</div>}
               {[1, 2, 3, 4, 5].map((star: number) => (
                 <button key={star} onClick={() => setRating(star)}>
@@ -252,43 +288,47 @@ const ProductPage = ({ productId }: ViewProps) => {
               </div>
             </div>
 
-            {/* price */}
-            <div className="text-primary mt-6 text-3xl">
+            {/* Formatted product price display */}
+            <div className="text-primary text-2xl md:mt-6 md:text-3xl">
               ${product?.price.toFixed(2)}
             </div>
 
-            {/* description */}
-            <div className="mt-6 flex flex-col gap-2">
-              Description:
-              <div className="text-sm text-zinc-400">
-                {product?.description}
+            <div>
+              <div className="flex flex-col-reverse md:flex-col">
+                {/* Product description block */}
+                <div className="mt-2 flex flex-col gap-1 md:mt-6 md:gap-2">
+                  Description:
+                  <span className="text-muted-foreground text-xs">
+                    {product?.description}
+                  </span>
+                </div>
+
+                {/* Stock inventory availability indicators */}
+                {product.stock < 5 && product.stock > 0 ? (
+                  <div className="text-primary mt-1 flex items-center gap-2 text-sm md:mt-6">
+                    <span>{product?.stock}</span>Left in stock
+                  </div>
+                ) : null}
+                {product.stock == cartItem?.quantity ? (
+                  <div className="text-primary mt-6 flex items-center gap-2">
+                    <div className="text-destructive text-sm">
+                      Maximum items added in cart
+                    </div>
+                  </div>
+                ) : null}
               </div>
             </div>
-
-            {product.stock < 5 && product.stock > 0 ? (
-              <div className="text-primary mt-6 flex items-center gap-2">
-                {product?.stock}
-                <div className="text-sm">Left in stock</div>
-              </div>
-            ) : null}
-
-            {product.stock == cartItem?.quantity ? (
-              <div className="text-primary mt-6 flex items-center gap-2">
-                <div className="text-destructive text-sm">
-                  Maximum items added in cart
-                </div>
-              </div>
-            ) : null}
           </div>
 
+          {/* Action buttons: Quantity counter / Add to cart, and desktop favorite button */}
           <div className="flex w-full items-center justify-between gap-3">
             <div className="flex w-full items-center">
-              {/* Counter or Add to Cart */}
+              {/* Conditional render: Quantity counter if in cart, or add-to-cart button */}
 
               {isInCart && cartItem ? (
                 <Counter
                   product={cartItem.product}
-                  classname="flex justify-between items-center bg-primary h-20 rounded-2xl w-full text-lg text-center hover:cursor-pointer"
+                  classname="flex justify-between items-center bg-primary md:h-20 h-13 rounded-lg md:rounded-2xl w-full text-lg text-center hover:cursor-pointer"
                   plusClass={`flex justify-center items-center px-10 py-6 h-full rounded-r-2xl rounded-l-[0] text-lg hover:cursor-pointer`}
                   minusClass="flex justify-center items-center px-10 py-6 h-full rounded-l-2xl rounded-r-[0] text-lg hover:cursor-pointer"
                   spanClass="mx-auto text-lg select-none py-6"
@@ -302,17 +342,18 @@ const ProductPage = ({ productId }: ViewProps) => {
                   onClick={(e) => {
                     handleCartClick(e, "add");
                   }}
-                  className="bg-primary hover:bg-secondary h-20 w-full rounded-2xl px-4 py-6 text-center text-lg"
+
+                  className="bg-primary hover:bg-secondary h-13 w-full rounded-lg px-4 py-6 text-center text-lg md:h-20 md:rounded-2xl"
                 >
                   {product.stock == 0 ? "OUT OF STOCK" : "ADD TO CART"}
                 </Button>
               )}
             </div>
-            {/* add to favorites button */}
+            {/* Desktop favorite toggle button */}
             <Button
               variant={"outline"}
               onClick={handleFavoriteClick}
-              className="border-primary h-20 cursor-pointer rounded-2xl border px-6 py-6 text-lg"
+              className="border-primary hidden h-20 cursor-pointer rounded-2xl border px-6 py-6 text-lg md:block"
             >
               {isToggleFavorite ? (
                 <AnimateIcon loop animateOnView loopDelay={100}>
@@ -336,10 +377,10 @@ const ProductPage = ({ productId }: ViewProps) => {
         </div>
       </div>
 
-      {/* suggested products */}
+      {/* Recommended or related category products section */}
       <div>
-        <div className="mt-15 flex flex-col gap-8">
-          <div className="text-primary text-3xl uppercase">
+        <div className="mt-6 flex flex-col gap-6 md:mt-15 md:gap-8">
+          <div className="text-primary text-lg uppercase md:text-3xl">
             MORE FROM {product?.category.name}
           </div>
           <div className="grid w-full grid-cols-2 gap-3 md:grid-cols-[repeat(auto-fill,minmax(240px,1fr))] md:gap-6">

@@ -43,7 +43,12 @@ export const ShareButton = ({
   };
 
   return (
-    <Button size={"none"} onClick={handleShare} className={`${className}`}>
+    <Button
+      size={"none"}
+      variant={"none"}
+      onClick={handleShare}
+      className={`${className}`}
+    >
       <Share2 className={`${iconClassName}`} />
     </Button>
   );

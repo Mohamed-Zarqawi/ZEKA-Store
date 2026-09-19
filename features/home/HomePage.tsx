@@ -47,7 +47,7 @@ const HomePage = () => {
         </div>
 
         {/* second slide */}
-        <div className="mx-4 mt-5 flex flex-col gap-10 md:mx-0 md:mt-20">
+        <div className="mx-4 mt-5 flex flex-col gap-6 md:mx-0 md:mt-20 md:gap-10">
           <div className="flex items-end justify-between">
             <div className="text-primary text-lg md:text-3xl">
               MOST PRODUCT POPULAR

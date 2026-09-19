@@ -16,6 +16,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { MailIcon, MapPinIcon, PhoneIcon } from "@animateicons/react/lucide";
+import { toast } from "sonner";
 
 const ContactPage = () => {
   const formRef = useRef<HTMLFormElement | null>(null);
@@ -71,7 +72,13 @@ const ContactPage = () => {
                 CONTACT INFORMATION
               </div>
               <div className="flex flex-col gap-4 md:gap-5">
-                <div className="flex items-center gap-3 md:gap-4">
+                <div
+                  className="flex items-center gap-3 md:gap-4"
+                  onClick={() => {
+                    navigator.clipboard.writeText("+1 (555) 000-0000");
+                    toast.success("Copied address to clipboard");
+                  }}
+                >
                   <Button
                     variant={"outline"}
                     size="icon"
@@ -83,7 +90,13 @@ const ContactPage = () => {
                 </div>
 
                 {/* 2 */}
-                <div className="flex items-center gap-4">
+                <div
+                  className="flex items-center gap-4"
+                  onClick={() => {
+                    navigator.clipboard.writeText("support@zekastore.com");
+                    toast.success("Copied email to clipboard");
+                  }}
+                >
                   <Button
                     variant={"outline"}
                     size="icon"
@@ -95,7 +108,13 @@ const ContactPage = () => {
                 </div>
 
                 {/* 3 */}
-                <div className="flex items-center gap-4">
+                <div
+                  className="flex items-center gap-4"
+                  onClick={() => {
+                    navigator.clipboard.writeText("81 New Cairo, Cairo, Egypt");
+                    toast.success("Copied address to clipboard");
+                  }}
+                >
                   <Button
                     variant={"outline"}
                     size="icon"
