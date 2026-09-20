@@ -23,7 +23,6 @@ export type ReqCreateProductType = y.InferType<typeof CreateProductSchema>;
 export type ResUpdateProductType = {
   data: {
     id: number;
-    documentId: string;
     name: string;
     description: string;
     price: number;

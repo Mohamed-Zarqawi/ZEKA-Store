@@ -22,7 +22,7 @@ export type ProductType = {
   brand_id: number;
 
   featured: boolean;
-  isFavorite: boolean;
-  favoriteDocId: string | null;
   isDeleted: boolean;
+  ordersNumber: number;
+  favoritesNumber: number;
 };

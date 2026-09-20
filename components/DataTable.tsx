@@ -132,15 +132,15 @@ export function DataTable<TData, TValue>({
   });
 
   return (
-    <div className="flex flex-col gap-4 w-full overflow-hidden">
-      <div className="flex justify-end items-center gap-2 w-full">
+    <div className="flex w-full flex-col gap-4 overflow-hidden">
+      <div className="flex w-full items-center justify-end gap-2">
         {/* Create Button  */}
         <div>
           <Button
             size="lg"
             variant="default"
             onClick={() => router.push(createHref)}
-            className="px-3 rounded-lg"
+            className="rounded-lg px-3"
           >
             <IconPlusFilled />
           </Button>
@@ -152,7 +152,7 @@ export function DataTable<TData, TValue>({
             placeholder="Search..."
             value={globalFilter ?? ""}
             onChange={(event) => setGlobalFilter(event.target.value)}
-            className="py-2 h-10"
+            className="h-10 py-2"
           />
         </div>
 
@@ -160,11 +160,11 @@ export function DataTable<TData, TValue>({
         <div>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button size="lg" variant="outline" className="px-3 rounded-lg">
+              <Button size="lg" variant="outline" className="rounded-lg px-3">
                 <Columns3 />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
+            <DropdownMenuContent align="end" className="w-fit">
               {table
                 .getAllColumns()
                 .filter((column) => column.getCanHide())
@@ -190,7 +190,7 @@ export function DataTable<TData, TValue>({
         <div>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button size="lg" variant="outline" className="px-3 rounded-lg">
+              <Button size="lg" variant="outline" className="rounded-lg px-3">
                 <Rows3 />
               </Button>
             </DropdownMenuTrigger>
@@ -209,7 +209,7 @@ export function DataTable<TData, TValue>({
         </div>
       </div>
 
-      <div className="bg-[#1a1a1a]/20 border border-primary rounded-3xl w-full overflow-x-hidden">
+      <div className="border-primary w-full overflow-x-hidden rounded-3xl border bg-[#1a1a1a]/20">
         {/* Base Table Container with Horizontal Scroll */}
         <div className="w-full overflow-x-auto">
           <Table className="w-full">
@@ -241,8 +241,8 @@ export function DataTable<TData, TValue>({
                     }
                     className="h-32 text-center"
                   >
-                    <div className="flex justify-center items-center w-full h-full">
-                      <Loader2 className="w-8 h-8 text-primary animate-spin" />
+                    <div className="flex h-full w-full items-center justify-center">
+                      <Loader2 className="text-primary h-8 w-8 animate-spin" />
                     </div>
                   </TableCell>
                 </TableRow>
@@ -280,13 +280,13 @@ export function DataTable<TData, TValue>({
 
         {/* Pagination Controls */}
         {!table.getCanNextPage() && !table.getCanPreviousPage() ? null : (
-          <div className="flex justify-end items-center space-x-2 p-3.5">
+          <div className="flex items-center justify-end space-x-2 p-3.5">
             <Button
               variant="outline"
               size="sm"
               onClick={() => table.previousPage()}
               disabled={!table.getCanPreviousPage()}
-              className="inline-flex justify-center items-center leading-none"
+              className="inline-flex items-center justify-center leading-none"
             >
               previous
             </Button>
@@ -295,7 +295,7 @@ export function DataTable<TData, TValue>({
               size="sm"
               onClick={() => table.nextPage()}
               disabled={!table.getCanNextPage()}
-              className="inline-flex justify-center items-center leading-none"
+              className="inline-flex items-center justify-center leading-none"
             >
               next
             </Button>

@@ -17,12 +17,14 @@ export interface Product {
   category: { id: number; name: string };
   brand: { id: number; name: string };
   featured: boolean;
-  isFavorite: boolean;
-  favoriteDocId: string | null;
+  favoritesNumber: string | null;
+  ordersNumber: string | null;
+  isDeleted: boolean;
 }
 
 export const columns = (): ColumnDef<Product>[] => [
   // ---------------- id ----------------
+
   {
     accessorKey: "id",
     header: ({ column }) => (
@@ -43,7 +45,7 @@ export const columns = (): ColumnDef<Product>[] => [
         <Button
           variant="link"
           onClick={() => {
-            navigator.clipboard.writeText(row.getValue<string>("documentId"));
+            navigator.clipboard.writeText(row.getValue<string>("id"));
             toast.success("Copied to clipboard", {});
           }}
         >
@@ -101,7 +103,7 @@ export const columns = (): ColumnDef<Product>[] => [
             toast.success("Copied to clipboard", {});
           }}
         >
-          {row.getValue("name")}
+          {row.getValue("name") || "_"}
         </Button>
       </div>
     ),
@@ -145,7 +147,58 @@ export const columns = (): ColumnDef<Product>[] => [
 
     cell: ({ row }) => {
       const price = parseFloat(row.getValue("price"));
+
       return <div className="pl-4 text-sm">${price.toFixed(2)}</div>;
+    },
+  },
+
+  // ---------------- orders number ----------------
+  {
+    accessorKey: "ordersNumber",
+    header: ({ column }) => (
+      <div>
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="hover:text-secondary text-xs"
+        >
+          Orders Number
+          <ArrowUpDown />
+        </Button>
+      </div>
+    ),
+
+    cell: ({ row }) => {
+      return (
+        <div className="pl-4 text-center text-sm">
+          {row.getValue("ordersNumber")}
+        </div>
+      );
+    },
+  },
+
+  // ---------------- favorites number ----------------
+  {
+    accessorKey: "favoritesNumber",
+    header: ({ column }) => (
+      <div>
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="hover:text-secondary text-xs"
+        >
+          Favorites Number
+          <ArrowUpDown />
+        </Button>
+      </div>
+    ),
+
+    cell: ({ row }) => {
+      return (
+        <div className="pl-4 text-center text-sm">
+          {row.getValue("favoritesNumber") || "_"}
+        </div>
+      );
     },
   },
 
@@ -161,6 +214,39 @@ export const columns = (): ColumnDef<Product>[] => [
         <Badge variant="outline">
           {isAvailable ? `${stock} In stock` : "Out of stock"}
         </Badge>
+      );
+    },
+  },
+
+  {
+    accessorKey: "isDeleted",
+    header: ({ column }) => (
+      <div className="flex justify-start">
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="hover:text-secondary text-xs"
+        >
+          State
+          <ArrowUpDown />
+        </Button>
+      </div>
+    ),
+    cell: ({ row }) => {
+      const state = row.original.isDeleted;
+      const isAvailable = state == false;
+      return (
+        <div className="flex justify-center">
+          <Badge
+            className={`inline-flex items-center border tracking-wider ${
+              isAvailable
+                ? "border-emerald-500/20 bg-emerald-500/10 text-emerald-500"
+                : "bg-destructive/10 text-destructive border-destructive/20"
+            }`}
+          >
+            {isAvailable ? `Active` : "Deleted"}
+          </Badge>
+        </div>
       );
     },
   },

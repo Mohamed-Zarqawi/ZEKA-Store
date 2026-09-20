@@ -1,48 +1,52 @@
-// import API_ROUTES from "@/constants/api-routes";
-// import { Users } from "@/features/dashboard/pages/users/columns";
-// import api from "@/lib/axios";
+"use server"; // هذا السطر يحمي الملف بالكامل ويحوله إلى Server Actions آمنة
 
-// // -------------------- getUsers --------------------
+import { Users } from "@/features/dashboard/pages/users/columns";
+import { supabase } from "@/lib/supabaseAdmin";
 
-// export const getUsersAdmin = async () => {
-//   const { data } = await api.get(API_ROUTES.admin.getUsers);
-//   return data;
-// };
+// -------------------- getUsers --------------------
+export const getUsersAdmin = async () => {
+  const { data, error } = await supabase
+    .from("users")
+    .select("*, orders_number, favorites_number, addresses(*)")
+    .order("created_at", { ascending: false });
 
-// // -------------------- updateUser --------------------
+  console.log(data);
 
-// export const updateUserAdmin = async (
-//   userId: string,
-//   updatedData: Partial<Users>,
-// ) => {
-//   const { data } = await api.put(
-//     API_ROUTES.admin.updateUser(userId),
-//     updatedData,
-//   );
+  if (error) throw error;
+  return data;
+};
 
-//   return data;
-// };
+// -------------------- updateUser --------------------
+export const updateUserAdmin = async (
+  userId: string,
+  updatedData: Partial<Users>,
+) => {
+  const { data, error } = await supabase
+    .from("users")
+    .update(updatedData)
+    .eq("id", userId)
+    .select()
+    .single();
 
-// // -------------------- deleteUser --------------------
+  if (error) throw error;
+  return data;
+};
 
-// export const deleteUserAdmin = async (userId: string) => {
-//   const { data } = await api.delete(API_ROUTES.admin.deleteUser(userId));
-//   return data;
-// };
+// -------------------- deleteUser --------------------
+export const deleteUserAdmin = async (userId: string) => {
+  const { data, error } = await supabase.auth.admin.deleteUser(userId);
 
-// // -------------------- block User --------------------
+  if (error) throw error;
+  return data;
+};
 
-// export const blockUserAdmin = async (userId: string) => {
-//   const { data } = await api.put(API_ROUTES.admin.blockUser(userId), {
-//     blocked: true,
-//   });
-//   return data;
-// };
+// -------------------- block / unblock User --------------------
+export const toggleUserBlockAdmin = async (userId: string) => {
+  const { data, error } = await supabase.rpc("toggle_user_block", {
+    target_user_id: userId,
+  });
 
-// // -------------------- Unblock User --------------------
-// export const unblockUserAdmin = async (userId: string) => {
-//   const { data } = await api.put(API_ROUTES.admin.blockUser(userId), {
-//     blocked: false,
-//   });
-//   return data;
-// };
+  if (error) throw error;
+
+  return data;
+};

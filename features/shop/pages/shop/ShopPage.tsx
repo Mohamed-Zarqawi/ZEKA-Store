@@ -23,7 +23,7 @@ type Option = {
   label: string;
   value: string;
 };
-type categoryType = {
+export type OptionsType = {
   name: string;
   id: string;
 };
@@ -63,14 +63,14 @@ const ShopPage = () => {
   const { data: brands, isLoading: isBrandsLoading } = useGetShopBrands();
 
   const categoriesOptions: Option[] = Array.isArray(categories)
-    ? categories.map((category: categoryType) => ({
+    ? categories.map((category: OptionsType) => ({
         label: category.name,
         value: category.id,
       }))
     : [];
 
   const brandsOptions: Option[] = Array.isArray(brands)
-    ? brands.map((brand: categoryType) => ({
+    ? brands.map((brand: OptionsType) => ({
         label: brand.name,
         value: brand.id,
       }))

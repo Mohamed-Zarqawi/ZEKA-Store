@@ -2,11 +2,11 @@
 
 import { Button } from "@/components/ui/button";
 import { IconTrash } from "@tabler/icons-react";
-import { Edit, Eye } from "lucide-react";
+import { CheckCheck, Edit, Eye } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { Product } from "./columns";
-import { useDeleteAdminProduct } from "./hooks/useProducts";
+import { useToggleDeleteAdminProduct } from "./hooks/useProducts";
 
 interface ActionCellProps {
   product: Product;
@@ -16,14 +16,18 @@ interface ActionCellProps {
 export const ActionCell = ({ product, viewHref }: ActionCellProps) => {
   const router = useRouter();
   const { mutate: deleteProduct, isPending: isDeleting } =
-    useDeleteAdminProduct();
+    useToggleDeleteAdminProduct();
 
   const handleDelete = () => {
     if (!product.id) return;
 
     deleteProduct(product.id, {
       onSuccess: () => {
-        toast.success("Product deleted successfully!", {});
+        if (product?.isDeleted) {
+          toast.success("Product activated successfully!");
+        } else {
+          toast.success("Product deleted successfully!");
+        }
       },
       onError: (error) => {
         toast.error("Failed to delete product!", {});
@@ -69,7 +73,11 @@ export const ActionCell = ({ product, viewHref }: ActionCellProps) => {
         onClick={handleDelete}
         className="border-border cursor-pointer border p-2"
       >
-        <IconTrash className="text-destructive h-4 w-4 hover:cursor-pointer" />
+        {product.isDeleted ? (
+          <CheckCheck className="h-4 w-4 text-emerald-500 hover:cursor-pointer" />
+        ) : (
+          <IconTrash className="text-destructive h-4 w-4 hover:cursor-pointer" />
+        )}
       </Button>
     </div>
   );

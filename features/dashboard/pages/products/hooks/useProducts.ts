@@ -1,16 +1,15 @@
 import {
   CreateAdminProduct,
-  DeleteAdminProduct,
   getAdminBrands,
   getAdminCategories,
   getAdminProduct,
   getAdminProducts,
+  ToggleDeleteAdminProduct,
   UpdateAdminProduct,
 } from "@/services/adminServices/products.service";
 import { ReqCreateProductType } from "@/types/admin/product";
 import { ProductType } from "@/types/shop/product";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { Product } from "../columns";
 
@@ -42,11 +41,11 @@ export const useGetAdminProduct = (productId: string) => {
   });
 };
 
-export const useDeleteAdminProduct = () => {
+export const useToggleDeleteAdminProduct = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (productId: string) => DeleteAdminProduct(productId),
+    mutationFn: (productId: string) => ToggleDeleteAdminProduct(productId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["products"] });
     },
@@ -54,7 +53,6 @@ export const useDeleteAdminProduct = () => {
 };
 
 export const useUpdateAdminProduct = () => {
-  const router = useRouter();
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -71,18 +69,12 @@ export const useUpdateAdminProduct = () => {
       queryClient.invalidateQueries({ queryKey: ["products"] });
     },
     onError: () => {
-      toast.error("Invalid email or password, register first", {
-        action: {
-          label: "Register",
-          onClick: () => router.push("/signup"),
-        },
-      });
+      toast.error("Update Product Faild", {});
     },
   });
 };
 
 export const useCreateAdminProduct = () => {
-  const router = useRouter();
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -93,12 +85,7 @@ export const useCreateAdminProduct = () => {
       queryClient.invalidateQueries({ queryKey: ["products"] });
     },
     onError: () => {
-      toast.error("Invalid email or password, register first", {
-        action: {
-          label: "Register",
-          onClick: () => router.push("/signup"),
-        },
-      });
+      toast.error("Create Product Faild", {});
     },
   });
 };

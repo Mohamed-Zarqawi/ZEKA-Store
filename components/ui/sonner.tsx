@@ -23,7 +23,7 @@ const Toaster = ({ ...props }: ToasterProps) => {
           <HugeiconsIcon
             icon={CheckmarkCircle02Icon}
             strokeWidth={2}
-            className="size-4 text-emerald-500"
+            className="size-4"
           />
         ),
         info: (
@@ -37,14 +37,14 @@ const Toaster = ({ ...props }: ToasterProps) => {
           <HugeiconsIcon
             icon={Alert02Icon}
             strokeWidth={2}
-            className="text-destructive size-4"
+            className="size-4"
           />
         ),
         error: (
           <HugeiconsIcon
             icon={MultiplicationSignCircleIcon}
             strokeWidth={2}
-            className="text-destructive size-4"
+            className="size-4"
           />
         ),
         loading: (
@@ -69,7 +69,7 @@ const Toaster = ({ ...props }: ToasterProps) => {
 
           title: "font-extrabold text-xs ",
 
-          description: " text-xs text-muted-foreground uppercase ",
+          description: " text-[9px] text-muted-foreground!",
 
           actionButton:
             "group-[.toast]:bg-primary group-[.toast]:text-primary-foreground font-extrabold uppercase text-xs rounded-lg",

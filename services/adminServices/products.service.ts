@@ -15,9 +15,13 @@ export const getAdminProducts = async (
 
   let query = supabase
     .from("products")
-    .select("* , category:categories(*) , brand:brands(*) ", {
-      count: "exact",
-    });
+
+    .select(
+      "* , ordersNumber, favoritesNumber, category:categories(*) , brand:brands(*) ",
+      {
+        count: "exact",
+      },
+    );
 
   if (categories.length > 0) {
     query = query.in("category_id", categories);
@@ -51,18 +55,6 @@ export const getAdminProducts = async (
     },
   };
 };
-
-// export const getAdminProducts = async (
-//   page: number = 1,
-//   categories: string[] = [],
-//   brands: string[] = [],
-//   minPrice: number = 0,
-//   maxPrice: number = 1000,
-// ) => {
-//   const { data, error } = await supabase.from("products").select("*");
-
-//   return data: data ?? []
-// };
 
 // -------------- GetProduct --------------
 
@@ -99,15 +91,35 @@ export const UpdateAdminProduct = async (
 
 // -------------- DeleteProduct --------------
 
-export const DeleteAdminProduct = async (productId: string) => {
-  const { error } = await supabase
+export const ToggleDeleteAdminProduct = async (productId: string) => {
+  const { data: product, error: fetchError } = await supabase
     .from("products")
-    .delete()
-    .eq("id", productId);
+    .select("isDeleted")
+    .eq("id", productId)
+    .maybeSingle();
+
+  if (fetchError) {
+    throw fetchError;
+  }
+
+  if (!product) {
+    throw new Error("Product not found");
+  }
+
+  const { data, error } = await supabase
+    .from("products")
+    .update({
+      isDeleted: !product.isDeleted,
+    })
+    .eq("id", productId)
+    .select()
+    .single();
 
   if (error) {
     throw error;
   }
+
+  return data;
 };
 
 // -------------- CreateProduct --------------

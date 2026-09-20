@@ -12,9 +12,16 @@ import { deleteAccount } from "@/services/authServices/deleteAccount.service";
 import { reqForgotPassword } from "@/types/auth/forgotPassword";
 import { ReqLoginType } from "@/types/auth/login";
 import { User } from "@/types/auth/user";
+
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
+// toast.error(`${getErrorMessage(error)}`, {
+//   action: {
+//     label: "Register",
+//     onClick: () => router.push("/signup"),
+//   },
+// });
 const AUTH_TOKEN_CHANGED_EVENT = "auth-token-changed";
 
 const notifyAuthTokenChanged = () => {
@@ -22,32 +29,45 @@ const notifyAuthTokenChanged = () => {
 };
 
 type ApiError = {
-  response?: {
-    data?: {
-      error?: {
-        status?: string;
-        message?: string;
-      };
-    };
-  };
-  error?: {
-    message?: string;
-  };
+  code?: string;
   message?: string;
 };
 
-const getErrorMessage = (error: unknown, fallback: string) => {
-  if (typeof error !== "object" || error === null) return fallback;
+const getErrorMessage = (
+  error: ApiError,
+  router: ReturnType<typeof useRouter>,
+) => {
+  switch (error.code) {
+    case "user_banned":
+      return toast.warning("Your account is banned");
 
-  const apiError = error as ApiError;
+    case "invalid_credentials":
+      return toast.error("Email or password is not correct", {
+        description: "If you don't have an account register first.",
+        action: {
+          label: "Register",
+          onClick: () => router.push("/signup"),
+        },
+      });
 
-  return (
-    apiError.response?.data?.error?.message ??
-    apiError.error?.message ??
-    apiError.message ??
-    fallback
-  );
+    case "403":
+    case "FORBIDDEN":
+      return "Forbidden: You do not have permission to perform this action.";
+
+    case "404":
+    case "NOT_FOUND":
+      return "Not Found: The requested resource could not be found.";
+
+    case "500":
+    case "INTERNAL_SERVER_ERROR":
+      return "Server Error: Something went wrong on our end. Please try again later.";
+
+    default:
+      // في حال لم يتطابق الكود، نعرض الرسالة القادمة من الـ API إن وُجدت، أو رسالة عامة
+      return error.message || "An unexpected error occurred. Please try again.";
+  }
 };
+
 export const useGetCurrentUser = () => {
   return useQuery<User>({
     queryKey: ["currentUser"],
@@ -68,13 +88,8 @@ export const useLogin = () => {
       toast.success("Login Successfully", {});
       router.push("/shop");
     },
-    onError: (error: unknown) => {
-      toast.error("Invalid email or password, register first", {
-        action: {
-          label: "Register",
-          onClick: () => router.push("/signup"),
-        },
-      });
+    onError: (error: ApiError) => {
+      getErrorMessage(error, router);
     },
   });
 };

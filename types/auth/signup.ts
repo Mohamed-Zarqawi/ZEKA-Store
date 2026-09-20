@@ -13,7 +13,6 @@ export type ResSignUpType = {
   jwt: string;
   user: {
     id: number;
-    documentId: string;
     username: string;
     email: string;
     provider: string;

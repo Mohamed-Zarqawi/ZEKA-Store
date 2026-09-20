@@ -1,14 +1,7 @@
-// import UsersPage from "@/features/dashboard/pages/users/UsersPage";
-// import React from "react";
+import UsersPage from "@/features/dashboard/pages/users/UsersPage";
 
-// const Users = () => {
-//   return <UsersPage />;
-// };
-
-// export default Users;
-
-const page = () => {
-  return <div></div>;
+const Users = () => {
+  return <UsersPage />;
 };
 
-export default page;
+export default Users;

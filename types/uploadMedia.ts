@@ -24,7 +24,6 @@ export type ReqUploadMediaType = y.InferType<typeof UploadMediaSchema>;
 
 export type ResUploadMediaType = {
   id: number;
-  documentId: string;
   name?: string;
   url?: string;
 }[];

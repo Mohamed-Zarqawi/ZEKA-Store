@@ -29,11 +29,16 @@ import { useMedia } from "@/hooks/useMedia";
 import { UpdateProductSchema } from "@/types/admin/product";
 import { getChangedValues } from "@/utils/getChangedValues";
 import { IconTrash } from "@tabler/icons-react";
+import Image from "next/image";
 import { useState } from "react";
 
 interface EditProductPageProps {
   productId: string;
 }
+export type OptionsType = {
+  name: string;
+  id: string;
+};
 const EditProductPage = ({ productId }: EditProductPageProps) => {
   const router = useRouter();
 
@@ -55,16 +60,16 @@ const EditProductPage = ({ productId }: EditProductPageProps) => {
   };
 
   const categoriesOptions: Option[] = Array.isArray(categories)
-    ? categories.map((category: any) => ({
+    ? categories.map((category: OptionsType) => ({
         label: category.name,
-        value: category.id,
+        value: String(category.id),
       }))
     : [];
 
   const brandsOptions: Option[] = Array.isArray(brands)
-    ? brands.map((brand: any) => ({
+    ? brands.map((brand: OptionsType) => ({
         label: brand.name,
-        value: brand.id,
+        value: String(brand.id),
       }))
     : [];
 
@@ -142,8 +147,8 @@ const EditProductPage = ({ productId }: EditProductPageProps) => {
       description: product?.description || "",
       price: product?.price || 0,
       stock: product?.stock || 0,
-      category_id: product?.category_id as any,
-      brand_id: product?.brand_id as any,
+      category_id: product?.category_id,
+      brand_id: product?.brand_id,
       images: product?.images?.map((image) => image) || [],
     },
     validationSchema: UpdateProductSchema,
@@ -262,7 +267,7 @@ const EditProductPage = ({ productId }: EditProductPageProps) => {
                   </FieldLabel>
                   <Select
                     key={`category-${values.category_id}`}
-                    value={values.category_id}
+                    value={String(values.category_id)}
                     onValueChange={(value) =>
                       setFieldValue("category_id", value)
                     }
@@ -295,7 +300,7 @@ const EditProductPage = ({ productId }: EditProductPageProps) => {
                   </FieldLabel>
                   <Select
                     key={`brand-${values.brand_id}`}
-                    value={values.brand_id}
+                    value={String(values.brand_id)}
                     onValueChange={(value) =>
                       setFieldValue("brand_id", Number(value))
                     }
@@ -396,8 +401,11 @@ const EditProductPage = ({ productId }: EditProductPageProps) => {
                 </FieldLabel>
                 <div className="relative flex w-full max-w-2xl gap-8">
                   {values?.images?.length > 0 ? (
-                    <img
+                    <Image
                       src={mainImage}
+                      alt={`${product.name} main photo`}
+                      width={232}
+                      height={232}
                       className="border-primary h-58 w-58 rounded-2xl border object-cover object-center"
                     />
                   ) : (
@@ -421,9 +429,11 @@ const EditProductPage = ({ productId }: EditProductPageProps) => {
                       ?.filter((image) => values.images.includes(image))
                       .map((image, i) => (
                         <div className="relative" key={i}>
-                          <img
+                          <Image
                             src={image}
                             alt={product.name}
+                            width={128}
+                            height={128}
                             className="border-primary h-32 w-32 rounded-2xl border object-cover object-center"
                           />
 
@@ -432,14 +442,14 @@ const EditProductPage = ({ productId }: EditProductPageProps) => {
                             variant="outline"
                             size="rounded-icon-sm"
                             onClick={() => handleRemoveImage(image)}
-                            className="border-border absolute top-2 right-2 cursor-pointer rounded-full border text-white hover:cursor-pointer"
+                            className="border-border text-foreground absolute top-2 right-2 cursor-pointer rounded-full border hover:cursor-pointer"
                           >
                             <IconTrash className="text-destructive h-4 w-4 hover:cursor-pointer" />
                           </Button>
                           {mainImage == image ? (
                             <Badge
                               variant="outline"
-                              className="border-border absolute top-3 left-2 cursor-pointer rounded-full border text-white hover:cursor-pointer"
+                              className="border-border text-foreground absolute top-3 left-2 cursor-pointer rounded-full border hover:cursor-pointer"
                             >
                               Main
                             </Badge>
@@ -449,7 +459,7 @@ const EditProductPage = ({ productId }: EditProductPageProps) => {
                               variant="outline"
                               size={"rounded-icon-sm"}
                               onClick={() => handleSetMainImage(image)}
-                              className="border-border absolute top-2 left-2 cursor-pointer rounded-full border text-white hover:cursor-pointer"
+                              className="border-border text-foreground absolute top-2 left-2 cursor-pointer rounded-full border hover:cursor-pointer"
                             >
                               <Pin className="h-4 w-4 hover:cursor-pointer" />
                             </Button>
@@ -472,8 +482,12 @@ const EditProductPage = ({ productId }: EditProductPageProps) => {
                     </FieldLabel>
                     {selectedImages.map((image, index) => (
                       <div key={index} className="relative h-32 w-32">
-                        <img
+                        <Image
                           src={image.previewUrl}
+                          alt="New product photo"
+                          width={128}
+                          height={128}
+                          unoptimized
                           className="border-primary h-32 w-32 rounded-2xl border-2 border-dashed object-cover"
                         />
 
@@ -482,7 +496,7 @@ const EditProductPage = ({ productId }: EditProductPageProps) => {
                           variant="outline"
                           size="rounded-icon-sm"
                           onClick={() => handleRemoveSelectedImage(index)}
-                          className="border-border absolute top-2 right-2 cursor-pointer rounded-full border text-white hover:cursor-pointer"
+                          className="border-border text-foreground absolute top-2 right-2 cursor-pointer rounded-full border hover:cursor-pointer"
                         >
                           <IconTrash className="text-destructive h-4 w-4 hover:cursor-pointer" />
                         </Button>
@@ -508,7 +522,7 @@ const EditProductPage = ({ productId }: EditProductPageProps) => {
               }
               className="rounded-lg p-6 text-base hover:cursor-pointer"
             >
-              "Update Product"
+              Update Product
             </Button>
           </div>
         </form>

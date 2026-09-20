@@ -156,7 +156,7 @@ const ProductPage = ({ productId }: ViewProps) => {
                   width={500}
                   height={500}
                   onClick={() => handleChangeImage(image)}
-                  className="border-primary h-25 w-full rounded-2xl border object-cover object-center hover:cursor-pointer"
+                  className={`border-primary h-25 w-full rounded-2xl border object-cover object-center duration-500 hover:cursor-pointer ${image == (selectedImage || imageUrl) ? "border-primary" : "border-primary/30"}`}
                   alt={product.name}
                 />
               ))
@@ -250,7 +250,7 @@ const ProductPage = ({ productId }: ViewProps) => {
                     width={500}
                     height={100}
                     onClick={() => handleChangeImage(image)}
-                    className={`transition-color aspect-square h-25 w-25 rounded-xl border object-cover object-center duration-500 hover:cursor-pointer ${image == (selectedImage || imageUrl) ? "border-primary" : "border-primary/30"} `}
+                    className={`aspect-square h-25 w-25 rounded-xl border object-cover object-center duration-500 hover:cursor-pointer ${image == (selectedImage || imageUrl) ? "border-primary" : "border-primary/30"} `}
                     alt={product.name}
                   />
                 ))
