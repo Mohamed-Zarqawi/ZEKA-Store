@@ -32,19 +32,36 @@ export const getUserAdmin = async (userId: string) => {
 };
 
 // -------------------- updateUser --------------------
+
 export const updateUserAdmin = async (
   userId: string,
   updatedData: Partial<Users>,
 ) => {
-  const { data, error } = await supabase
+  const { data: updateData, error: updateDataError } = await supabase
     .from("users")
     .update(updatedData)
     .eq("id", userId)
     .select()
     .single();
 
-  if (error) throw error;
-  return data;
+  if (updateDataError) throw updateDataError;
+
+  let authUser = null;
+  if (updatedData.email) {
+    const { data: authData, error: updateEmailError } =
+      await supabase.auth.admin.updateUserById(userId, {
+        email: updatedData.email,
+        email_confirm: true,
+      });
+
+    if (updateEmailError) throw updateEmailError;
+    authUser = authData.user;
+  }
+
+  return {
+    ...updateData,
+    auth: authUser,
+  };
 };
 
 // -------------------- deleteUser --------------------
@@ -63,5 +80,18 @@ export const toggleUserBlockAdmin = async (userId: string) => {
 
   if (error) throw error;
 
+  return data;
+};
+
+// -------------------- delete address user --------------------
+
+export const deleteAddressAdmin = async (addressId: string) => {
+  const { data, error } = await supabase
+    .from("addresses")
+    .delete()
+    .eq("id", addressId)
+    .select();
+
+  if (error) throw error;
   return data;
 };

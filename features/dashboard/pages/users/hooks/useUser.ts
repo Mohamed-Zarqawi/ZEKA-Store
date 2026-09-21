@@ -1,5 +1,6 @@
 import { Users } from "@/features/dashboard/pages/users/columns"; // تأكد من مسار الـ Type
 import {
+  deleteAddressAdmin,
   deleteUserAdmin,
   getUserAdmin,
   getUsersAdmin,
@@ -24,7 +25,7 @@ export const useGetUsersAdmin = () => {
 // ==========================================
 export const useGetUserAdmin = (userId: string) => {
   return useQuery<User>({
-    queryKey: ["user", userId],
+    queryKey: ["user"],
     queryFn: () => getUserAdmin(userId),
   });
 };
@@ -36,7 +37,6 @@ export const useUpdateUserAdmin = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    // ملاحظة: useMutation يقبل مُدخل واحد (variable)، لذلك جمعنا userId و updatedData في Object
     mutationFn: ({
       userId,
       updatedData,
@@ -45,9 +45,10 @@ export const useUpdateUserAdmin = () => {
       updatedData: Partial<Users>;
     }) => updateUserAdmin(userId, updatedData),
 
-    onSuccess: () => {
+    onSuccess: (variables) => {
       toast.success("User updated successfully!");
       queryClient.invalidateQueries({ queryKey: ["users"] });
+      queryClient.invalidateQueries({ queryKey: ["user"] });
     },
     onError: (error) => {
       toast.error("Something went wrong while updating user.");
@@ -92,12 +93,30 @@ export const useToggleUserBlockAdmin = () => {
       } else {
         toast.success("User activated successfully!");
       }
-      // تحديث الجدول فوراً
+
       queryClient.invalidateQueries({ queryKey: ["users"] });
     },
     onError: (error) => {
       toast.error("Something went wrong while toggling block status.");
       console.error(error);
+    },
+  });
+};
+
+// ==========================================
+// 4. حظر / فك حظر المستخدم (Toggle Block)
+// ==========================================
+
+export const useDeleteAddressAdmin = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (addressId: string) => deleteAddressAdmin(addressId),
+    onSuccess: (variables) => {
+      queryClient.invalidateQueries({
+        queryKey: ["user"],
+      });
+      toast.success("Address Deleted Successfully!");
     },
   });
 };

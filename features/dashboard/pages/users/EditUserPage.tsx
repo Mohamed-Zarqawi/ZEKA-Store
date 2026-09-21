@@ -13,7 +13,6 @@ import SelectInput from "@/components/myComponents/SelectInput";
 import SelectPhoneNumber from "@/components/myComponents/SelectPhoneNumber";
 import { Input } from "@/components/ui/input";
 import { UpdateUserSchema } from "@/types/admin/user";
-import { User } from "@/types/auth/user";
 import { getChangedValues } from "@/utils/getChangedValues";
 import { useFormik } from "formik";
 
@@ -32,20 +31,9 @@ const EditUserPage = ({ userId }: ViewProps) => {
     useUpdateUserAdmin();
 
   const router = useRouter();
-  const userName = (user?.first_name, user?.last_name);
 
-  const code = user?.phoneCode;
-  const number = user?.phoneNumber;
-  const fullNumber = code && number ? `+${code}-${number}` : "-";
-
-  const state = user?.is_blocked;
-  const isAvailable = state == false;
   const roleOptions = ["admin", "user", "support"];
   const stateOptions = ["blocked", "active"];
-
-  const handleEditProduct = async (updatedData: Partial<User>) => {
-    await updateUser({ userId, updatedData });
-  };
 
   const {
     values,
@@ -83,6 +71,7 @@ const EditUserPage = ({ userId }: ViewProps) => {
     },
   });
 
+  const name = values?.first_name + " " + values?.last_name;
   console.log(user);
   if (isUserLoading) {
     return (
@@ -97,14 +86,15 @@ const EditUserPage = ({ userId }: ViewProps) => {
       <div>
         <form onSubmit={handleSubmit}>
           <div className="flex items-center justify-between">
-            <div className="text-primary text-3xl">{userName}</div>
+            <div className="text-primary text-3xl">{name}</div>
             <Button
               variant={"outline"}
+              type="button"
               onClick={() => {
-                router.push(`/admin/users/${user.id}/edit`);
+                router.push(`/admin/users/${user.id}`);
               }}
             >
-              Edit Mode
+              View Mode
             </Button>
           </div>
           {/* System Data */}
@@ -220,6 +210,19 @@ const EditUserPage = ({ userId }: ViewProps) => {
                 <div className="text-muted-foreground">{user?.email}</div>
               </Field>
 
+              <Input
+                id="email"
+                name="email"
+                label="Email"
+                errors={errors}
+                touched={touched}
+                isLoading={isUserLoading}
+                value={values.email}
+                onChange={handleChange}
+                className="w-full sm:w-96"
+                aria-invalid={!!errors.email && !!touched.email}
+              />
+
               <SelectPhoneNumber
                 phoneNumberName="phoneNumber"
                 phoneCodeName="phoneCode"
@@ -240,7 +243,6 @@ const EditUserPage = ({ userId }: ViewProps) => {
                 </FieldLabel>
                 <div className="mt-1 grid w-full grid-cols-1 gap-4 md:grid-cols-2">
                   {user?.addresses?.map((Address, i) => {
-                    console.log(Address);
                     return (
                       <AddressCard key={i} address={Address} isAdmin={true} />
                     );

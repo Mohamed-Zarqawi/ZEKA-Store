@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { useDeleteAddressAdmin } from "@/features/dashboard/pages/users/hooks/useUser";
 import { AddressType } from "@/types/profile/address";
 import { IconTrash } from "@tabler/icons-react";
 import { Edit, Pin } from "lucide-react";
@@ -13,10 +14,15 @@ const AddressCard = ({
   isAdmin?: boolean;
 }) => {
   const router = useRouter();
+
   const { mutate: handleDelete, isPending: isDeleting } = useDeleteAddress();
+
+  const { mutate: handleDeleteAdmin, isPending: isDeletingAdmin } =
+    useDeleteAddressAdmin();
 
   const { mutateAsync: handleUpdateAddress, isPending: isAddressUpdating } =
     useUpdateAddress();
+
   const handleSetDefault = (addressId: string) => {
     handleUpdateAddress({
       action: "pin",
@@ -24,6 +30,8 @@ const AddressCard = ({
       addressData: { isDefault: true },
     });
   };
+
+  console.log(address.id);
   return (
     <div className="bg-card border-border w-full rounded-md border px-4 py-3 md:py-5">
       <div className="text-primary flex flex-col gap-3">
@@ -33,12 +41,17 @@ const AddressCard = ({
             <Button
               variant="outline"
               size="icon-sm"
+              type="button"
               disabled={isDeleting}
               isPending={isDeleting}
               onClick={() => {
-                handleDelete(address.id);
+                if (isAdmin) {
+                  handleDeleteAdmin(address.id);
+                } else {
+                  handleDelete(address.id);
+                }
               }}
-              className={`border-border cursor-pointer border p-2 ${isAdmin ? "hidden" : "flex"}`}
+              className="border-border cursor-pointer border p-2"
             >
               <IconTrash className="text-destructive h-4 w-4 hover:cursor-pointer" />
             </Button>
@@ -46,7 +59,8 @@ const AddressCard = ({
             <Button
               variant="outline"
               size="icon-sm"
-              className="border-border cursor-pointer border p-2"
+              className={`border-border cursor-pointer border p-2 ${isAdmin ? "hidden" : "flex"}`}
+              type="button"
               onClick={() => {
                 router.push(`addresses/${address.id}/edit`);
               }}
@@ -60,7 +74,7 @@ const AddressCard = ({
                 variant={"outline"}
                 size={"sm"}
                 disabled={address.isDefault}
-                className="border-border! cursor-pointer border p-2"
+                className={`border-border! cursor-pointer border p-2 ${isAdmin ? "hidden" : "flex"}`}
               >
                 Default
               </Button>
@@ -68,11 +82,12 @@ const AddressCard = ({
               <Button
                 variant="outline"
                 size={"icon-sm"}
+                type="button"
                 isPending={isAddressUpdating}
                 onClick={() => {
                   handleSetDefault(address.id);
                 }}
-                className="border-border cursor-pointer border p-2"
+                className={`border-border cursor-pointer border p-2 ${isAdmin ? "hidden" : "flex"}`}
               >
                 <Pin className="h-4 w-4 hover:cursor-pointer" />
               </Button>

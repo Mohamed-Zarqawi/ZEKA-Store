@@ -14,7 +14,7 @@ interface ViewProps {
 const ViewUserPage = ({ userId }: ViewProps) => {
   const { data: user, isLoading: isProductLoading } = useGetUserAdmin(userId);
   const router = useRouter();
-  const userName = (user?.first_name, user?.last_name);
+  const name = user?.first_name + " " + user?.last_name;
 
   const code = user?.phoneCode;
   const number = user?.phoneNumber;
@@ -36,7 +36,7 @@ const ViewUserPage = ({ userId }: ViewProps) => {
     user && (
       <div>
         <div className="flex items-center justify-between">
-          <div className="text-primary text-3xl">{userName}</div>
+          <div className="text-primary text-3xl">{name}</div>
           <Button
             variant={"outline"}
             onClick={() => {

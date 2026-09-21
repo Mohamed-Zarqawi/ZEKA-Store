@@ -39,7 +39,8 @@ export const useAddAddress = () => {
     }) => addAddress(userId, addressData),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["addresses"] });
-      router.push("/profile/addresses"); // تحويل المستخدم بعد الإضافة
+      router.push("/profile/addresses");
+      toast.success("Address Added Successfully!");
     },
   });
 };
@@ -49,7 +50,6 @@ export const useUpdateAddress = () => {
 
   return useMutation({
     mutationFn: ({
-      action,
       addressId,
       addressData,
     }: {
@@ -58,15 +58,17 @@ export const useUpdateAddress = () => {
       addressData: Partial<AddressType>;
     }) => updateAddress(addressId, addressData),
     onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({ queryKey: ["addresses"] });
-      {
-        variables.action == "pin"
-          ? toast.success(`Address Seted As Default Successfully!`, {})
-          : toast.success("Address Updated Successfully !", {});
+      queryClient.invalidateQueries({
+        queryKey: ["addresses"],
+      });
+      if (variables.action === "pin") {
+        toast.success("Address Seted As Default Successfully!");
+      } else {
+        toast.success("Address Updated Successfully !");
       }
     },
     onError: () => {
-      toast.error("Could not update Address, please try again later.", {});
+      toast.error("Could not update Address, please try again later.");
     },
   });
 };
@@ -77,7 +79,10 @@ export const useDeleteAddress = () => {
   return useMutation({
     mutationFn: (addressId: string) => deleteAddress(addressId),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["addresses"] });
+      queryClient.invalidateQueries({
+        queryKey: ["addresses"],
+      });
+      toast.success("Address Deleted Successfully!");
     },
   });
 };
