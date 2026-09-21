@@ -30,13 +30,13 @@ const AddressesPage = () => {
       </div>
       {/* contact information */}
       {addresses.length == 0 ? (
-        <div className="border-primary mt-6 flex h-fit w-full flex-col rounded-3xl border bg-[#1a1a1a]/20 px-6 py-6 md:mt-10 md:px-8 md:py-10">
+        <div className="border-primary mt-6 flex h-fit w-full flex-col rounded-3xl border bg-[#1a1a1a]/20 px-6 py-6 md:mt-10 md:flex-row md:px-8 md:py-10">
           <div className="text-base">You don&apos;t add any addresses.</div>
           <Button
             onClick={() => {
               router.push("addresses/add");
             }}
-            className="w-fit"
+            className="w-full md:w-fit"
           >
             Add Here
           </Button>

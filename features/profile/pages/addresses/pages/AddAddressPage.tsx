@@ -286,7 +286,7 @@ const AddAddressPage = () => {
             />
 
             <SelectPhoneNumber
-              phoneNumberName="phoneNumber"
+              phoneNumberName="phone"
               phoneCodeName="phoneCode"
               phoneNumberValue={values.phone}
               phoneCodeValue={values.phoneCode}

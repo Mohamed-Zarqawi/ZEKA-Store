@@ -63,8 +63,6 @@ const SelectPhoneNumber = ({
           {/* نستخدم div أو أي غلاف هنا لأن DialogTrigger أحياناً يعترض على وجود Input كابن مباشر بدون asChild، تأكد منها حسب إعداداتك */}
           <div className="w-full md:w-100">
             <Input
-              id={phoneNumberName}
-              name={phoneNumberName}
               label="Phone Number"
               errors={errors}
               touched={touched}
@@ -145,6 +143,7 @@ const SelectPhoneNumber = ({
                 name={phoneNumberName}
                 type="tel"
                 isRequired={true}
+                errors={errors}
                 touched={touched}
                 value={phoneNumberValue}
                 placeholder="Phone Number"
