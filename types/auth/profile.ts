@@ -1,5 +1,5 @@
-import * as y from "yup";
 import { isValidPhoneNumber } from "libphonenumber-js";
+import * as y from "yup";
 
 export const updateProfileSchema = y.object({
   first_name: y.string().required(),

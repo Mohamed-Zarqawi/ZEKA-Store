@@ -97,7 +97,7 @@ const CartPage = () => {
                   disabled={isCreateOrder}
                   isPending={isCreateOrder}
                   pendingText="PROCESSING..."
-                  className="bg-primary hover:bg-secondary hidden rounded-lg px-2 py-3 text-center text-sm transition-colors duration-300 disabled:opacity-70 md:block md:px-3 md:py-4 md:text-base"
+                  className="bg-primary hover:bg-secondary hidden items-center rounded-lg px-2 py-3 text-center text-sm transition-colors duration-300 disabled:opacity-70 md:flex md:px-3 md:py-4 md:text-base"
                 >
                   PROCEED TO CHECKOUT
                 </Button>
@@ -112,7 +112,7 @@ const CartPage = () => {
             disabled={isCreateOrder}
             isPending={isCreateOrder}
             pendingText="PROCESSING..."
-            className="bg-primary/60 border-primary sticky bottom-21 -mt-2 rounded-xl px-3 py-4 text-center text-sm backdrop-blur-md transition-colors duration-300 disabled:opacity-70 md:hidden"
+            className="bg-primary/60 border-primary sticky bottom-21 -mt-2 flex items-center rounded-xl px-3 py-4 text-center text-sm backdrop-blur-md disabled:opacity-70 md:hidden"
           >
             PROCEED TO CHECKOUT
           </Button>

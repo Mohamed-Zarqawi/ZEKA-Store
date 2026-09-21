@@ -6,8 +6,6 @@ import { Input } from "@/components/ui/input";
 import { useFormik } from "formik";
 import { Pin, Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { toast } from "sonner";
-import { Product } from "./columns";
 import {
   useGetAdminBrands,
   useGetAdminCategories,
@@ -27,6 +25,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { useMedia } from "@/hooks/useMedia";
 import { UpdateProductSchema } from "@/types/admin/product";
+import { ProductType } from "@/types/shop/product";
 import { getChangedValues } from "@/utils/getChangedValues";
 import { IconTrash } from "@tabler/icons-react";
 import Image from "next/image";
@@ -42,7 +41,7 @@ export type OptionsType = {
 const EditProductPage = ({ productId }: EditProductPageProps) => {
   const router = useRouter();
 
-  const { mutateAsync: updateProduct, isPending: isUpdating } =
+  const { mutateAsync: updateProduct, isPending: isProductUpdating } =
     useUpdateAdminProduct();
 
   const { mutateAsync: uploadMedia, isPending: isMediaUploading } = useMedia();
@@ -75,23 +74,12 @@ const EditProductPage = ({ productId }: EditProductPageProps) => {
 
   // ------------------ handle edit product -------------------
 
-  const handleEditProduct = async (updatedData: Partial<Product>) => {
+  const handleEditProduct = async (updatedData: Partial<ProductType>) => {
     if (!productId) return;
 
     if (updatedData.stock !== undefined)
       updatedData.stock = Number(updatedData.stock);
-    await updateProduct(
-      { productId, updatedData },
-      {
-        onSuccess: () => {
-          toast.success("Product updated successfully!", {});
-        },
-        onError: (error) => {
-          toast.error("Failed to update product!", {});
-          console.error(error);
-        },
-      },
-    );
+    await updateProduct({ productId, updatedData });
   };
 
   interface PreviewImage {
@@ -509,15 +497,15 @@ const EditProductPage = ({ productId }: EditProductPageProps) => {
           </div>
 
           {/* Actions */}
-          <div className="mt-6 flex gap-3">
+          <div className="mt-6 flex justify-end gap-3">
             <Button
               type="submit"
               variant="default"
-              isPending={isUpdating || isMediaUploading}
+              isPending={isProductUpdating || isMediaUploading}
               pendingText="Updating"
               disabled={
                 (!dirty && selectedImages.length === 0) ||
-                isUpdating ||
+                isProductUpdating ||
                 isMediaUploading
               }
               className="rounded-lg p-6 text-base hover:cursor-pointer"

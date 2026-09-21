@@ -1,5 +1,4 @@
 import SelectInput from "@/components/myComponents/SelectInput";
-import { Button } from "@/components/ui/button";
 import {
   Field,
   FieldContent,
@@ -23,7 +22,7 @@ const NotificationPage = () => {
 
             <SelectInput
               placeholder="Select Language"
-              selectItems={["English", "Arabic"]}
+              options={["English", "Arabic"]}
             />
           </div>
         </div>

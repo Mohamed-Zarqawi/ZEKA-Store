@@ -24,6 +24,7 @@ export const getOrders = async (userId: string) => {
       order_items (
         id,
         quantity,
+        orderId,
         price,
         product:products (
           *

@@ -5,25 +5,9 @@ import { Input } from "@/components/ui/input";
 import { useFormik } from "formik";
 import { Mars, Venus } from "lucide-react";
 
+import ButtonsSelect from "@/components/myComponents/ButtonsSelect";
 import SelectDate from "@/components/myComponents/SelectDate";
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogFooter,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { Field, FieldLabel } from "@/components/ui/field";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Skeleton } from "@/components/ui/skeleton";
+import SelectPhoneNumber from "@/components/myComponents/SelectPhoneNumber";
 import { useGetCurrentUser } from "@/features/auth/pages/hooks/useAuth";
 import { updateProfileSchema } from "@/types/auth/profile";
 import { getChangedValues } from "@/utils/getChangedValues";
@@ -105,104 +89,19 @@ const ProfilePage = () => {
               />
             </div>
 
-            <Dialog>
-              <DialogTrigger>
-                <Input
-                  id="phoneNumber"
-                  name="phoneNumber"
-                  label="Phone Number"
-                  isRequired={true}
-                  errors={errors}
-                  touched={touched}
-                  isLoading={isLoading}
-                  readOnly
-                  value={
-                    values.phoneCode && values.phoneNumber
-                      ? "+" + values.phoneCode + "-" + values.phoneNumber
-                      : ""
-                  }
-                  placeholder="Add phone number"
-                  onChange={handleChange}
-                  className="w-full cursor-pointer md:w-100"
-                  aria-invalid={!!errors.phoneNumber && !!touched.phoneNumber}
-                />
-              </DialogTrigger>
-              <DialogContent className="w-full! min-w-fit!">
-                <DialogTitle>
-                  {currentUser?.phoneNumber == ""
-                    ? "Add phone number"
-                    : "Update phone number"}
-                </DialogTitle>
-                <div className="my-3 flex w-full items-center gap-2">
-                  <Select
-                    value={
-                      ALL_COUNTRIES.find(
-                        (c) =>
-                          c.phonecode.replace("+", "") ===
-                          String(values.phoneCode).replace("+", ""),
-                      )?.isoCode || ""
-                    }
-                    onValueChange={(selectedIso) => {
-                      const selectedCountry = ALL_COUNTRIES.find(
-                        (c) => c.isoCode === selectedIso,
-                      );
-                      if (selectedCountry) {
-                        setFieldValue(
-                          "phoneCode",
-                          selectedCountry.phonecode.replace("+", ""),
-                        );
-                      }
-                    }}
-                    onOpenChange={(open) => {
-                      if (!open) setFieldTouched("phoneCode", true);
-                    }}
-                  >
-                    <SelectTrigger className="w-fit shrink-0">
-                      <SelectValue placeholder="+" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectGroup>
-                        {ALL_COUNTRIES.map((country) => {
-                          const cleanCode = country.phonecode.replace("+", "");
-                          return (
-                            <SelectItem
-                              key={country.isoCode}
-                              value={country.isoCode}
-                            >
-                              +{cleanCode} ({country.isoCode})
-                            </SelectItem>
-                          );
-                        })}
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
-                  {/* 2. حقل رقم الهاتف (يأخذ باقي المساحة المتاحة بالكامل بفضل flex-1) */}
-                  <div className="flex-1">
-                    <Input
-                      id="phoneNumber"
-                      name="phoneNumber"
-                      type="tel"
-                      isRequired={true}
-                      touched={touched}
-                      value={values.phoneNumber}
-                      onChange={handleChange}
-                      className="w-full"
-                      aria-invalid={
-                        !!errors.phoneNumber && !!touched.phoneNumber
-                      }
-                    />
-                  </div>
-                </div>
-
-                <DialogFooter>
-                  <DialogClose asChild>
-                    <Button className="h-11" variant="default">
-                      Update Phone Number
-                    </Button>
-                  </DialogClose>
-                </DialogFooter>
-              </DialogContent>
-            </Dialog>
+            <SelectPhoneNumber
+              phoneNumberName="phoneNumber"
+              phoneCodeName="phoneCode"
+              phoneNumberValue={values.phoneNumber}
+              phoneCodeValue={values.phoneCode}
+              currentUser={currentUser}
+              isLoading={isLoading}
+              errors={errors}
+              touched={touched}
+              onChange={handleChange}
+              setFieldValue={setFieldValue}
+              setFieldTouched={setFieldTouched}
+            />
           </div>
         </div>
 
@@ -254,42 +153,28 @@ const ProfilePage = () => {
               />
 
               <div className="flex w-full flex-col justify-center gap-3">
-                <Field>
-                  <FieldLabel className="text-primary text-sm">
-                    Gender
-                  </FieldLabel>
-                  <div className="flex w-full gap-3 md:gap-2">
-                    {isLoading ? (
-                      <Skeleton className="h-12.5 w-full rounded-lg md:h-13 md:w-35" />
-                    ) : (
-                      <Button
-                        variant={"outline"}
-                        size={"icon-lg"}
-                        type="button"
-                        onClick={() => setFieldValue("gender", "male")}
-                        className={`border-primary w-full flex-1 gap-2 rounded-lg p-6 text-base transition-all outline-none hover:cursor-pointer md:w-35 md:flex-initial ${values.gender === "male" ? "ring-secondary! bg-secondary/10! ring-1!" : ""}`}
-                      >
-                        <Mars className="size-5" />
-                        Male
-                      </Button>
-                    )}
-
-                    {isLoading ? (
-                      <Skeleton className="h-12.5 w-full rounded-lg md:h-13 md:w-35" />
-                    ) : (
-                      <Button
-                        variant={"outline"}
-                        size={"icon-lg"}
-                        type="button"
-                        onClick={() => setFieldValue("gender", "female")}
-                        className={`border-primary w-full flex-1 gap-2 rounded-lg p-6 text-base transition-all outline-none hover:cursor-pointer md:w-35 md:flex-initial ${values.gender === "female" ? "ring-secondary! bg-secondary/10! ring-1!" : ""}`}
-                      >
-                        <Venus className="size-5" />
-                        Female
-                      </Button>
-                    )}
-                  </div>
-                </Field>
+                <ButtonsSelect
+                  label="Gender"
+                  isLoading={isLoading}
+                  variant={"outline"}
+                  size={"icon-lg"}
+                  value={String(values.gender)}
+                  onChange={(selectedValue) =>
+                    setFieldValue("gender", selectedValue)
+                  }
+                  options={[
+                    {
+                      label: "Male",
+                      value: "male",
+                      Icon: Mars,
+                    },
+                    {
+                      label: "Female",
+                      value: "female",
+                      Icon: Venus,
+                    },
+                  ]}
+                />
               </div>
             </div>
           </div>

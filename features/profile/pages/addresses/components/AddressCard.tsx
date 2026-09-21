@@ -5,7 +5,13 @@ import { Edit, Pin } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useDeleteAddress, useUpdateAddress } from "../hooks/useAddresses";
 
-const AddressCard = ({ address }: { address: AddressType }) => {
+const AddressCard = ({
+  address,
+  isAdmin,
+}: {
+  address: AddressType;
+  isAdmin?: boolean;
+}) => {
   const router = useRouter();
   const { mutate: handleDelete, isPending: isDeleting } = useDeleteAddress();
 
@@ -23,7 +29,7 @@ const AddressCard = ({ address }: { address: AddressType }) => {
       <div className="text-primary flex flex-col gap-3">
         <div className="my-auto flex items-center justify-between md:mb-1.5">
           <div className="capitalize">{address.title}</div>
-          <div className="flex items-center gap-2">
+          <div className={`flex items-center gap-2`}>
             <Button
               variant="outline"
               size="icon-sm"
@@ -32,7 +38,7 @@ const AddressCard = ({ address }: { address: AddressType }) => {
               onClick={() => {
                 handleDelete(address.id);
               }}
-              className="border-border cursor-pointer border p-2"
+              className={`border-border cursor-pointer border p-2 ${isAdmin ? "hidden" : "flex"}`}
             >
               <IconTrash className="text-destructive h-4 w-4 hover:cursor-pointer" />
             </Button>

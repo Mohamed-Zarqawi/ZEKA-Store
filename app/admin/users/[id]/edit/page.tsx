@@ -1,15 +1,15 @@
 "use client";
 
-import EditProductPage from "@/features/dashboard/pages/products/EditProductPage";
+import EditUserPage from "@/features/dashboard/pages/users/EditUserPage";
 import { useParams } from "next/navigation";
 
 const Page = () => {
   const params = useParams();
-  const productId = params.id;
+  const userId = params.id;
 
   return (
     <div>
-      <EditProductPage productId={String(productId)} />
+      <EditUserPage userId={String(userId)} />
     </div>
   );
 };

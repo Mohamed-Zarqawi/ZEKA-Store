@@ -18,7 +18,13 @@ import { toast } from "sonner";
 import { Heart } from "../../../components/animate-ui/icons/heart";
 import { ProductCardSkeleton } from "./ProductCardSkilton";
 
-const ProductCard = ({ product }: { product: ProductType }) => {
+const ProductCard = ({
+  product,
+  isAdmin,
+}: {
+  product: ProductType;
+  isAdmin?: boolean;
+}) => {
   const { data: currentUser, isLoading: isCurrentUserLoading } =
     useGetCurrentUser();
   const { data: cart = [], isLoading: isCartLoading } = useGetCart(
@@ -52,7 +58,7 @@ const ProductCard = ({ product }: { product: ProductType }) => {
 
   // -----------------------------------
   const favoriteItem = favorites.find(
-    (item: FavoriteItem) => item.productId === product.id,
+    (item: FavoriteItem) => item?.productId === product?.id,
   );
   const isInFavorite = !!favoriteItem;
 
@@ -70,7 +76,7 @@ const ProductCard = ({ product }: { product: ProductType }) => {
     });
   };
 
-  if (isCartLoading || isLoadingFavorites || isCurrentUserLoading) {
+  if (isCartLoading || isLoadingFavorites || isCurrentUserLoading || !product) {
     return <ProductCardSkeleton />;
   }
   return (
@@ -81,7 +87,8 @@ const ProductCard = ({ product }: { product: ProductType }) => {
 
           <div className="relative">
             {/* love icon */}
-            <div className="flex flex-col">
+
+            <div className={`${isAdmin ? "hidden" : "flex"} flex-col`}>
               <Button
                 variant="none"
                 size="none"
@@ -168,6 +175,7 @@ const ProductCard = ({ product }: { product: ProductType }) => {
                 )}
               </div>
             </div>
+
             {/* image */}
             <img
               src={product.images?.[0] || "/images/placeholder.jpeg"}

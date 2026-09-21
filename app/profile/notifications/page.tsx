@@ -1,3 +1,5 @@
+"use client";
+
 import NotificationPage from "@/features/profile/pages/notification/NotificationPage";
 
 const Notification = () => {

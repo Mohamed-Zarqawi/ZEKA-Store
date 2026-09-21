@@ -1,5 +1,6 @@
 import { supabase } from "@/lib/supabase";
 import { ReqCreateProductType } from "@/types/admin/product";
+import { ProductType } from "@/types/shop/product";
 
 // -------------- getProducts --------------
 
@@ -10,8 +11,8 @@ export const getAdminProducts = async (
   minPrice: number = 0,
   maxPrice: number = 1000,
 ) => {
-  const from = (page - 1) * 12;
-  const to = from + 12 - 1;
+  // const from = (page - 1) * 12;
+  // const to = from + 12 - 1;
 
   let query = supabase
     .from("products")
@@ -75,7 +76,7 @@ export const getAdminProduct = async (productId: string) => {
 
 export const UpdateAdminProduct = async (
   productId: string,
-  updatedData: Record<string, any> = {},
+  updatedData: Partial<ProductType> = {},
 ) => {
   const { data, error } = await supabase
     .from("products")

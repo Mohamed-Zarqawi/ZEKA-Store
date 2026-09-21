@@ -4,11 +4,11 @@ import { Button } from "@/components/ui/button";
 
 import { useGetCurrentUser } from "@/features/auth/pages/hooks/useAuth";
 
+import { Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import AddressCard from "../components/AddressCard";
 import AddressesPageSkeleton from "../components/AddressesPageSkilton";
 import { useGetAddresses } from "../hooks/useAddresses";
-import { Plus } from "lucide-react";
 
 const AddressesPage = () => {
   const router = useRouter();
@@ -31,11 +31,12 @@ const AddressesPage = () => {
       {/* contact information */}
       {addresses.length == 0 ? (
         <div className="border-primary mt-6 flex h-fit w-full flex-col rounded-3xl border bg-[#1a1a1a]/20 px-6 py-6 md:mt-10 md:px-8 md:py-10">
-          <div className="text-base">You don't add any addresses.</div>
+          <div className="text-base">You don&apos;t add any addresses.</div>
           <Button
             onClick={() => {
               router.push("addresses/add");
             }}
+            className="w-fit"
           >
             Add Here
           </Button>

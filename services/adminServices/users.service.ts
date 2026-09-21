@@ -16,6 +16,21 @@ export const getUsersAdmin = async () => {
   return data;
 };
 
+export const getUserAdmin = async (userId: string) => {
+  const { data, error } = await supabase
+    .from("users")
+    .select(
+      "*, orders_number, favorites_number, addresses(*) , favorite_items(id,userId,productId,product:products (*, category:categories(*) , brand:brands(*))) , orders(id,status,total,createdAt,order_items(id,quantity,price,product:products(*)))",
+    )
+    .eq("id", userId)
+    .single();
+
+  console.log(data);
+
+  if (error) throw error;
+  return data;
+};
+
 // -------------------- updateUser --------------------
 export const updateUserAdmin = async (
   userId: string,

@@ -8,7 +8,7 @@ import {
   getShopRelatedProductsByCategory,
 } from "@/services/shopServices/shop.service";
 import { ProductType } from "@/types/shop/product";
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
 // -------------- getProducts --------------
 
@@ -23,15 +23,12 @@ export const useGetShopProducts = (
   return useQuery({
     queryKey: [
       "products",
-      page,
-      categories.join(","),
-      brands.join(","),
-      minPrice,
-      maxPrice,
-      search,
+      { page, categories, brands, minPrice, maxPrice, search },
     ],
     queryFn: () =>
       getShopProducts(page, categories, brands, minPrice, maxPrice, search),
+
+    placeholderData: keepPreviousData,
   });
 };
 

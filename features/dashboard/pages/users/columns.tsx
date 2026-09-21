@@ -2,6 +2,7 @@
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { AddressType } from "@/types/profile/address";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
 import { toast } from "sonner";
@@ -16,7 +17,7 @@ export interface Users {
   last_name: string;
   email: string;
   gender: string;
-  addresses: string[];
+  addresses: AddressType[];
   phoneCode: string;
   phoneNumber: string;
   orders_number: string;
@@ -110,7 +111,7 @@ export const columns = (): ColumnDef<Users>[] => [
         <Button
           variant="link"
           onClick={() => {
-            navigator.clipboard.writeText(row.getValue<string>("name"));
+            navigator.clipboard.writeText(row.getValue<string>("last_name"));
             toast.success("Copied to clipboard", {});
           }}
         >
@@ -180,18 +181,19 @@ export const columns = (): ColumnDef<Users>[] => [
     header: () => <div>Phone Number</div>,
 
     cell: ({ row }) => {
-      const phoneNumber =
-        "+" + row?.original?.phoneCode + "-" + row?.original?.phoneNumber;
+      const code = row.original.phoneCode;
+      const number = row.original.phoneNumber;
+      const fullNumber = code && number ? `+${code}-${number}` : "-";
       return (
         <div>
           <Button
             variant="link"
             onClick={() => {
-              navigator.clipboard.writeText(phoneNumber);
+              navigator.clipboard.writeText(fullNumber);
               toast.success("Copied to clipboard", {});
             }}
           >
-            {phoneNumber == "+null-null" ? "-" : `${phoneNumber}`}
+            {fullNumber}
           </Button>
         </div>
       );
@@ -210,9 +212,10 @@ export const columns = (): ColumnDef<Users>[] => [
     ),
 
     cell: ({ row }) => {
+      const addressesCount = row.original.addresses?.length;
       return (
         <div className="text-center text-sm">
-          {row?.original?.addresses.length || "-"}
+          {addressesCount > 0 ? addressesCount : "-"}
         </div>
       );
     },

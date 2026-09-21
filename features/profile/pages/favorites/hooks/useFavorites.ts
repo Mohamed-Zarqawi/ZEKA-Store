@@ -31,6 +31,8 @@ export const useToggleFavorites = () => {
         queryKey: ["favorites", variables.userId],
       });
 
+      queryClient.invalidateQueries({ queryKey: ["user", variables.userId] });
+
       if (res?.action === "added") {
         toast.success("Added to favorites successfully!", {});
       } else if (res?.action === "deleted") {

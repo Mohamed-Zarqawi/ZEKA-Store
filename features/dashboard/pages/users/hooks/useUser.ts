@@ -1,10 +1,12 @@
 import { Users } from "@/features/dashboard/pages/users/columns"; // تأكد من مسار الـ Type
 import {
   deleteUserAdmin,
+  getUserAdmin,
   getUsersAdmin,
   toggleUserBlockAdmin,
   updateUserAdmin,
 } from "@/services/adminServices/users.service";
+import { User } from "@/types/auth/user";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
@@ -15,6 +17,15 @@ export const useGetUsersAdmin = () => {
   return useQuery({
     queryKey: ["users"], // هذا المفتاح هو الذي سنستخدمه لتحديث البيانات في الخلفية
     queryFn: getUsersAdmin,
+  });
+};
+// ==========================================
+// 6. جلب مستخدم واحد فقط (Get Users)
+// ==========================================
+export const useGetUserAdmin = (userId: string) => {
+  return useQuery<User>({
+    queryKey: ["user", userId],
+    queryFn: () => getUserAdmin(userId),
   });
 };
 
@@ -36,7 +47,6 @@ export const useUpdateUserAdmin = () => {
 
     onSuccess: () => {
       toast.success("User updated successfully!");
-      // تحديث الجدول فوراً
       queryClient.invalidateQueries({ queryKey: ["users"] });
     },
     onError: (error) => {

@@ -36,7 +36,7 @@ export const getShopProducts = async (
     .gte("price", minPrice)
     .lte("price", maxPrice)
     .range(from, to)
-    .order("name", { ascending: true });
+    .order("stock", { ascending: false });
 
   const { data, error, count } = await query;
 

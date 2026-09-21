@@ -1,6 +1,6 @@
 "use client";
 
-import { ViewProductPage } from "@/features/dashboard/pages/products/ViewProductPage";
+import ViewUserPage from "@/features/dashboard/pages/users/ViewUserPage";
 import { useParams } from "next/navigation";
 
 const ViewProduct = () => {
@@ -8,7 +8,7 @@ const ViewProduct = () => {
 
   return (
     <div>
-      <ViewProductPage productId={id as string} />
+      <ViewUserPage userId={id as string} />
     </div>
   );
 };

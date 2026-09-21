@@ -3,37 +3,78 @@ import {
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectSeparator,
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
+// استورد Field, FieldLabel, FieldError من مسارها الصحيح لديك
+import { FormikErrors, FormikTouched, getIn } from "formik";
+import { Field, FieldError, FieldLabel } from "../ui/field";
 
-type selectProps = {
+type SelectInputProps = {
+  label?: string;
   placeholder: string;
-  selectItems: any[];
+  options: string[];
+  value?: string;
+  isRequired?: boolean;
+  errors?: FormikErrors<any>;
+  touched?: FormikTouched<any>;
+  name?: string;
+  onValueChange?: (value: string) => void;
+  onOpenChange?: (open: boolean) => void;
 };
 
-const SelectInput = ({ placeholder, selectItems }: selectProps) => {
+function capitalizeFirstLetter(val: string | undefined) {
+  return String(val).charAt(0).toUpperCase() + String(val).slice(1);
+}
+
+function handleErrors(error: string) {
+  return capitalizeFirstLetter(error);
+}
+
+const SelectInput = ({
+  label,
+  placeholder,
+  options,
+  value,
+  isRequired = false,
+  errors,
+  touched,
+  name,
+  onValueChange,
+  onOpenChange,
+}: SelectInputProps) => {
   return (
-    <div>
-      <Select>
-        <SelectTrigger className="w-full max-w-100">
+    <Field>
+      {label && (
+        <FieldLabel className="text-primary text-sm">
+          {label}
+          {isRequired && <span className="text-destructive">*</span>}
+        </FieldLabel>
+      )}
+
+      <Select
+        key={value}
+        value={value}
+        onValueChange={onValueChange}
+        onOpenChange={onOpenChange}
+      >
+        <SelectTrigger className="w-full max-w-96 capitalize">
           <SelectValue placeholder={placeholder} />
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
-            {selectItems.map((item, i) => {
-              return (
-                <SelectItem key={i} value={item}>
-                  {item}
-                </SelectItem>
-              );
-            })}
+            {options.map((option) => (
+              <SelectItem className="capitalize" key={option} value={option}>
+                {option}
+              </SelectItem>
+            ))}
           </SelectGroup>
-          <SelectSeparator />
         </SelectContent>
       </Select>
-    </div>
+      {name && getIn(errors, name) && getIn(touched, name) && (
+        <FieldError>{handleErrors(getIn(errors, name))}</FieldError>
+      )}
+    </Field>
   );
 };
 

@@ -11,14 +11,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogFooter,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import SelectPhoneNumber from "@/components/myComponents/SelectPhoneNumber";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useGetCurrentUser } from "@/features/auth/pages/hooks/useAuth";
 import { AddAddressSchema, AddressType } from "@/types/profile/address";
@@ -292,103 +285,19 @@ const AddAddressPage = () => {
               aria-invalid={!!errors.name && !!touched.name}
             />
 
-            <Dialog>
-              <DialogTrigger className="w-full">
-                <Input
-                  id="phone"
-                  name="phone"
-                  label="Phone Number"
-                  isRequired={true}
-                  isLoading={isLoading}
-                  errors={errors}
-                  touched={touched}
-                  readOnly
-                  value={
-                    values.phoneCode && values.phone
-                      ? "+" + values.phoneCode + "-" + values.phone
-                      : ""
-                  }
-                  placeholder="Add phone number"
-                  onChange={handleChange}
-                  className="w-full cursor-pointer md:w-100!"
-                  aria-invalid={!!errors.phone && !!touched.phone}
-                />
-              </DialogTrigger>
-              <DialogContent className="w-full! min-w-fit!">
-                <DialogTitle>
-                  {currentUser?.phoneNumber == ""
-                    ? "Add phone number"
-                    : "Update phone number"}
-                </DialogTitle>
-                <div className="my-3 flex w-full items-center gap-2">
-                  <Select
-                    value={
-                      ALL_COUNTRIES.find(
-                        (c) =>
-                          c.phonecode.replace("+", "") ===
-                          String(values.phoneCode).replace("+", ""),
-                      )?.isoCode || ""
-                    }
-                    onValueChange={(selectedIso) => {
-                      const selectedCountry = ALL_COUNTRIES.find(
-                        (c) => c.isoCode === selectedIso,
-                      );
-                      if (selectedCountry) {
-                        setFieldValue(
-                          "phoneCode",
-                          selectedCountry.phonecode.replace("+", ""),
-                        );
-                      }
-                    }}
-                    onOpenChange={(open) => {
-                      if (!open) setFieldTouched("phoneCode", true);
-                    }}
-                  >
-                    <SelectTrigger className="w-fit shrink-0">
-                      <SelectValue placeholder="+" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectGroup>
-                        {ALL_COUNTRIES.map((country) => {
-                          const cleanCode = country.phonecode.replace("+", "");
-                          return (
-                            <SelectItem
-                              key={country.isoCode}
-                              value={country.isoCode}
-                            >
-                              +{cleanCode} ({country.isoCode})
-                            </SelectItem>
-                          );
-                        })}
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
-                  {/* 2. حقل رقم الهاتف (يأخذ باقي المساحة المتاحة بالكامل بفضل flex-1) */}
-                  <div className="flex-1">
-                    <Input
-                      id="phone"
-                      name="phone"
-                      placeholder="Phone number"
-                      isRequired={true}
-                      errors={errors}
-                      touched={touched}
-                      value={values.phone}
-                      onChange={handleChange}
-                      className="w-fulla"
-                      aria-invalid={!!errors.phone && !!touched.phone}
-                    />
-                  </div>
-                </div>
-
-                <DialogFooter>
-                  <DialogClose asChild>
-                    <Button className="h-11" variant="default">
-                      Update Phone Number
-                    </Button>
-                  </DialogClose>
-                </DialogFooter>
-              </DialogContent>
-            </Dialog>
+            <SelectPhoneNumber
+              phoneNumberName="phoneNumber"
+              phoneCodeName="phoneCode"
+              phoneNumberValue={values.phone}
+              phoneCodeValue={values.phoneCode}
+              currentUser={currentUser}
+              isLoading={isCurrentUserLoading}
+              errors={errors}
+              touched={touched}
+              onChange={handleChange}
+              setFieldValue={setFieldValue}
+              setFieldTouched={setFieldTouched}
+            />
           </div>
         </div>
         <div className="flex justify-end">

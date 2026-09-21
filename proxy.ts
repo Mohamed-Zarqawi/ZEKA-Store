@@ -49,7 +49,7 @@ export async function proxy(request: NextRequest) {
       return NextResponse.redirect(loginUrl);
     }
 
-    const isAdmin = user.user_metadata?.role === "admin";
+    const isAdmin = user.app_metadata?.role === "admin";
 
     if (!isAdmin) {
       return NextResponse.redirect(new URL("/", request.url));

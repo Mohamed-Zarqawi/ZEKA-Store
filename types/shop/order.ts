@@ -8,7 +8,7 @@ export type OrderItemType = {
 };
 
 export type OrderType = {
-  id: number;
+  id: string;
   status: string;
   total: number;
   createdAt: string;

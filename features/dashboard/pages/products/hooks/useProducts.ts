@@ -11,7 +11,6 @@ import { ReqCreateProductType } from "@/types/admin/product";
 import { ProductType } from "@/types/shop/product";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { Product } from "../columns";
 
 export const useGetAdminProducts = (
   page: number = 1,
@@ -61,14 +60,19 @@ export const useUpdateAdminProduct = () => {
       updatedData,
     }: {
       productId: string;
-      updatedData: Partial<Product>;
+      updatedData: Partial<ProductType>;
     }) => {
       return UpdateAdminProduct(productId, updatedData);
     },
+
     onSuccess: () => {
+      toast.success("Product updated successfully!", {});
+
       queryClient.invalidateQueries({ queryKey: ["products"] });
     },
     onError: () => {
+      toast.error("Failed to update product!", {});
+
       toast.error("Update Product Faild", {});
     },
   });
