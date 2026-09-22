@@ -34,7 +34,7 @@ export const ViewBrandsPage = ({ brandId }: ViewProps) => {
   });
 
   const router = useRouter();
-  if (isBrandLoading) {
+  if (isBrandLoading || isRelatedProductsLoading) {
     return (
       <div className="flex items-center justify-center p-8">
         <Loader2 className="text-primary h-8 w-8 animate-spin" />

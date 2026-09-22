@@ -7,7 +7,11 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { getChangedValues } from "@/utils/getChangedValues";
 
-import { CreateCategorySchema } from "@/types/admin/category";
+import {
+  CreateCategorySchema,
+  ReqCreateCategoryType,
+} from "@/types/admin/category";
+import { toast } from "sonner";
 import {
   useCreateCategoryAdmin,
   useGetAdminCategories,
@@ -15,9 +19,17 @@ import {
 
 const CreateCategoryPage = () => {
   const router = useRouter();
-  const { mutateAsync: handleCreateProduct, isPending: isCreating } =
+  const { mutateAsync: createCategory, isPending: isCategoryCreating } =
     useCreateCategoryAdmin();
   const { refetch: refetchCategories } = useGetAdminCategories();
+
+  const handleCreateCategory = (data: ReqCreateCategoryType) => {
+    createCategory(data).then(() => {
+      toast.success("Category created successfully!", {});
+      router.push("/admin/categories");
+      refetchCategories();
+    });
+  };
 
   const {
     initialValues,
@@ -34,14 +46,14 @@ const CreateCategoryPage = () => {
     validationSchema: CreateCategorySchema,
     onSubmit: async (values) => {
       const changedValues = getChangedValues(values, initialValues);
-      await handleCreateProduct(changedValues);
+      await handleCreateCategory(changedValues);
       await refetchCategories();
     },
   });
 
   return (
     <div>
-      <div className="text-primary text-3xl">CREATE Category</div>
+      <div className="text-primary text-3xl">CREATE CATEGORY</div>
       <div className="mt-10">
         <div className="flex w-full items-center justify-center">
           <form
@@ -72,9 +84,9 @@ const CreateCategoryPage = () => {
             <div className="flex w-full flex-col items-center justify-center gap-4">
               <Button
                 type="submit"
-                isPending={isCreating}
+                isPending={isCategoryCreating}
                 pendingText="Creating"
-                disabled={!dirty || isCreating}
+                disabled={!dirty || isCategoryCreating}
                 className="h-12 w-full rounded-lg px-4 py-4 text-center transition-colors duration-300 hover:cursor-pointer"
               >
                 CREATE CATEGORY

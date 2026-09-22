@@ -18,7 +18,6 @@ import {
 import { useFormik } from "formik";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { toast } from "sonner";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -83,7 +82,6 @@ const CreateProductPage = () => {
 
   const handleCreate = (data: ReqCreateProductType) => {
     CreateProduct(data).then(() => {
-      toast.success("Product created successfully!", {});
       router.push("/admin/products");
       refetchProducts();
     });

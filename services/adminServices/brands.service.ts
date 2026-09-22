@@ -1,7 +1,7 @@
 "use server";
 
 import { supabase } from "@/lib/supabaseAdmin";
-import { ReqCreateBrandType, ResBrandType } from "@/types/admin/brand";
+import { ReqCreateBrandType, ReqUpdateBrandType } from "@/types/admin/brand";
 // -------------- get brands --------------
 
 export const getAdminBrands = async () => {
@@ -92,7 +92,7 @@ export const CreateAdminBrand = async (body: ReqCreateBrandType) => {
 
 export const UpdateAdminBrand = async (
   brandId: number,
-  updatedData: ResBrandType,
+  updatedData: ReqUpdateBrandType,
 ) => {
   const { data, error } = await supabase
     .from("brands")

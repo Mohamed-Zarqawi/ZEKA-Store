@@ -7,7 +7,11 @@ import {
   UpdateAdminBrand,
   updateBrandProducts,
 } from "@/services/adminServices/brands.service";
-import { ReqCreateBrandType, ResBrandType } from "@/types/admin/brand";
+import {
+  ReqCreateBrandType,
+  ReqUpdateBrandType,
+  ResBrandType,
+} from "@/types/admin/brand";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
@@ -17,7 +21,7 @@ import { toast } from "sonner";
 
 export const useGetAdminBrands = () => {
   return useQuery({
-    queryKey: ["brands"],
+    queryKey: ["brands", "admin"],
     queryFn: () => getAdminBrands(),
   });
 };
@@ -26,14 +30,14 @@ export const useGetAdminBrands = () => {
 
 export const useGetAdminBrand = (brandId: number) => {
   return useQuery<ResBrandType>({
-    queryKey: ["brand", brandId],
+    queryKey: ["brand", "admin", brandId],
     queryFn: () => getAdminBrand(brandId),
   });
 };
 
 // -------------- update products brand --------------
 
-interface UpdateCategoryProductsParams {
+interface UpdateBrandProductsParams {
   brandId: number;
   productIds: number[];
 }
@@ -42,12 +46,14 @@ export const useUpdateAdminBrandsProducts = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ brandId, productIds }: UpdateCategoryProductsParams) =>
+    mutationFn: ({ brandId, productIds }: UpdateBrandProductsParams) =>
       updateBrandProducts(brandId, productIds),
 
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["brands"] });
-      queryClient.invalidateQueries({ queryKey: ["products"] });
+    onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({ queryKey: ["brands", "admin"] });
+      queryClient.invalidateQueries({
+        queryKey: ["relatedProductByBrand", "admin", variables.brandId],
+      });
     },
   });
 };
@@ -56,7 +62,7 @@ export const useUpdateAdminBrandsProducts = () => {
 
 export const useGetAdminRelatedProductsByBrand = (brandId?: number) => {
   return useQuery({
-    queryKey: ["brands", brandId],
+    queryKey: ["relatedProductByBrand", "admin", brandId],
     queryFn: () => getAdminRelatedProductsByBrand(brandId!),
     enabled: !!brandId,
   });
@@ -73,33 +79,33 @@ export const useDeleteBrandAdmin = () => {
     onSuccess: (_, brandId) => {
       toast.success("Brand deleted successfully!");
       queryClient.invalidateQueries({
-        queryKey: ["brands"],
+        queryKey: ["brands", "admin"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["relatedBrands", "admin", brandId],
       });
 
       queryClient.removeQueries({
-        queryKey: ["brands", brandId],
+        queryKey: ["brand", brandId],
       });
     },
     onError: (error) => {
       toast.error("Something went wrong while deleting brand.");
-      console.error(error);
     },
   });
 };
 
 // -------------- Create brand --------------
 
-export const useCreateCategoryAdmin = () => {
+export const useCreateBrandAdmin = () => {
   const queryClient = useQueryClient();
-  const router = useRouter();
   return useMutation({
     mutationFn: (body: ReqCreateBrandType) => {
       return CreateAdminBrand(body);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["brands"] });
+      queryClient.invalidateQueries({ queryKey: ["brands", "admin"] });
       toast.success("Brands created successfully!");
-      router.push("/admin/brands");
     },
     onError: () => {
       toast.error("Create brands faild", {});
@@ -107,7 +113,7 @@ export const useCreateCategoryAdmin = () => {
   });
 };
 
-// -------------- Update category --------------
+// -------------- Update brand --------------
 
 export const useUpdateAdminBrand = () => {
   const queryClient = useQueryClient();
@@ -118,14 +124,17 @@ export const useUpdateAdminBrand = () => {
       updatedData,
     }: {
       brandId: number;
-      updatedData: ResBrandType;
+      updatedData: ReqUpdateBrandType;
     }) => {
       return UpdateAdminBrand(brandId, updatedData);
     },
 
-    onSuccess: () => {
+    onSuccess: (_, variables) => {
       toast.success("Brand updated successfully!");
-      queryClient.invalidateQueries({ queryKey: ["brands"] });
+      queryClient.invalidateQueries({ queryKey: ["brands", "admin"] });
+      queryClient.invalidateQueries({
+        queryKey: ["brand", "admin", variables.brandId],
+      });
       router.push("/admin/brands");
     },
     onError: () => {

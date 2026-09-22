@@ -18,7 +18,7 @@ import { toast } from "sonner";
 
 export const useGetAdminCategories = () => {
   return useQuery({
-    queryKey: ["categories"],
+    queryKey: ["categories", "admin"],
     queryFn: () => getAdminCategories(),
   });
 };
@@ -27,7 +27,7 @@ export const useGetAdminCategories = () => {
 
 export const useGetAdminCategory = (categoryId: number) => {
   return useQuery<ResCategoryType>({
-    queryKey: ["category", categoryId],
+    queryKey: ["category", "admin", categoryId],
     queryFn: () => getAdminCategory(categoryId),
   });
 };
@@ -47,8 +47,8 @@ export const useUpdateAdminCategoryProducts = () => {
       updateCategoryProducts(categoryId, productIds),
 
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["categories"] });
-      queryClient.invalidateQueries({ queryKey: ["products"] });
+      queryClient.invalidateQueries({ queryKey: ["categories", "admin"] });
+      queryClient.invalidateQueries({ queryKey: ["products", "admin"] });
     },
   });
 };
@@ -100,7 +100,6 @@ export const useCreateCategoryAdmin = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["categories"] });
       toast.success("Category created successfully!");
-      router.push("/admin/categories");
     },
     onError: () => {
       toast.error("Create category faild", {});

@@ -69,9 +69,8 @@ export const useUpdateAdminProduct = () => {
     },
 
     onSuccess: () => {
-      toast.success("Product updated successfully!", {});
-
       queryClient.invalidateQueries({ queryKey: ["products"] });
+      toast.success("Product updated successfully!", {});
     },
     onError: () => {
       toast.error("Failed to update product!", {});
@@ -90,6 +89,7 @@ export const useCreateAdminProduct = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["products"] });
+      toast.success("Product created successfully!", {});
     },
     onError: () => {
       toast.error("Create Product Faild", {});
