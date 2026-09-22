@@ -56,7 +56,6 @@ export async function proxy(request: NextRequest) {
     }
   }
 
-  // 2️⃣ حماية المسارات العادية (Profile, Checkout, Orders)
   const isProtectedRoute = protectedRoutes.some((route) =>
     pathname.startsWith(route),
   );
@@ -67,7 +66,6 @@ export async function proxy(request: NextRequest) {
     return NextResponse.redirect(loginUrl);
   }
 
-  // 3️⃣ توجيه المستخدم المسجل بعيداً عن جميع صفحات التوثيق (Login, signup, Forgot Password)
   const isAuthRoute = authRoutes.some((route) => pathname.startsWith(route));
 
   if (isAuthRoute && user) {
