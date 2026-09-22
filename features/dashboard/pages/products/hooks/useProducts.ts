@@ -32,7 +32,6 @@ export const useGetAdminProducts = (
     ],
     queryFn: () =>
       getAdminProducts(page, categories, brands, minPrice, maxPrice, search),
-
     placeholderData: keepPreviousData,
   });
 };

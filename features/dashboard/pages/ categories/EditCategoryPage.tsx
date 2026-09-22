@@ -8,7 +8,6 @@ import { useRouter } from "next/navigation";
 import {
   useGetAdminCategory,
   useGetAdminRelatedProductsByCategory,
-  useUpdateAdminCategoryProducts,
 } from "./hooks/useCategories";
 
 import { UpdateUserSchema } from "@/types/admin/user";
@@ -27,9 +26,6 @@ export const EditCategoryPage = ({ categoryId }: ViewProps) => {
 
   const { data: relatedProducts, isLoading: isRelatedProductsLoading } =
     useGetAdminRelatedProductsByCategory(categoryId);
-
-  const { mutate: updateProducts, isPending } =
-    useUpdateAdminCategoryProducts();
 
   const date = new Date(`${category?.created_at}`);
 

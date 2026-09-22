@@ -13,6 +13,7 @@ import { Input } from "@/components/ui/input";
 import ProductCardAdmin from "@/features/dashboard/components/ProductCardAdmin";
 import { ProductCardSkeleton } from "@/features/shop/components/ProductCardSkilton";
 import { ProductType } from "@/types/shop/product";
+import { X } from "lucide-react";
 import { debounce, parseAsString, useQueryState } from "nuqs";
 import { useState } from "react";
 import { useGetAdminProducts } from "../../products/hooks/useProducts";
@@ -34,7 +35,12 @@ const AddProductToCategory = ({ categoryId }: { categoryId: number }) => {
 
   const [searchValue, setSearchValue] = useState<string>(searchQuery ?? "");
 
-  const { data: products, isLoading: isProductsLoading } = useGetAdminProducts(
+  const {
+    data: products,
+    isLoading: isProductsLoading,
+    isFetching: isProductsFetching,
+    refetch: refetchProducts,
+  } = useGetAdminProducts(
     1, // page
     [], // categories
     [], // brands
@@ -43,7 +49,7 @@ const AddProductToCategory = ({ categoryId }: { categoryId: number }) => {
     searchQuery,
   );
 
-  const { mutate: updateProducts, isPending } =
+  const { mutate: updateProducts, isPending: isUpdating } =
     useUpdateAdminCategoryProducts();
 
   const { data: relatedProducts, isLoading: isRelatedProductsLoading } =
@@ -71,11 +77,19 @@ const AddProductToCategory = ({ categoryId }: { categoryId: number }) => {
     );
   };
 
+  const isLoading =
+    isProductsLoading ||
+    isRelatedProductsLoading ||
+    isUpdating ||
+    !categoryId ||
+    isProductsFetching;
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button>Add Products</Button>
       </DialogTrigger>
+
       <DialogContent className="w-full sm:max-w-6xl">
         <DialogHeader>
           <DialogTitle className="text-primary text-lg">
@@ -86,29 +100,42 @@ const AddProductToCategory = ({ categoryId }: { categoryId: number }) => {
           </DialogDescription>
         </DialogHeader>
 
-        <div className="flex w-full items-center gap-2 md:w-auto">
+        <div className="relative flex w-full items-center gap-2 md:w-auto">
           <Input
+            id="search"
             type="text"
             placeholder="Search products..."
             value={searchValue}
             onChange={(e) => {
               setSearchValue(e.target.value);
+
+              if (!e.target.value || e.target.value == "") {
+                setSearchQuery(String(""));
+              }
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                setSearchQuery(String(searchValue));
+              }
             }}
             className="h-12 w-full md:h-auto"
           />
 
           <Button
-            variant={"outline"}
-            className="h-12 rounded-lg"
+            variant={"none"}
+            type="button"
+            className="absolute left-241 h-13 cursor-pointer rounded-lg bg-none! outline-0"
             onClick={() => {
               setSearchQuery(String(""));
               setSearchValue("");
             }}
           >
-            Reset Search
+            <X />
           </Button>
           <Button
-            className="h-12 rounded-lg"
+            type="button"
+            id="search"
+            className="h-13 rounded-lg"
             onClick={() => {
               setSearchQuery(String(searchValue));
             }}
@@ -117,7 +144,7 @@ const AddProductToCategory = ({ categoryId }: { categoryId: number }) => {
           </Button>
         </div>
         <div className="no-scrollbar mt-2 grid max-h-[50vh] w-full grid-cols-2 gap-3 overflow-y-auto px-4 md:grid-cols-[repeat(auto-fill,minmax(240px,1fr))] lg:gap-6">
-          {isRelatedProductsLoading ? (
+          {isLoading ? (
             Array.from({ length: 8 }).map((_, i) => (
               <ProductCardSkeleton key={i} />
             ))
@@ -150,6 +177,8 @@ const AddProductToCategory = ({ categoryId }: { categoryId: number }) => {
               variant="destructive"
               onClick={() => {
                 setOpen(false);
+                setSearchQuery(String(""));
+                setSearchValue("");
               }}
             >
               Close
@@ -166,9 +195,9 @@ const AddProductToCategory = ({ categoryId }: { categoryId: number }) => {
 
               setOpen(false);
             }}
-            disabled={isPending || isRelatedProductsLoading}
+            disabled={isUpdating || isRelatedProductsLoading}
           >
-            {isPending ? "Saving..." : "Save Changes"}
+            {isUpdating ? "Saving..." : "Save Changes"}
           </Button>
         </DialogFooter>
       </DialogContent>

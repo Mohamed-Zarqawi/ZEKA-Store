@@ -24,7 +24,7 @@ interface ProductCardAdminProps {
 const ProductCardAdmin = ({
   product,
   isAdmin = false,
-  isLoading: isAdminLoading = false,
+  isLoading = false,
   pageType,
   isSelectable = false,
   isSelected = false,
@@ -42,7 +42,7 @@ const ProductCardAdmin = ({
     }
   };
 
-  if (isCurrentUserLoading || !product || isAdminLoading) {
+  if (isCurrentUserLoading || !product || isLoading) {
     return <ProductCardSkeleton />;
   }
   return (
