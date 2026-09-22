@@ -19,7 +19,7 @@ const CreateCategoryPage = () => {
 
   const handleCreateBrand = (data: ReqCreateBrandType) => {
     createBrand(data).then(() => {
-      router.push("/admin/brands");
+      router.push("/dashboard/brands");
       refetchBrands();
     });
   };

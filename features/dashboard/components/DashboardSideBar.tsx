@@ -18,18 +18,22 @@ const DashboardSidebar = () => {
     {
       title: "1",
       items: [
-        { name: "Users", href: "/admin/users", icon: IconUsers },
-        { name: "Products", href: "/admin/products", icon: IconBuildingStore },
+        { name: "Users", href: "/dashboard/users", icon: IconUsers },
+        {
+          name: "Products",
+          href: "/dashboard/products",
+          icon: IconBuildingStore,
+        },
 
         {
           name: `Categories`,
           //   count: favoritesCount,
-          href: "/admin/categories",
+          href: "/dashboard/categories",
           icon: IconCategory,
         },
         {
           name: "Brands",
-          href: "/admin/brands",
+          href: "/dashboard/brands",
           icon: IconBrandAbstract,
         },
       ],

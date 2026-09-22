@@ -80,7 +80,7 @@ const EditProductPage = ({ productId }: EditProductPageProps) => {
     if (updatedData.stock !== undefined)
       updatedData.stock = Number(updatedData.stock);
     await updateProduct({ productId, updatedData });
-    await router.push("/admin/products");
+    await router.push("/dashboard/products");
   };
 
   interface PreviewImage {

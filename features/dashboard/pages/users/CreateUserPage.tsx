@@ -82,7 +82,7 @@ const CreateUserPage = () => {
 
   const handleCreate = (data: ReqCreateProductType) => {
     CreateProduct(data).then(() => {
-      router.push("/admin/products");
+      router.push("/dashboard/products");
       refetchProducts();
     });
   };

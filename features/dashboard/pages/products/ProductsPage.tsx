@@ -21,7 +21,7 @@ const ProductsPage = () => {
         <DataTable
           columns={columns()}
           data={products?.data || []}
-          createHref="/admin/products/create"
+          createHref="/dashboard/products/create"
           storageKey={storageKey}
           isLoading={isProductsLoading}
         />

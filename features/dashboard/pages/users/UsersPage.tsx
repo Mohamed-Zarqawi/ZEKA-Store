@@ -17,7 +17,7 @@ const UsersPage = () => {
         <DataTable
           columns={columns()}
           data={users || []}
-          createHref="/admin/products/create"
+          createHref="/dashboard/products/create"
           storageKey={storageKey}
           isLoading={isUsersLoading}
         />

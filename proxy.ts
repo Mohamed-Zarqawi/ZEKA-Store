@@ -42,7 +42,7 @@ export async function proxy(request: NextRequest) {
   const authRoutes = ["/login", "/signup", "/forgotPassword"];
 
   // 1️⃣ حماية مسار الـ Admin (يتطلب تسجيل دخول + صلاحية أدمن)
-  if (pathname.startsWith("/admin")) {
+  if (pathname.startsWith("/dashboard")) {
     if (!user) {
       const loginUrl = new URL("/login", request.url);
       loginUrl.searchParams.set("redirect", pathname);
@@ -81,7 +81,7 @@ export const config = {
   matcher: [
     "/profile/:path*",
     "/cart/:path*",
-    "/admin/:path*",
+    "/dashboard/:path*",
     "/login/:path*",
     "/signup/:path*",
     "/forgotPassword/:path*",

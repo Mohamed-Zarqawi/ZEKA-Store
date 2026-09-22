@@ -26,7 +26,7 @@ const CreateCategoryPage = () => {
   const handleCreateCategory = (data: ReqCreateCategoryType) => {
     createCategory(data).then(() => {
       toast.success("Category created successfully!", {});
-      router.push("/admin/categories");
+      router.push("/dashboard/categories");
       refetchCategories();
     });
   };

@@ -22,7 +22,7 @@ const CategoriesPage = () => {
         <DataTable
           columns={columns()}
           data={categories || []}
-          createHref="/admin/categories/create"
+          createHref="/dashboard/categories/create"
           storageKey={storageKey}
           isLoading={isCategoriesLoading}
         />

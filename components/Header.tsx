@@ -59,10 +59,10 @@ const Header = () => {
             <div className="flex items-center justify-center">
               {currentUser?.role === "admin" ? (
                 <Button className="hover:cursor-pointer">
-                  <Link href="/admin">
+                  <Link href="/dashboard">
                     <ShieldCogCorner
                       className={`hover:text-primary transition-color size-8 p-1 duration-300 hover:cursor-pointer ${
-                        pathname.includes("/admin")
+                        pathname.includes("/dashboard")
                           ? "text-primary"
                           : "hover:text-primary"
                       }`}
