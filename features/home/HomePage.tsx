@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import ProductCard from "@/features/shop/components/ProductCard";
 import { ProductType } from "@/types/shop/product";
 import Link from "next/link";
-import { ProductCardSkeleton } from "../shop/components/ProductCardSkilton";
+import { ProductCardSkeleton } from "../shop/components/ProductCardSkeleton";
 import { useGetShopProducts } from "../shop/pages/shop/hooks/useShop";
 
 const HomePage = () => {

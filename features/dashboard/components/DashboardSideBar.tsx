@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-const DashboardSideBar = () => {
+const DashboardSidebar = () => {
   const pathname = usePathname();
 
   const leftBarItems1 = [
@@ -37,8 +37,8 @@ const DashboardSideBar = () => {
   ];
 
   return (
-    <div className="top-24 sticky flex flex-col gap-4 w-full min-w-xs max-w-xs h-fit">
-      <div className="flex flex-col gap-5 bg-[#1a1a1a]/20 backdrop-blur-md p-6 border border-primary rounded-3xl h-fit">
+    <div className="sticky top-24 flex h-fit w-full max-w-xs min-w-xs flex-col gap-4">
+      <div className="border-primary flex h-fit flex-col gap-5 rounded-3xl border bg-[#1a1a1a]/20 p-6 backdrop-blur-md">
         {/* 1 L */}
         <div className="flex flex-col gap-2">
           <div>ZEKA STORE</div>
@@ -49,9 +49,9 @@ const DashboardSideBar = () => {
       {leftBarItems1.map((section) => (
         <div
           key={section.title}
-          className="flex flex-col gap-5 bg-[#1a1a1a]/20 backdrop-blur-md p-2.5 border border-primary rounded-3xl h-fit"
+          className="border-primary flex h-fit flex-col gap-5 rounded-3xl border bg-[#1a1a1a]/20 p-2.5 backdrop-blur-md"
         >
-          <div className="flex flex-col justify-center items-start gap-2.5 w-full">
+          <div className="flex w-full flex-col items-start justify-center gap-2.5">
             {section.items.map((item) => {
               const Icon = item.icon;
               return (
@@ -59,7 +59,7 @@ const DashboardSideBar = () => {
                   key={item.name}
                   href={item.href}
                   className={cn(
-                    "flex items-center gap-4 hover:bg-muted/40 p-3 rounded-xl outline-none w-full text-start transition-colors hover:cursor-pointer",
+                    "hover:bg-muted/40 flex w-full items-center gap-4 rounded-xl p-3 text-start transition-colors outline-none hover:cursor-pointer",
                     // إذا كان الرابط هو الصفحة الرئيسية المطابقة تكون دقيقة، أما لو مسار آخر فيتم فحص بداية المسار
                     (
                       item.href === "/"
@@ -88,4 +88,4 @@ const DashboardSideBar = () => {
   );
 };
 
-export default DashboardSideBar;
+export default DashboardSidebar;

@@ -15,7 +15,7 @@ import { UpdateCategorySchema } from "@/types/admin/category";
 import { getChangedValues } from "@/utils/getChangedValues";
 import { useFormik } from "formik";
 import ProductCardAdmin from "../../components/ProductCardAdmin";
-import AddProductToCategory from "./components/AddProductsToCategory";
+import AddProductsToCategory from "./components/AddProductsToCategory";
 
 interface ViewProps {
   categoryId: number;
@@ -133,7 +133,7 @@ export const EditCategoryPage = ({ categoryId }: ViewProps) => {
           <div className="border-primary mt-6 flex h-fit w-full flex-col rounded-3xl border bg-[#1a1a1a]/20 px-8 py-8 backdrop-blur-md">
             <div className="flex justify-between">
               <div className="text-lg">Manage Products</div>
-              <AddProductToCategory categoryId={categoryId} />
+              <AddProductsToCategory categoryId={categoryId} />
             </div>
             <div className="mt-5 flex flex-wrap gap-6">
               <Field>

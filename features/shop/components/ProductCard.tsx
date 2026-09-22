@@ -18,7 +18,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { Heart } from "../../../components/animate-ui/icons/heart";
-import { ProductCardSkeleton } from "./ProductCardSkilton";
+import { ProductCardSkeleton } from "./ProductCardSkeleton";
 
 const ProductCard = ({ product }: { product: ProductType }) => {
   const router = useRouter();

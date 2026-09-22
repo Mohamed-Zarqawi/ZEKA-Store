@@ -3,7 +3,7 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import { useGetCurrentUser } from "@/features/auth/pages/hooks/useAuth";
 import ProductCard from "@/features/shop/components/ProductCard";
-import { ProductCardSkeleton } from "@/features/shop/components/ProductCardSkilton";
+import { ProductCardSkeleton } from "@/features/shop/components/ProductCardSkeleton";
 import Link from "next/link";
 import { useGetFavorites } from "./hooks/useFavorites";
 

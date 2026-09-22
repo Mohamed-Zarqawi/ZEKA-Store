@@ -1,5 +1,5 @@
 import { Skeleton } from "@/components/ui/skeleton";
-import { ProductCardSkeleton } from "./ProductCardSkilton"; // تأكد من مسار الاستيراد
+import { ProductCardSkeleton } from "./ProductCardSkeleton"; // تأكد من مسار الاستيراد
 
 export const ProductPageSkeleton = () => {
   return (

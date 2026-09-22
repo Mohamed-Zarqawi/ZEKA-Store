@@ -19,7 +19,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { toast } from "sonner";
 import ProductCard from "../../components/ProductCard";
-import ProductPageSkeleton from "../../components/ProductPageSkelton";
+import ProductPageSkeleton from "../../components/ProductPageSkeleton";
 import {
   useGetShopProduct,
   useGetShopRelatedProductsByCategory,

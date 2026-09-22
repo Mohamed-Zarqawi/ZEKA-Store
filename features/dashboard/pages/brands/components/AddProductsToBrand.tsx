@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import ProductCardAdmin from "@/features/dashboard/components/ProductCardAdmin";
-import { ProductCardSkeleton } from "@/features/shop/components/ProductCardSkilton";
+import { ProductCardSkeleton } from "@/features/shop/components/ProductCardSkeleton";
 import { ProductType } from "@/types/shop/product";
 import { X } from "lucide-react";
 import { debounce, parseAsString, useQueryState } from "nuqs";

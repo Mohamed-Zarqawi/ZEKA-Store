@@ -102,7 +102,7 @@ export const useCreateCategoryAdmin = () => {
       toast.success("Category created successfully!");
     },
     onError: () => {
-      toast.error("Create category faild", {});
+      toast.error("Failed to create category", {});
     },
   });
 };
@@ -130,8 +130,6 @@ export const useUpdateAdminCategory = () => {
     },
     onError: () => {
       toast.error("Failed to update category!");
-
-      toast.error("Update Category Faild");
     },
   });
 };

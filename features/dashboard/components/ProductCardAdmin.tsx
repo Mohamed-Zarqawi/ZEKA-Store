@@ -5,7 +5,7 @@ import { useGetCurrentUser } from "@/features/auth/pages/hooks/useAuth";
 import * as React from "react";
 
 import { Checkbox } from "@/components/ui/checkbox";
-import { ProductCardSkeleton } from "@/features/shop/components/ProductCardSkilton";
+import { ProductCardSkeleton } from "@/features/shop/components/ProductCardSkeleton";
 import { ProductType } from "@/types/shop/product";
 import { Edit } from "lucide-react";
 import Image from "next/image";
@@ -50,11 +50,8 @@ const ProductCardAdmin = ({
       <div
         className={`group flex h-79 w-full flex-col overflow-hidden rounded-2xl border-[1.5px] transition-all duration-150 md:h-99 ${isSelected ? "border-primary" : "border-border bg-card"}`}
       >
-        {/* image & cart icon */}
-
         <div className="relative">
-          {/* love icon */}
-
+          {/* Edit button */}
           <div className={`${isAdmin ? "flex" : "hidden"} flex-col`}>
             <Button
               variant="none"
@@ -94,7 +91,7 @@ const ProductCardAdmin = ({
               <div className="absolute top-3 right-3 md:top-5 md:right-4">
                 <Checkbox
                   checked={isSelected}
-                  onCheckedChange={(e) => {
+                  onCheckedChange={() => {
                     onSelect?.(product.id);
                   }}
                   className={`text-foreground! pointer-events-none ${isSelected ? "bg-primary!" : "bg-foreground!"}`}

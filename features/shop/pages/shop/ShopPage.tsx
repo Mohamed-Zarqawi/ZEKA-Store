@@ -11,7 +11,7 @@ import { FilterBar } from "../../components/FilterLeftBar";
 import { FilterLeftBarSkeleton } from "../../components/FilterLeftBarSkilton";
 import { FilterPopover } from "../../components/FilterPopover";
 import ProductCard from "../../components/ProductCard";
-import { ProductCardSkeleton } from "../../components/ProductCardSkilton";
+import { ProductCardSkeleton } from "../../components/ProductCardSkeleton";
 import {
   useGetProductPrices,
   useGetShopBrands,
