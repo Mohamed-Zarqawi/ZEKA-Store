@@ -6,12 +6,29 @@ import { OrderType } from "../shop/order";
 import { ProductType } from "../shop/product";
 
 export const CreateUserSchema = y.object({
-  name: y.string().required(),
-  description: y.string(),
-  price: y.number().required(),
-  stock: y.number().required(),
-  category: y.string(),
-  brand: y.string(),
+  first_name: y.string().required(),
+  last_name: y.string().notRequired(),
+  phoneNumber: y
+    .string()
+    .test(
+      "is-valid-phone",
+      "Invalid phone number for the selected country",
+      function (value) {
+        if (!value) return true;
+        const { phoneCode } = this.parent;
+        if (!phoneCode) return false;
+        try {
+          const fullPhoneNumber = `+${phoneCode}${value}`;
+          return isValidPhoneNumber(fullPhoneNumber);
+        } catch (error) {
+          return false;
+        }
+      },
+    ),
+  gender: y.string().oneOf(["male", "female"]).notRequired(),
+  birthday: y.string().notRequired(),
+  email: y.string().required(),
+  phoneCode: y.string().required(),
 });
 
 export const UpdateUserSchema = y.object({
@@ -36,6 +53,8 @@ export const UpdateUserSchema = y.object({
     ),
   gender: y.string().oneOf(["male", "female"]).notRequired(),
   birthday: y.string().notRequired(),
+  email: y.string().required(),
+  phoneCode: y.string().required(),
 });
 
 export type ReqCreateUserType = y.InferType<typeof CreateUserSchema>;
