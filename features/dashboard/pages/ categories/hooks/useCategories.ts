@@ -1,117 +1,68 @@
 import {
-  CreateAdminCategory as CreateCategoryAdmin,
-  deleteCategoryAdmin,
-  getAdminCategories,
-  getAdminCategory,
-  getAdminRelatedProductsByCategory,
-  UpdateAdminCategory,
-  updateCategoryProducts,
+  CreateCategory_Admin as CreateCategoryAdmin,
+  deleteCategory_Admin,
+  getCategories_Admin,
+  getCategory_Admin,
+  getRelatedProductsByCategory_Admin,
+  UpdateCategory_Admin,
+  updateCategoryProducts_Admin,
 } from "@/services/adminServices/categories.service";
 import { ReqCreateCategoryType, ResCategoryType } from "@/types/admin/category";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
 
 import { toast } from "sonner";
 
 // -------------- get categories --------------
 
-export const useGetAdminCategories = () => {
+export const useGetCategories_Admin = () => {
   return useQuery({
     queryKey: ["categories", "admin"],
-    queryFn: () => getAdminCategories(),
+    queryFn: () => getCategories_Admin(),
   });
 };
 
 // -------------- get category --------------
 
-export const useGetAdminCategory = (categoryId: number) => {
+export const useGetCategory_Admin = (categoryId: number) => {
   return useQuery<ResCategoryType>({
     queryKey: ["category", "admin", categoryId],
-    queryFn: () => getAdminCategory(categoryId),
-  });
-};
-
-// -------------- update products category --------------
-
-interface UpdateCategoryProductsParams {
-  categoryId: number;
-  productIds: number[];
-}
-
-export const useUpdateAdminCategoryProducts = () => {
-  const queryClient = useQueryClient();
-
-  return useMutation({
-    mutationFn: ({ categoryId, productIds }: UpdateCategoryProductsParams) =>
-      updateCategoryProducts(categoryId, productIds),
-
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["categories", "admin"] });
-      queryClient.invalidateQueries({ queryKey: ["products", "admin"] });
-    },
+    queryFn: () => getCategory_Admin(categoryId),
   });
 };
 
 // -------------- get related products by category --------------
 
-export const useGetAdminRelatedProductsByCategory = (categoryId?: number) => {
+export const useGetRelatedProductsByCategory_Admin = (categoryId?: number) => {
   return useQuery({
-    queryKey: ["categories", categoryId],
-    queryFn: () => getAdminRelatedProductsByCategory(categoryId!),
+    queryKey: ["relatedProductsByCategory", categoryId],
+    queryFn: () => getRelatedProductsByCategory_Admin(categoryId!),
     enabled: !!categoryId,
-  });
-};
-
-// -------------- delete category --------------
-
-export const useDeleteCategoryAdmin = () => {
-  const queryClient = useQueryClient();
-
-  return useMutation({
-    mutationFn: (categoryId: number) => deleteCategoryAdmin(categoryId),
-
-    onSuccess: (_, categoryId) => {
-      toast.success("Category deleted successfully!");
-      queryClient.invalidateQueries({
-        queryKey: ["categories"],
-      });
-
-      queryClient.removeQueries({
-        queryKey: ["categories", categoryId],
-      });
-    },
-    onError: (error) => {
-      toast.error("Something went wrong while deleting category.");
-      console.error(error);
-    },
   });
 };
 
 // -------------- Create category --------------
 
-export const useCreateCategoryAdmin = () => {
+export const useCreateCategory_Admin = () => {
   const queryClient = useQueryClient();
-  const router = useRouter();
   return useMutation({
     mutationFn: (body: ReqCreateCategoryType) => {
       return CreateCategoryAdmin(body);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["categories"] });
+      queryClient.invalidateQueries({ queryKey: ["categories", "admin"] });
       toast.success("Category created successfully!");
     },
     onError: () => {
-      toast.error("Failed to create category", {});
+      toast.error("Failed to create category");
     },
   });
 };
 
 // -------------- Update category --------------
 
-export const useUpdateAdminCategory = () => {
+export const useUpdateCategory_Admin = () => {
   const queryClient = useQueryClient();
-  const router = useRouter();
   return useMutation({
     mutationFn: ({
       categoryId,
@@ -120,16 +71,64 @@ export const useUpdateAdminCategory = () => {
       categoryId: number;
       updatedData: ResCategoryType;
     }) => {
-      return UpdateAdminCategory(categoryId, updatedData);
+      return UpdateCategory_Admin(categoryId, updatedData);
     },
 
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["categories", "admin"] });
       toast.success("Category updated successfully!");
-      queryClient.invalidateQueries({ queryKey: ["categories"] });
-      router.push("/admin/categories");
     },
     onError: () => {
       toast.error("Failed to update category!");
+    },
+  });
+};
+
+// -------------- update category products --------------
+
+interface UpdateCategoryProductsParams_Admin {
+  categoryId: number;
+  productIds: number[];
+}
+
+export const useUpdateCategoryProducts_Admin = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({
+      categoryId,
+      productIds,
+    }: UpdateCategoryProductsParams_Admin) =>
+      updateCategoryProducts_Admin(categoryId, productIds),
+
+    onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({ queryKey: ["categories", "admin"] });
+      queryClient.invalidateQueries({ queryKey: ["products", "admin"] });
+      queryClient.invalidateQueries({
+        queryKey: ["relatedProductsByCategory", variables.categoryId],
+      });
+      toast.success("Products updated successfully!");
+    },
+  });
+};
+
+// -------------- delete category --------------
+
+export const useDeleteCategory_Admin = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (categoryId: number) => deleteCategory_Admin(categoryId),
+
+    onSuccess: (_, categoryId) => {
+      queryClient.invalidateQueries({ queryKey: ["categories", "admin"] });
+      queryClient.removeQueries({
+        queryKey: ["category", "admin", categoryId],
+      });
+      toast.success("Category deleted successfully!");
+    },
+    onError: (error) => {
+      toast.error("Something went wrong while deleting category.");
     },
   });
 };

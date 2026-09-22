@@ -1,10 +1,9 @@
-import React from "react";
-import CreateProductPage from "@/features/dashboard/pages/products/CreateProductPage";
+import CreateUserPage from "@/features/dashboard/pages/users/CreateUserPage";
 
 const CreateProduct = () => {
   return (
     <div>
-      <CreateProductPage />
+      <CreateUserPage />
     </div>
   );
 };

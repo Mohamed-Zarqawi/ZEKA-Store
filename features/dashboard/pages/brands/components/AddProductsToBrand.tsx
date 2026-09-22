@@ -16,10 +16,10 @@ import { ProductType } from "@/types/shop/product";
 import { X } from "lucide-react";
 import { debounce, parseAsString, useQueryState } from "nuqs";
 import { useState } from "react";
-import { useGetAdminProducts } from "../../products/hooks/useProducts";
+import { useGetProducts_Admin } from "../../products/hooks/useProducts";
 import {
-  useGetAdminRelatedProductsByBrand,
-  useUpdateAdminBrandsProducts,
+  useGetRelatedProductsByBrand_Admin,
+  useUpdateBrandProducts_Admin,
 } from "../hooks/useBrands";
 
 const AddProductToBrand = ({ brandId }: { brandId: number }) => {
@@ -40,7 +40,7 @@ const AddProductToBrand = ({ brandId }: { brandId: number }) => {
     isLoading: isProductsLoading,
     isFetching: isProductsFetching,
     refetch: refetchProducts,
-  } = useGetAdminProducts(
+  } = useGetProducts_Admin(
     1, // page
     [], // brands
     [], // brands
@@ -50,10 +50,10 @@ const AddProductToBrand = ({ brandId }: { brandId: number }) => {
   );
 
   const { mutate: updateProducts, isPending: isUpdating } =
-    useUpdateAdminBrandsProducts();
+    useUpdateBrandProducts_Admin();
 
   const { data: relatedProducts, isLoading: isRelatedProductsLoading } =
-    useGetAdminRelatedProductsByBrand(brandId);
+    useGetRelatedProductsByBrand_Admin(brandId);
 
   const [prevRelatedProducts, setPrevRelatedProducts] =
     useState(relatedProducts);

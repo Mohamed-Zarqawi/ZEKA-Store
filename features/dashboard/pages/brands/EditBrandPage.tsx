@@ -6,9 +6,9 @@ import { Input } from "@/components/ui/input";
 import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import {
-  useGetAdminBrand,
-  useGetAdminRelatedProductsByBrand,
-  useUpdateAdminBrand,
+  useGetBrand_Admin,
+  useGetRelatedProductsByBrand_Admin,
+  useUpdateBrand_Admin,
 } from "./hooks/useBrands";
 
 import { UpdateBrandSchema } from "@/types/admin/brand";
@@ -26,13 +26,13 @@ export const EditBrandPage = ({ brandId }: ViewProps) => {
     data: brand,
     isLoading: isBrandLoading,
     refetch: refetchBrand,
-  } = useGetAdminBrand(brandId);
+  } = useGetBrand_Admin(brandId);
 
   const { data: relatedProducts, isLoading: isRelatedProductsLoading } =
-    useGetAdminRelatedProductsByBrand(brandId);
+    useGetRelatedProductsByBrand_Admin(brandId);
 
   const { mutateAsync: updateBrand, isPending: isBrandUpdating } =
-    useUpdateAdminBrand();
+    useUpdateBrand_Admin();
 
   const {
     values,

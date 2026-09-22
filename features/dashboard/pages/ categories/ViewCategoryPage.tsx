@@ -6,8 +6,8 @@ import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import ProductCardAdmin from "../../components/ProductCardAdmin";
 import {
-  useGetAdminCategory,
-  useGetAdminRelatedProductsByCategory,
+  useGetCategory_Admin,
+  useGetRelatedProductsByCategory_Admin,
 } from "./hooks/useCategories";
 
 interface ViewProps {
@@ -16,10 +16,10 @@ interface ViewProps {
 
 export const ViewCategoryPage = ({ categoryId }: ViewProps) => {
   const { data: category, isLoading: isCategoryLoading } =
-    useGetAdminCategory(categoryId);
+    useGetCategory_Admin(categoryId);
 
   const { data: relatedProducts, isLoading: isRelatedProductsLoading } =
-    useGetAdminRelatedProductsByCategory(categoryId);
+    useGetRelatedProductsByCategory_Admin(categoryId);
 
   const date = new Date(`${category?.created_at}`);
 

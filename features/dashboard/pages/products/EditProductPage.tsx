@@ -7,10 +7,10 @@ import { useFormik } from "formik";
 import { Pin, Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import {
-  useGetAdminBrands,
-  useGetAdminCategories,
-  useGetAdminProduct,
-  useUpdateAdminProduct,
+  useGetBrands_Admin,
+  useGetCategories_Admin,
+  useGetProduct_Admin,
+  useUpdateProduct_Admin,
 } from "./hooks/useProducts";
 
 import { Badge } from "@/components/ui/badge";
@@ -42,16 +42,16 @@ const EditProductPage = ({ productId }: EditProductPageProps) => {
   const router = useRouter();
 
   const { mutateAsync: updateProduct, isPending: isProductUpdating } =
-    useUpdateAdminProduct();
+    useUpdateProduct_Admin();
 
   const { mutateAsync: uploadMedia, isPending: isMediaUploading } = useMedia();
   const {
     data: product,
     isLoading: isProductLoading,
     refetch: refetchProduct,
-  } = useGetAdminProduct(productId);
-  const { data: categories } = useGetAdminCategories();
-  const { data: brands } = useGetAdminBrands();
+  } = useGetProduct_Admin(productId);
+  const { data: categories } = useGetCategories_Admin();
+  const { data: brands } = useGetBrands_Admin();
 
   type Option = {
     label: string;

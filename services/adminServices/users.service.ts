@@ -3,8 +3,8 @@
 import { Users } from "@/features/dashboard/pages/users/columns";
 import { supabase } from "@/lib/supabaseAdmin";
 
-// -------------------- getUsers --------------------
-export const getUsersAdmin = async () => {
+// -------------------- get users --------------------
+export const getUsers_Admin = async () => {
   const { data, error } = await supabase
     .from("users")
     .select("*, orders_number, favorites_number, addresses(*)")
@@ -16,7 +16,7 @@ export const getUsersAdmin = async () => {
   return data;
 };
 
-export const getUserAdmin = async (userId: string) => {
+export const getUser_Admin = async (userId: string) => {
   const { data, error } = await supabase
     .from("users")
     .select(
@@ -31,9 +31,9 @@ export const getUserAdmin = async (userId: string) => {
   return data;
 };
 
-// -------------------- updateUser --------------------
+// -------------------- update user --------------------
 
-export const updateUserAdmin = async (
+export const updateUser_Admin = async (
   userId: string,
   updatedData: Partial<Users>,
 ) => {
@@ -64,8 +64,8 @@ export const updateUserAdmin = async (
   };
 };
 
-// -------------------- deleteUser --------------------
-export const deleteUserAdmin = async (userId: string) => {
+// -------------------- delete user --------------------
+export const deleteUser_Admin = async (userId: string) => {
   const { data, error } = await supabase.auth.admin.deleteUser(userId);
 
   if (error) throw error;
@@ -73,7 +73,7 @@ export const deleteUserAdmin = async (userId: string) => {
 };
 
 // -------------------- block / unblock User --------------------
-export const toggleUserBlockAdmin = async (userId: string) => {
+export const toggleUserBlock_Admin = async (userId: string) => {
   const { data, error } = await supabase.rpc("toggle_user_block", {
     target_user_id: userId,
   });
@@ -85,7 +85,7 @@ export const toggleUserBlockAdmin = async (userId: string) => {
 
 // -------------------- delete address user --------------------
 
-export const deleteAddressAdmin = async (addressId: string) => {
+export const deleteAddress_Admin = async (addressId: string) => {
   const { data, error } = await supabase
     .from("addresses")
     .delete()

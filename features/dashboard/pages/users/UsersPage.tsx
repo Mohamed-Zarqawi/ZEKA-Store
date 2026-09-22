@@ -2,10 +2,10 @@
 
 import { DataTable } from "@/components/DataTable";
 import { columns } from "./columns";
-import { useGetUsersAdmin } from "./hooks/useUser";
+import { useGetUsers_Admin } from "./hooks/useUser";
 
 const UsersPage = () => {
-  const { data: users, isLoading: isUsersLoading } = useGetUsersAdmin();
+  const { data: users, isLoading: isUsersLoading } = useGetUsers_Admin();
   const storageKey = "usersView";
   console.log(users);
 

@@ -1,8 +1,10 @@
-import { supabase } from "@/lib/supabase";
+"use server";
+
+import { supabase } from "@/lib/supabaseAdmin";
 
 // -------------- upload media --------------
 
-export const uploadMedia = async (file: File) => {
+export const uploadMedia_Admin = async (file: File) => {
   const extension = file.name.split(".").pop()?.toLowerCase() || "jpg";
 
   const fileName = `${crypto.randomUUID()}.${extension}`;

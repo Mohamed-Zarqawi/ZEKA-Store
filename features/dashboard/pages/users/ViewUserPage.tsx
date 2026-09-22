@@ -5,14 +5,14 @@ import OrderCard from "@/features/profile/pages/orders/components/OrderCard";
 import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import ProductCardAdmin from "../../components/ProductCardAdmin";
-import { useGetUserAdmin } from "./hooks/useUser";
+import { useGetUser_Admin } from "./hooks/useUser";
 
 interface ViewProps {
   userId: string;
 }
 
 const ViewUserPage = ({ userId }: ViewProps) => {
-  const { data: user, isLoading: isProductLoading } = useGetUserAdmin(userId);
+  const { data: user, isLoading: isProductLoading } = useGetUser_Admin(userId);
   const router = useRouter();
   const name = user?.first_name + " " + user?.last_name;
 

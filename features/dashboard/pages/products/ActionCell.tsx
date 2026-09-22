@@ -6,7 +6,7 @@ import { CheckCheck, Edit, Eye } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { Product } from "./columns";
-import { useToggleDeleteAdminProduct } from "./hooks/useProducts";
+import { useToggleDeleteProduct_Admin } from "./hooks/useProducts";
 
 interface ActionCellProps {
   product: Product;
@@ -16,7 +16,7 @@ interface ActionCellProps {
 export const ActionCell = ({ product, viewHref }: ActionCellProps) => {
   const router = useRouter();
   const { mutate: deleteProduct, isPending: isDeleting } =
-    useToggleDeleteAdminProduct();
+    useToggleDeleteProduct_Admin();
 
   const handleDelete = () => {
     if (!product.id) return;

@@ -1,39 +1,37 @@
 import { Users } from "@/features/dashboard/pages/users/columns"; // تأكد من مسار الـ Type
 import {
-  deleteAddressAdmin,
-  deleteUserAdmin,
-  getUserAdmin,
-  getUsersAdmin,
-  toggleUserBlockAdmin,
-  updateUserAdmin,
+  deleteAddress_Admin,
+  deleteUser_Admin,
+  getUser_Admin,
+  getUsers_Admin,
+  toggleUserBlock_Admin,
+  updateUser_Admin,
 } from "@/services/adminServices/users.service";
 import { User } from "@/types/auth/user";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
-// ==========================================
-// 1. جلب كل المستخدمين (Get Users)
-// ==========================================
-export const useGetUsersAdmin = () => {
+// -------------- get users --------------
+
+export const useGetUsers_Admin = () => {
   return useQuery({
-    queryKey: ["users"], // هذا المفتاح هو الذي سنستخدمه لتحديث البيانات في الخلفية
-    queryFn: getUsersAdmin,
-  });
-};
-// ==========================================
-// 6. جلب مستخدم واحد فقط (Get Users)
-// ==========================================
-export const useGetUserAdmin = (userId: string) => {
-  return useQuery<User>({
-    queryKey: ["user"],
-    queryFn: () => getUserAdmin(userId),
+    queryKey: ["users", "admin"],
+    queryFn: getUsers_Admin,
   });
 };
 
-// ==========================================
-// 2. تعديل بيانات المستخدم (Update User)
-// ==========================================
-export const useUpdateUserAdmin = () => {
+// -------------- get user --------------
+
+export const useGetUser_Admin = (userId: string) => {
+  return useQuery<User>({
+    queryKey: ["user", "admin", userId],
+    queryFn: () => getUser_Admin(userId),
+  });
+};
+
+// -------------- update user --------------
+
+export const useUpdateUser_Admin = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -43,78 +41,89 @@ export const useUpdateUserAdmin = () => {
     }: {
       userId: string;
       updatedData: Partial<Users>;
-    }) => updateUserAdmin(userId, updatedData),
+    }) => updateUser_Admin(userId, updatedData),
 
     onSuccess: (variables) => {
+      queryClient.invalidateQueries({
+        queryKey: ["users", "admin"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["user", "admin", variables.userId],
+      });
       toast.success("User updated successfully!");
-      queryClient.invalidateQueries({ queryKey: ["users"] });
-      queryClient.invalidateQueries({ queryKey: ["user"] });
     },
     onError: (error) => {
-      toast.error("Something went wrong while updating user.");
-      console.error(error);
+      toast.error("User update faild!");
     },
   });
 };
 
-// ==========================================
-// 3. حذف المستخدم (Delete User)
-// ==========================================
-export const useDeleteUserAdmin = () => {
+// -------------- block user --------------
+
+export const useToggleUserBlock_Admin = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (userId: string) => deleteUserAdmin(userId),
+    mutationFn: (userId: string) => toggleUserBlock_Admin(userId),
 
-    onSuccess: () => {
-      toast.success("User deleted successfully!");
-      // تحديث الجدول فوراً بعد الحذف
-      queryClient.invalidateQueries({ queryKey: ["users"] });
-    },
-    onError: (error) => {
-      toast.error("Something went wrong while deleting user.");
-      console.error(error);
-    },
-  });
-};
+    onSuccess: (isBlocked, userId) => {
+      queryClient.invalidateQueries({
+        queryKey: ["users", "admin"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["user", "admin", userId],
+      });
 
-// ==========================================
-// 4. حظر / فك حظر المستخدم (Toggle Block)
-// ==========================================
-export const useToggleUserBlockAdmin = () => {
-  const queryClient = useQueryClient();
-
-  return useMutation({
-    mutationFn: (userId: string) => toggleUserBlockAdmin(userId),
-
-    onSuccess: (isBlocked) => {
       if (isBlocked) {
         toast.success("User blocked successfully!");
       } else {
         toast.success("User activated successfully!");
       }
-
-      queryClient.invalidateQueries({ queryKey: ["users"] });
     },
-    onError: (error) => {
-      toast.error("Something went wrong while toggling block status.");
-      console.error(error);
+    onError: () => {
+      toast.error("User block faild!");
     },
   });
 };
 
-// ==========================================
-// 4. حظر / فك حظر المستخدم (Toggle Block)
-// ==========================================
+// -------------- delete users --------------
 
-export const useDeleteAddressAdmin = () => {
+export const useDeleteUser_Admin = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (addressId: string) => deleteAddressAdmin(addressId),
-    onSuccess: (variables) => {
+    mutationFn: (userId: string) => deleteUser_Admin(userId),
+
+    onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["user"],
+        queryKey: ["users", "admin"],
+      });
+
+      toast.success("User deleted successfully!");
+    },
+    onError: (error) => {
+      toast.error("User delete faild!");
+    },
+  });
+};
+
+// -------------- delete user address  --------------
+
+export const useDeleteAddress_Admin = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({
+      userId,
+      addressId,
+    }: {
+      userId: string;
+      addressId: string;
+    }) => deleteAddress_Admin(addressId),
+
+    onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({
+        queryKey: ["user", "admin", variables.userId],
       });
       toast.success("Address Deleted Successfully!");
     },

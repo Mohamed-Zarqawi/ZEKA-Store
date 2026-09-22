@@ -1,11 +1,11 @@
 import {
-  CreateAdminBrand,
-  deleteBrandAdmin,
-  getAdminBrand,
-  getAdminBrands,
-  getAdminRelatedProductsByBrand,
-  UpdateAdminBrand,
-  updateBrandProducts,
+  CreateBrand_Admin,
+  deleteBrand_Admin,
+  getBrand_Admin,
+  getBrands_Admin,
+  getRelatedProductsByBrand_Admin,
+  UpdateBrand_Admin,
+  updateBrandProducts_Admin,
 } from "@/services/adminServices/brands.service";
 import {
   ReqCreateBrandType,
@@ -19,62 +19,116 @@ import { toast } from "sonner";
 
 // -------------- get brands --------------
 
-export const useGetAdminBrands = () => {
+export const useGetBrands_Admin = () => {
   return useQuery({
     queryKey: ["brands", "admin"],
-    queryFn: () => getAdminBrands(),
+    queryFn: () => getBrands_Admin(),
   });
 };
 
 // -------------- get brand --------------
 
-export const useGetAdminBrand = (brandId: number) => {
+export const useGetBrand_Admin = (brandId: number) => {
   return useQuery<ResBrandType>({
     queryKey: ["brand", "admin", brandId],
-    queryFn: () => getAdminBrand(brandId),
+    queryFn: () => getBrand_Admin(brandId),
+  });
+};
+
+// -------------- get related products by brand --------------
+
+export const useGetRelatedProductsByBrand_Admin = (brandId?: number) => {
+  return useQuery({
+    queryKey: ["relatedProductByBrand", "admin", brandId],
+    queryFn: () => getRelatedProductsByBrand_Admin(brandId!),
+    enabled: !!brandId,
+  });
+};
+
+// -------------- Create brand --------------
+
+export const useCreateBrand_Admin = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (body: ReqCreateBrandType) => {
+      return CreateBrand_Admin(body);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["brands", "admin"] });
+      toast.success("Brand created successfully!");
+    },
+    onError: () => {
+      toast.error("Brand create faild!");
+    },
+  });
+};
+
+// -------------- Update brand --------------
+
+export const useUpdateBrand_Admin = () => {
+  const queryClient = useQueryClient();
+  const router = useRouter();
+  return useMutation({
+    mutationFn: ({
+      brandId,
+      updatedData,
+    }: {
+      brandId: number;
+      updatedData: ReqUpdateBrandType;
+    }) => {
+      return UpdateBrand_Admin(brandId, updatedData);
+    },
+
+    onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({ queryKey: ["brands", "admin"] });
+      queryClient.invalidateQueries({
+        queryKey: ["brand", "admin", variables.brandId],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["relatedProductByBrand", "admin", variables.brandId],
+      });
+      toast.success("Brand updated successfully!");
+    },
+    onError: () => {
+      toast.error("Brand update faild!");
+    },
   });
 };
 
 // -------------- update products brand --------------
 
-interface UpdateBrandProductsParams {
+interface UpdateBrandProductsParams_Admin {
   brandId: number;
   productIds: number[];
 }
 
-export const useUpdateAdminBrandsProducts = () => {
+export const useUpdateBrandProducts_Admin = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ brandId, productIds }: UpdateBrandProductsParams) =>
-      updateBrandProducts(brandId, productIds),
+    mutationFn: ({ brandId, productIds }: UpdateBrandProductsParams_Admin) =>
+      updateBrandProducts_Admin(brandId, productIds),
 
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({ queryKey: ["brands", "admin"] });
       queryClient.invalidateQueries({
         queryKey: ["relatedProductByBrand", "admin", variables.brandId],
       });
+      toast.success("Brand products updated successfully!");
     },
-  });
-};
-
-// -------------- get related products by brand --------------
-
-export const useGetAdminRelatedProductsByBrand = (brandId?: number) => {
-  return useQuery({
-    queryKey: ["relatedProductByBrand", "admin", brandId],
-    queryFn: () => getAdminRelatedProductsByBrand(brandId!),
-    enabled: !!brandId,
+    onError: () => {
+      toast.error("Brand products update faild!");
+    },
   });
 };
 
 // -------------- delete brand --------------
 
-export const useDeleteBrandAdmin = () => {
+export const useDeleteBrand_Admin = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (brandId: number) => deleteBrandAdmin(brandId),
+    mutationFn: (brandId: number) => deleteBrand_Admin(brandId),
 
     onSuccess: (_, brandId) => {
       toast.success("Brand deleted successfully!");
@@ -88,59 +142,10 @@ export const useDeleteBrandAdmin = () => {
       queryClient.removeQueries({
         queryKey: ["brand", brandId],
       });
+      toast.success("Brand deleted successfully!");
     },
     onError: (error) => {
-      toast.error("Something went wrong while deleting brand.");
-    },
-  });
-};
-
-// -------------- Create brand --------------
-
-export const useCreateBrandAdmin = () => {
-  const queryClient = useQueryClient();
-  return useMutation({
-    mutationFn: (body: ReqCreateBrandType) => {
-      return CreateAdminBrand(body);
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["brands", "admin"] });
-      toast.success("Brands created successfully!");
-    },
-    onError: () => {
-      toast.error("Create brands faild", {});
-    },
-  });
-};
-
-// -------------- Update brand --------------
-
-export const useUpdateAdminBrand = () => {
-  const queryClient = useQueryClient();
-  const router = useRouter();
-  return useMutation({
-    mutationFn: ({
-      brandId,
-      updatedData,
-    }: {
-      brandId: number;
-      updatedData: ReqUpdateBrandType;
-    }) => {
-      return UpdateAdminBrand(brandId, updatedData);
-    },
-
-    onSuccess: (_, variables) => {
-      toast.success("Brand updated successfully!");
-      queryClient.invalidateQueries({ queryKey: ["brands", "admin"] });
-      queryClient.invalidateQueries({
-        queryKey: ["brand", "admin", variables.brandId],
-      });
-      router.push("/admin/brands");
-    },
-    onError: () => {
-      toast.error("Failed to update brands!");
-
-      toast.error("Update brands faild!");
+      toast.error("Brand delete faild!");
     },
   });
 };

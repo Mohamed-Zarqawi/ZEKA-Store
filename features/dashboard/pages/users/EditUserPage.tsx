@@ -5,7 +5,7 @@ import AddressCard from "@/features/profile/pages/addresses/components/AddressCa
 import OrderCard from "@/features/profile/pages/orders/components/OrderCard";
 import { Loader2, Mars, Venus } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useGetUserAdmin, useUpdateUserAdmin } from "./hooks/useUser";
+import { useGetUser_Admin, useUpdateUser_Admin } from "./hooks/useUser";
 
 import ButtonsSelect from "@/components/myComponents/ButtonsSelect";
 import SelectInput from "@/components/myComponents/SelectInput";
@@ -25,10 +25,10 @@ const EditUserPage = ({ userId }: ViewProps) => {
     data: user,
     isLoading: isUserLoading,
     refetch: refetchUser,
-  } = useGetUserAdmin(userId);
+  } = useGetUser_Admin(userId);
 
   const { mutateAsync: updateUser, isPending: isUserUpdating } =
-    useUpdateUserAdmin();
+    useUpdateUser_Admin();
 
   const router = useRouter();
 

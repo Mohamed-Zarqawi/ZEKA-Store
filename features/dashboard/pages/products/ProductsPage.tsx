@@ -2,7 +2,7 @@
 
 import { DataTable } from "@/components/DataTable";
 import { columns } from "./columns";
-import { useGetAdminProducts } from "./hooks/useProducts";
+import { useGetProducts_Admin } from "./hooks/useProducts";
 
 const ProductsPage = () => {
   // ------------------- States -------------------
@@ -11,7 +11,7 @@ const ProductsPage = () => {
   // ------------------- Query Fetches -------------------
   // --- get products
   const { data: products, isLoading: isProductsLoading } =
-    useGetAdminProducts();
+    useGetProducts_Admin();
 
   // ------------------- Code -------------------
   return (

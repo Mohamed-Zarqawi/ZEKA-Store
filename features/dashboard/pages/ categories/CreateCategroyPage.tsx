@@ -13,15 +13,15 @@ import {
 } from "@/types/admin/category";
 import { toast } from "sonner";
 import {
-  useCreateCategoryAdmin,
-  useGetAdminCategories,
+  useCreateCategory_Admin,
+  useGetCategories_Admin,
 } from "./hooks/useCategories";
 
 const CreateCategoryPage = () => {
   const router = useRouter();
   const { mutateAsync: createCategory, isPending: isCategoryCreating } =
-    useCreateCategoryAdmin();
-  const { refetch: refetchCategories } = useGetAdminCategories();
+    useCreateCategory_Admin();
+  const { refetch: refetchCategories } = useGetCategories_Admin();
 
   const handleCreateCategory = (data: ReqCreateCategoryType) => {
     createCategory(data).then(() => {

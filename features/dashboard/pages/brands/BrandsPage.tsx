@@ -3,7 +3,7 @@
 import { DataTable } from "@/components/DataTable";
 
 import { columns } from "./columns";
-import { useGetAdminBrands } from "./hooks/useBrands";
+import { useGetBrands_Admin } from "./hooks/useBrands";
 
 const BrandsPage = () => {
   // ------------------- States -------------------
@@ -12,7 +12,7 @@ const BrandsPage = () => {
   // ------------------- Query Fetches -------------------
   // --- get products
 
-  const { data: brands, isLoading: isBrandsLoading } = useGetAdminBrands();
+  const { data: brands, isLoading: isBrandsLoading } = useGetBrands_Admin();
   // ------------------- Code -------------------
   return (
     <div className="w-full overflow-hidden">

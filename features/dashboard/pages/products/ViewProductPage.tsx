@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Field, FieldLabel } from "@/components/ui/field";
 import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useGetAdminProduct } from "./hooks/useProducts";
+import { useGetProduct_Admin } from "./hooks/useProducts";
 
 interface ViewProps {
   productId: string;
@@ -12,7 +12,7 @@ interface ViewProps {
 
 export const ViewProductPage = ({ productId }: ViewProps) => {
   const { data: product, isLoading: isProductLoading } =
-    useGetAdminProduct(productId);
+    useGetProduct_Admin(productId);
 
   const images = product?.images;
   const imageUrl = images?.[0] ? `${images[0]}` : "/images/placeholder.jpeg";

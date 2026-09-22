@@ -26,10 +26,10 @@ import { getChangedValues } from "@/utils/getChangedValues";
 import { IconTrash } from "@tabler/icons-react";
 import { Image, Pin } from "lucide-react";
 import {
-  useCreateAdminProduct,
-  useGetAdminBrands,
-  useGetAdminCategories,
-  useGetAdminProducts,
+  useCreateProduct_Admin,
+  useGetBrands_Admin,
+  useGetCategories_Admin,
+  useGetProducts_Admin,
 } from "./hooks/useProducts";
 
 const CreateProductPage = () => {
@@ -43,7 +43,7 @@ const CreateProductPage = () => {
   const [selectedImages, setSelectedImages] = useState<PreviewImage[]>([]);
 
   const { mutateAsync: CreateProduct, isPending: isCreating } =
-    useCreateAdminProduct();
+    useCreateProduct_Admin();
   const { mutateAsync: uploadMedia, isPending: isMediaUploading } = useMedia();
   // ------------------ handle remove selected image -------------------
 
@@ -55,12 +55,12 @@ const CreateProductPage = () => {
     });
   };
 
-  const { refetch: refetchProducts } = useGetAdminProducts();
+  const { refetch: refetchProducts } = useGetProducts_Admin();
 
   // ------------------- Categories and brands names -------------------
 
-  const { data: categories } = useGetAdminCategories();
-  const { data: brands } = useGetAdminBrands();
+  const { data: categories } = useGetCategories_Admin();
+  const { data: brands } = useGetBrands_Admin();
   type Option = {
     label: string;
     value: string;

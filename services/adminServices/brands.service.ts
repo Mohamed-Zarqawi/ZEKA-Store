@@ -4,7 +4,7 @@ import { supabase } from "@/lib/supabaseAdmin";
 import { ReqCreateBrandType, ReqUpdateBrandType } from "@/types/admin/brand";
 // -------------- get brands --------------
 
-export const getAdminBrands = async () => {
+export const getBrands_Admin = async () => {
   const { data, error } = await supabase
     .from("brands")
     .select("* ,brandRelatedProducts")
@@ -18,7 +18,7 @@ export const getAdminBrands = async () => {
 
 // -------------- Get brand --------------
 
-export const getAdminBrand = async (brandId: number) => {
+export const getBrand_Admin = async (brandId: number) => {
   const { data, error } = await supabase
     .from("brands")
     .select("* , brandRelatedProducts")
@@ -33,7 +33,7 @@ export const getAdminBrand = async (brandId: number) => {
 
 // -------------- get related products by brand --------------
 
-export const getAdminRelatedProductsByBrand = async (brandId: number) => {
+export const getRelatedProductsByBrand_Admin = async (brandId: number) => {
   const { data, error } = await supabase
     .from("products")
     .select("* , category:categories(*) , brand:brands(*)")
@@ -47,7 +47,7 @@ export const getAdminRelatedProductsByBrand = async (brandId: number) => {
 
 // -------------- delete Category Admin --------------
 
-export const deleteBrandAdmin = async (brandId: number) => {
+export const deleteBrand_Admin = async (brandId: number) => {
   const { data, error } = await supabase
     .from("brands")
     .delete()
@@ -61,7 +61,7 @@ export const deleteBrandAdmin = async (brandId: number) => {
 
 // -------------- update products brand --------------
 
-export const updateBrandProducts = async (
+export const updateBrandProducts_Admin = async (
   brandId: number,
   productIds: number[],
 ) => {
@@ -79,7 +79,7 @@ export const updateBrandProducts = async (
 
 // -------------- create brand --------------
 
-export const CreateAdminBrand = async (body: ReqCreateBrandType) => {
+export const CreateBrand_Admin = async (body: ReqCreateBrandType) => {
   const { data, error } = await supabase.from("brands").insert(body).select();
 
   if (error) {
@@ -90,7 +90,7 @@ export const CreateAdminBrand = async (body: ReqCreateBrandType) => {
 
 // -------------- update category --------------
 
-export const UpdateAdminBrand = async (
+export const UpdateBrand_Admin = async (
   brandId: number,
   updatedData: ReqUpdateBrandType,
 ) => {

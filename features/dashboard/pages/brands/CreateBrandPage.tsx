@@ -9,13 +9,13 @@ import { getChangedValues } from "@/utils/getChangedValues";
 
 import { ReqCreateBrandType } from "@/types/admin/brand";
 import { CreateCategorySchema } from "@/types/admin/category";
-import { useCreateBrandAdmin, useGetAdminBrands } from "./hooks/useBrands";
+import { useCreateBrand_Admin, useGetBrands_Admin } from "./hooks/useBrands";
 
 const CreateCategoryPage = () => {
   const router = useRouter();
   const { mutateAsync: createBrand, isPending: isBrandCreating } =
-    useCreateBrandAdmin();
-  const { refetch: refetchBrands } = useGetAdminBrands();
+    useCreateBrand_Admin();
+  const { refetch: refetchBrands } = useGetBrands_Admin();
 
   const handleCreateBrand = (data: ReqCreateBrandType) => {
     createBrand(data).then(() => {

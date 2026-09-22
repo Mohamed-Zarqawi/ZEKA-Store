@@ -6,9 +6,9 @@ import { Input } from "@/components/ui/input";
 import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import {
-  useGetAdminCategory,
-  useGetAdminRelatedProductsByCategory,
-  useUpdateAdminCategory,
+  useGetCategory_Admin,
+  useGetRelatedProductsByCategory_Admin,
+  useUpdateCategory_Admin,
 } from "./hooks/useCategories";
 
 import { UpdateCategorySchema } from "@/types/admin/category";
@@ -26,13 +26,13 @@ export const EditCategoryPage = ({ categoryId }: ViewProps) => {
     data: category,
     isLoading: isCategoryLoading,
     refetch: refetchCategory,
-  } = useGetAdminCategory(categoryId);
+  } = useGetCategory_Admin(categoryId);
 
   const { data: relatedProducts, isLoading: isRelatedProductsLoading } =
-    useGetAdminRelatedProductsByCategory(categoryId);
+    useGetRelatedProductsByCategory_Admin(categoryId);
 
   const { mutateAsync: updateCategory, isPending: isCategoryUpdating } =
-    useUpdateAdminCategory();
+    useUpdateCategory_Admin();
 
   const {
     values,

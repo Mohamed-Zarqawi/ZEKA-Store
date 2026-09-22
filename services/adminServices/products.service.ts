@@ -1,10 +1,12 @@
-import { supabase } from "@/lib/supabase";
+"use server";
+
+import { supabase } from "@/lib/supabaseAdmin";
 import { ReqCreateProductType } from "@/types/admin/product";
 import { ProductType } from "@/types/shop/product";
 
 // -------------- getProducts --------------
 
-export const getAdminProducts = async (
+export const getProducts_Admin = async (
   page: number = 1,
   categories: string[] = [],
   brands: string[] = [],
@@ -61,9 +63,9 @@ export const getAdminProducts = async (
   };
 };
 
-// -------------- GetProduct --------------
+// -------------- get product --------------
 
-export const getAdminProduct = async (productId: string) => {
+export const getProduct_Admin = async (productId: string) => {
   const { data, error } = await supabase
     .from("products")
     .select("* , category:categories(*) , brand:brands(*)")
@@ -76,9 +78,9 @@ export const getAdminProduct = async (productId: string) => {
   return data;
 };
 
-// -------------- UpdatProduct --------------
+// -------------- update product --------------
 
-export const UpdateAdminProduct = async (
+export const updateProduct_Admin = async (
   productId: string,
   updatedData: Partial<ProductType> = {},
 ) => {
@@ -94,9 +96,9 @@ export const UpdateAdminProduct = async (
   return data;
 };
 
-// -------------- DeleteProduct --------------
+// -------------- toggle delete product --------------
 
-export const ToggleDeleteAdminProduct = async (productId: string) => {
+export const ToggleDeleteProduct_Admin = async (productId: string) => {
   const { data: product, error: fetchError } = await supabase
     .from("products")
     .select("isDeleted")
@@ -129,7 +131,7 @@ export const ToggleDeleteAdminProduct = async (productId: string) => {
 
 // -------------- CreateProduct --------------
 
-export const CreateAdminProduct = async (body: ReqCreateProductType) => {
+export const CreateProduct_Admin = async (body: ReqCreateProductType) => {
   const { data, error } = await supabase.from("products").insert(body).select();
 
   if (error) {
@@ -140,7 +142,7 @@ export const CreateAdminProduct = async (body: ReqCreateProductType) => {
 
 // -------------- get categories --------------
 
-export const getAdminCategories = async () => {
+export const getCategories_Admin = async () => {
   const { data, error } = await supabase.from("categories").select("id, name");
 
   if (error) {
@@ -151,7 +153,7 @@ export const getAdminCategories = async () => {
 
 // -------------- get brands --------------
 
-export const getAdminBrands = async () => {
+export const getBrands_Admin = async () => {
   const { data, error } = await supabase.from("brands").select("id , name");
 
   if (error) {

@@ -5,7 +5,7 @@ import { IconTrash } from "@tabler/icons-react";
 import { Edit, Eye } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Brand } from "./columns";
-import { useDeleteBrandAdmin } from "./hooks/useBrands";
+import { useDeleteBrand_Admin } from "./hooks/useBrands";
 
 interface ActionCellProps {
   brand: Brand;
@@ -14,7 +14,7 @@ interface ActionCellProps {
 
 export const ActionCell = ({ brand, viewHref }: ActionCellProps) => {
   const router = useRouter();
-  const { mutate: deleteBrand, isPending: isDeleting } = useDeleteBrandAdmin();
+  const { mutate: deleteBrand, isPending: isDeleting } = useDeleteBrand_Admin();
 
   return (
     <div className="mr-4 flex items-center justify-end gap-2">

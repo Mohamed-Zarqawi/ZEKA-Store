@@ -1,11 +1,11 @@
 import {
-  CreateAdminProduct,
-  getAdminBrands,
-  getAdminCategories,
-  getAdminProduct,
-  getAdminProducts,
-  ToggleDeleteAdminProduct,
-  UpdateAdminProduct,
+  CreateProduct_Admin,
+  getBrands_Admin,
+  getCategories_Admin,
+  getProduct_Admin,
+  getProducts_Admin,
+  ToggleDeleteProduct_Admin,
+  updateProduct_Admin,
 } from "@/services/adminServices/products.service";
 import { ReqCreateProductType } from "@/types/admin/product";
 import { ProductType } from "@/types/shop/product";
@@ -17,7 +17,9 @@ import {
 } from "@tanstack/react-query";
 import { toast } from "sonner";
 
-export const useGetAdminProducts = (
+// -------------- get products --------------
+
+export const useGetProducts_Admin = (
   page: number = 1,
   categories: string[] = [],
   brands: string[] = [],
@@ -26,35 +28,64 @@ export const useGetAdminProducts = (
   search: string = "",
 ) => {
   return useQuery({
-    queryKey: [
-      "products",
-      { page, categories, brands, minPrice, maxPrice, search },
-    ],
+    queryKey: ["products", "admin"],
     queryFn: () =>
-      getAdminProducts(page, categories, brands, minPrice, maxPrice, search),
+      getProducts_Admin(page, categories, brands, minPrice, maxPrice, search),
     placeholderData: keepPreviousData,
   });
 };
 
-export const useGetAdminProduct = (productId: string) => {
+// -------------- get product --------------
+
+export const useGetProduct_Admin = (productId: string) => {
   return useQuery<ProductType>({
-    queryKey: ["product", productId],
-    queryFn: () => getAdminProduct(productId),
+    queryKey: ["product", "admin", productId],
+    queryFn: () => getProduct_Admin(productId),
   });
 };
 
-export const useToggleDeleteAdminProduct = () => {
+// -------------- get categories --------------
+
+export const useGetCategories_Admin = () => {
+  return useQuery({
+    queryKey: ["categories", "admin"],
+    queryFn: () => getCategories_Admin(),
+  });
+};
+
+// -------------- get brands --------------
+
+export const useGetBrands_Admin = () => {
+  return useQuery({
+    queryKey: ["brands", "admin"],
+    queryFn: () => getBrands_Admin(),
+  });
+};
+
+// -------------- create product --------------
+
+export const useCreateProduct_Admin = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (productId: string) => ToggleDeleteAdminProduct(productId),
+    mutationFn: (body: ReqCreateProductType) => {
+      return CreateProduct_Admin(body);
+    },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["products"] });
+      queryClient.invalidateQueries({
+        queryKey: ["products", "admin"],
+      });
+      toast.success("Product created successfully!");
+    },
+    onError: () => {
+      toast.error("Product create faild!");
     },
   });
 };
 
-export const useUpdateAdminProduct = () => {
+// -------------- update product --------------
+
+export const useUpdateProduct_Admin = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -65,48 +96,40 @@ export const useUpdateAdminProduct = () => {
       productId: string;
       updatedData: Partial<ProductType>;
     }) => {
-      return UpdateAdminProduct(productId, updatedData);
+      return updateProduct_Admin(productId, updatedData);
     },
 
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["products"] });
-      toast.success("Product updated successfully!", {});
+    onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({
+        queryKey: ["products", "admin"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["product", "admin", variables.productId],
+      });
+
+      toast.success("Product updated successfully!");
     },
     onError: () => {
-      toast.error("Failed to update product!", {});
-
-      toast.error("Update Product Faild", {});
+      toast.error(" Product update faild!");
     },
   });
 };
 
-export const useCreateAdminProduct = () => {
+// -------------- toggle delete product --------------
+
+export const useToggleDeleteProduct_Admin = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (body: ReqCreateProductType) => {
-      return CreateAdminProduct(body);
-    },
+    mutationFn: (productId: string) => ToggleDeleteProduct_Admin(productId),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["products"] });
-      toast.success("Product created successfully!", {});
+      queryClient.invalidateQueries({
+        queryKey: ["products", "admin"],
+      });
+      toast.success("Product deleted successfully!");
     },
     onError: () => {
-      toast.error("Create Product Faild", {});
+      toast.error("Product delete faild!");
     },
-  });
-};
-
-export const useGetAdminCategories = () => {
-  return useQuery({
-    queryKey: ["categories"],
-    queryFn: () => getAdminCategories(),
-  });
-};
-
-export const useGetAdminBrands = () => {
-  return useQuery({
-    queryKey: ["brands"],
-    queryFn: () => getAdminBrands(),
   });
 };

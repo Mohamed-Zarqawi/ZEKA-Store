@@ -3,7 +3,7 @@
 import { DataTable } from "@/components/DataTable";
 
 import { columns } from "./columns";
-import { useGetAdminCategories } from "./hooks/useCategories";
+import { useGetCategories_Admin } from "./hooks/useCategories";
 
 const CategoriesPage = () => {
   // ------------------- States -------------------
@@ -13,7 +13,7 @@ const CategoriesPage = () => {
   // --- get products
 
   const { data: categories, isLoading: isCategoriesLoading } =
-    useGetAdminCategories();
+    useGetCategories_Admin();
   // ------------------- Code -------------------
   return (
     <div className="w-full overflow-hidden">

@@ -5,7 +5,7 @@ import { IconTrash } from "@tabler/icons-react";
 import { Edit, Eye } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Category } from "./columns";
-import { useDeleteCategoryAdmin } from "./hooks/useCategories";
+import { useDeleteCategory_Admin } from "./hooks/useCategories";
 
 interface ActionCellProps {
   category: Category;
@@ -15,7 +15,7 @@ interface ActionCellProps {
 export const ActionCell = ({ category, viewHref }: ActionCellProps) => {
   const router = useRouter();
   const { mutate: deleteCategory, isPending: isDeleting } =
-    useDeleteCategoryAdmin();
+    useDeleteCategory_Admin();
 
   return (
     <div className="mr-4 flex items-center justify-end gap-2">

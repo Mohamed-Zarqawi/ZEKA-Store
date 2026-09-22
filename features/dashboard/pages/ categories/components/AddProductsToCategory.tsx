@@ -16,10 +16,10 @@ import { ProductType } from "@/types/shop/product";
 import { X } from "lucide-react";
 import { debounce, parseAsString, useQueryState } from "nuqs";
 import { useState } from "react";
-import { useGetAdminProducts } from "../../products/hooks/useProducts";
+import { useGetProducts_Admin } from "../../products/hooks/useProducts";
 import {
-  useGetAdminRelatedProductsByCategory,
-  useUpdateAdminCategoryProducts,
+  useGetRelatedProductsByCategory_Admin,
+  useUpdateCategoryProducts_Admin,
 } from "../hooks/useCategories";
 
 const AddProductsToCategory = ({ categoryId }: { categoryId: number }) => {
@@ -40,7 +40,7 @@ const AddProductsToCategory = ({ categoryId }: { categoryId: number }) => {
     isLoading: isProductsLoading,
     isFetching: isProductsFetching,
     refetch: refetchProducts,
-  } = useGetAdminProducts(
+  } = useGetProducts_Admin(
     1, // page
     [], // categories
     [], // brands
@@ -52,10 +52,10 @@ const AddProductsToCategory = ({ categoryId }: { categoryId: number }) => {
   const {
     mutate: updateCategoryProducts,
     isPending: isCategoryProductsUpdating,
-  } = useUpdateAdminCategoryProducts();
+  } = useUpdateCategoryProducts_Admin();
 
   const { data: categoryProducts, isLoading: isCategoryProductsLoading } =
-    useGetAdminRelatedProductsByCategory(categoryId);
+    useGetRelatedProductsByCategory_Admin(categoryId);
 
   const [prevRelatedProducts, setPrevRelatedProducts] =
     useState(categoryProducts);

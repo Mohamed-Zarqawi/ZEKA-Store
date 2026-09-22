@@ -1,4 +1,4 @@
-import { uploadMedia } from "@/services/adminServices/media.service";
+import { uploadMedia_Admin } from "@/services/adminServices/media.service";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
@@ -7,7 +7,7 @@ export const useMedia = () => {
 
   return useMutation({
     mutationFn: ({ file }: { file: File }) => {
-      return uploadMedia(file);
+      return uploadMedia_Admin(file);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["media"] });

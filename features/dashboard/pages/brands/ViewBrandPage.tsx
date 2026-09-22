@@ -6,8 +6,8 @@ import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import ProductCardAdmin from "../../components/ProductCardAdmin";
 import {
-  useGetAdminBrand,
-  useGetAdminRelatedProductsByBrand,
+  useGetBrand_Admin,
+  useGetRelatedProductsByBrand_Admin,
 } from "./hooks/useBrands";
 
 interface ViewProps {
@@ -15,10 +15,10 @@ interface ViewProps {
 }
 
 export const ViewBrandsPage = ({ brandId }: ViewProps) => {
-  const { data: brand, isLoading: isBrandLoading } = useGetAdminBrand(brandId);
+  const { data: brand, isLoading: isBrandLoading } = useGetBrand_Admin(brandId);
 
   const { data: relatedProducts, isLoading: isRelatedProductsLoading } =
-    useGetAdminRelatedProductsByBrand(brandId);
+    useGetRelatedProductsByBrand_Admin(brandId);
 
   const date = new Date(`${brand?.created_at}`);
 

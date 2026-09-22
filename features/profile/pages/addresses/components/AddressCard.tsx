@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { useDeleteAddressAdmin } from "@/features/dashboard/pages/users/hooks/useUser";
+import { useDeleteAddress_Admin } from "@/features/dashboard/pages/users/hooks/useUser";
 import { AddressType } from "@/types/profile/address";
 import { IconTrash } from "@tabler/icons-react";
 import { Edit, Pin } from "lucide-react";
@@ -18,7 +18,7 @@ const AddressCard = ({
   const { mutate: handleDelete, isPending: isDeleting } = useDeleteAddress();
 
   const { mutate: handleDeleteAdmin, isPending: isDeletingAdmin } =
-    useDeleteAddressAdmin();
+    useDeleteAddress_Admin();
 
   const { mutateAsync: handleUpdateAddress, isPending: isAddressUpdating } =
     useUpdateAddress();
@@ -46,7 +46,10 @@ const AddressCard = ({
               isPending={isDeleting}
               onClick={() => {
                 if (isAdmin) {
-                  handleDeleteAdmin(address.id);
+                  handleDeleteAdmin({
+                    userId: address.userId,
+                    addressId: address.id,
+                  });
                 } else {
                   handleDelete(address.id);
                 }

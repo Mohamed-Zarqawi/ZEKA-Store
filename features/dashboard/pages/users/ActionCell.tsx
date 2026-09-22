@@ -5,7 +5,7 @@ import { IconTrash } from "@tabler/icons-react";
 import { Edit, Eye, ShieldCheck, ShieldX } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Users } from "./columns";
-import { useDeleteUserAdmin, useToggleUserBlockAdmin } from "./hooks/useUser";
+import { useDeleteUser_Admin, useToggleUserBlock_Admin } from "./hooks/useUser";
 
 interface ActionCellProps {
   user: Users;
@@ -16,8 +16,8 @@ export const ActionCell = ({ user, viewHref }: ActionCellProps) => {
   const userId = user.id;
   const router = useRouter();
   const { mutate: toggleBlock, isPending: isBlocking } =
-    useToggleUserBlockAdmin();
-  const { mutate: deleteUser, isPending: isDeleting } = useDeleteUserAdmin();
+    useToggleUserBlock_Admin();
+  const { mutate: deleteUser, isPending: isDeleting } = useDeleteUser_Admin();
 
   return (
     <div className="flex items-center justify-end gap-2">
