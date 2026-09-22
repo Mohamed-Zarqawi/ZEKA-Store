@@ -256,7 +256,7 @@ export const columns = (): ColumnDef<Product>[] => [
 
     cell: ({ row }) => {
       const id = row.getValue<string>("id");
-      const href = `/admin/products/${id}`;
+      const href = `/dashboard/products/${id}`;
       return <ActionCell product={row.original} viewHref={href} />;
     },
   },

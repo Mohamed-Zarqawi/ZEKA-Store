@@ -52,7 +52,7 @@ const ViewUserPage = ({ userId }: ViewProps) => {
           <Button
             variant={"outline"}
             onClick={() => {
-              router.push(`/admin/users/${user.id}/edit`);
+              router.push(`/dashboard/users/${user.id}/edit`);
             }}
           >
             Edit Mode

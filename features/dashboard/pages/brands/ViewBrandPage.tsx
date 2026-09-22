@@ -50,7 +50,7 @@ export const ViewBrandsPage = ({ brandId }: ViewProps) => {
           <Button
             variant={"outline"}
             onClick={() => {
-              router.push(`/admin/brands/${brand.id}/edit`);
+              router.push(`/dashboard/brands/${brand.id}/edit`);
             }}
           >
             Edit Mode

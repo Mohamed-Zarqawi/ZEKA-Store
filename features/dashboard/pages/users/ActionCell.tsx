@@ -42,7 +42,7 @@ export const ActionCell = ({ user, viewHref }: ActionCellProps) => {
         size="icon-sm"
         className="border-border cursor-pointer border p-2"
         onClick={() => {
-          router.push(`/admin/users/${user.id}/edit`);
+          router.push(`/dashboard/users/${user.id}/edit`);
         }}
         disabled={isDeleting}
       >

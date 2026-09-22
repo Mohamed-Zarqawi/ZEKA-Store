@@ -109,7 +109,7 @@ export const columns = (): ColumnDef<Brand>[] => [
 
     cell: ({ row }) => {
       const id = row.getValue<string>("id");
-      const href = `/admin/brands/${id}`;
+      const href = `/dashboard/brands/${id}`;
       return <ActionCell brand={row.original} viewHref={href} />;
     },
   },

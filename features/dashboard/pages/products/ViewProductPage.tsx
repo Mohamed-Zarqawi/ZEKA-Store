@@ -34,7 +34,7 @@ export const ViewProductPage = ({ productId }: ViewProps) => {
           <Button
             variant={"outline"}
             onClick={() => {
-              router.push(`/admin/products/${product.id}/edit`);
+              router.push(`/dashboard/products/${product.id}/edit`);
             }}
           >
             Edit Mode

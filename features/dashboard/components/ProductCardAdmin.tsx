@@ -60,7 +60,7 @@ const ProductCardAdmin = ({
               onClick={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
-                router.push(`/admin/products/${product.id}/edit`);
+                router.push(`/dashboard/products/${product.id}/edit`);
               }}
               className="bg-primary/80 border-primary absolute right-3 bottom-3 cursor-pointer rounded-lg p-1.5 md:right-4 md:bottom-5"
             >

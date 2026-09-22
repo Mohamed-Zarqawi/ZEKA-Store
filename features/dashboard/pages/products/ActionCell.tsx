@@ -57,7 +57,7 @@ export const ActionCell = ({ product, viewHref }: ActionCellProps) => {
         size="icon-sm"
         className="border-border cursor-pointer border p-2"
         onClick={() => {
-          router.push(`/admin/products/${product.id}/edit`);
+          router.push(`/dashboard/products/${product.id}/edit`);
         }}
         disabled={isDeleting}
       >

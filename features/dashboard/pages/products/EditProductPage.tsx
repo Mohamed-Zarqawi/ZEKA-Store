@@ -199,7 +199,7 @@ const EditProductPage = ({ productId }: EditProductPageProps) => {
               type="button"
               variant="outline"
               onClick={() => {
-                router.push(`/admin/products/${product.id}`);
+                router.push(`/dashboard/products/${product.id}`);
               }}
             >
               View Mode

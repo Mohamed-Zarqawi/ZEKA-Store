@@ -51,7 +51,7 @@ export const ViewCategoryPage = ({ categoryId }: ViewProps) => {
           <Button
             variant={"outline"}
             onClick={() => {
-              router.push(`/admin/categories/${category.id}/edit`);
+              router.push(`/dashboard/categories/${category.id}/edit`);
             }}
           >
             Edit Mode

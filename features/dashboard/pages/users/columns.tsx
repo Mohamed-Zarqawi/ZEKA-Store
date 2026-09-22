@@ -385,7 +385,7 @@ export const columns = (): ColumnDef<Users>[] => [
 
     cell: ({ row }) => {
       const id = row.getValue<string>("id");
-      const href = `/admin/users/${id}`;
+      const href = `/dashboard/users/${id}`;
       return <ActionCell user={row.original} viewHref={href} />;
     },
   },

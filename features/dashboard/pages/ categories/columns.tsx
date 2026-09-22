@@ -109,7 +109,7 @@ export const columns = (): ColumnDef<Category>[] => [
 
     cell: ({ row }) => {
       const id = row.getValue<string>("id");
-      const href = `/admin/categories/${id}`;
+      const href = `/dashboard/categories/${id}`;
       return <ActionCell category={row.original} viewHref={href} />;
     },
   },

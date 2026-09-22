@@ -38,7 +38,7 @@ export const ActionCell = ({ category, viewHref }: ActionCellProps) => {
         size="icon-sm"
         className="border-border cursor-pointer border p-2"
         onClick={() => {
-          router.push(`/admin/categories/${category.id}/edit`);
+          router.push(`/dashboard/categories/${category.id}/edit`);
         }}
         disabled={isDeleting}
       >

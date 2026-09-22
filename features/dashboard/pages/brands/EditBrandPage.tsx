@@ -89,7 +89,7 @@ export const EditBrandPage = ({ brandId }: ViewProps) => {
               type="button"
               variant={"outline"}
               onClick={() => {
-                router.push(`/admin/brands/${brand.id}`);
+                router.push(`/dashboard/brands/${brand.id}`);
               }}
             >
               View Mode
