@@ -1,6 +1,7 @@
 "use server";
 
 import { supabase } from "@/lib/supabaseAdmin";
+import { ReqCreateCategoryType, ResCategoryType } from "@/types/admin/category";
 // -------------- get categories --------------
 
 export const getAdminCategories = async () => {
@@ -30,6 +31,34 @@ export const getAdminCategory = async (categoryId: number) => {
   return data;
 };
 
+// -------------- get related products by category --------------
+
+export const getAdminRelatedProductsByCategory = async (categoryId: number) => {
+  const { data, error } = await supabase
+    .from("products")
+    .select("* , category:categories(*) , brand:brands(*)")
+    .eq("category_id", categoryId);
+
+  if (error) {
+    throw error;
+  }
+  return data;
+};
+
+// -------------- delete category --------------
+
+export const deleteCategoryAdmin = async (categoryId: number) => {
+  const { data, error } = await supabase
+    .from("categories")
+    .delete()
+    .eq("id", categoryId);
+
+  if (error) {
+    throw error;
+  }
+  return data;
+};
+
 // -------------- update products category --------------
 
 export const updateCategoryProducts = async (
@@ -48,55 +77,31 @@ export const updateCategoryProducts = async (
   return data;
 };
 
-// -------------- get brands --------------
+// -------------- create category --------------
 
-export const getAdminBrands = async () => {
-  const { data, error } = await supabase
-    .from("brands")
-    .select("*")
-    .order("id", { ascending: true });
-
-  if (error) {
-    throw error;
-  }
-  return data;
-};
-
-// -------------- get related products by category --------------
-
-export const getAdminRelatedProductsByCategory = async (categoryId: number) => {
-  const { data, error } = await supabase
-    .from("products")
-    .select("* , category:categories(*) , brand:brands(*)")
-    .eq("category_id", categoryId);
-
-  if (error) {
-    throw error;
-  }
-  return data;
-};
-
-// -------------- get related products by brand --------------
-
-export const getAdminRelatedProductsByBrand = async (brandId: number) => {
-  const { data, error } = await supabase
-    .from("products")
-    .select("* , category:categories(*) , brand:brands(*)")
-    .eq("brand_id", brandId);
-
-  if (error) {
-    throw error;
-  }
-  return data;
-};
-
-// -------------- get related products by brand --------------
-
-export const deleteCategoryAdmin = async (categoryId: number) => {
+export const CreateAdminCategory = async (body: ReqCreateCategoryType) => {
   const { data, error } = await supabase
     .from("categories")
-    .delete()
-    .eq("id", categoryId);
+    .insert(body)
+    .select();
+
+  if (error) {
+    throw error;
+  }
+  return data;
+};
+
+// -------------- update category --------------
+
+export const UpdateAdminCategory = async (
+  categoryId: number,
+  updatedData: ResCategoryType,
+) => {
+  const { data, error } = await supabase
+    .from("categories")
+    .update(updatedData)
+    .eq("id", categoryId)
+    .select();
 
   if (error) {
     throw error;

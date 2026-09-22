@@ -1,5 +1,11 @@
+import CreateCategoryPage from "@/features/dashboard/pages/ categories/CreateCategroyPage";
+
 const CreateProduct = () => {
-  return <div>{/* <CreateProductPage /> */}</div>;
+  return (
+    <div>
+      <CreateCategoryPage />
+    </div>
+  );
 };
 
 export default CreateProduct;

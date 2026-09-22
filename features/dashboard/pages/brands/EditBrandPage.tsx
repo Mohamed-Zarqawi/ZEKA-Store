@@ -6,33 +6,33 @@ import { Input } from "@/components/ui/input";
 import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import {
-  useGetAdminCategory,
-  useGetAdminRelatedProductsByCategory,
-  useUpdateAdminCategory,
-} from "./hooks/useCategories";
+  useGetAdminBrand,
+  useGetAdminRelatedProductsByBrand,
+  useUpdateAdminBrand,
+} from "./hooks/useBrands";
 
-import { UpdateCategorySchema } from "@/types/admin/category";
+import { UpdateBrandSchema } from "@/types/admin/brand";
 import { getChangedValues } from "@/utils/getChangedValues";
 import { useFormik } from "formik";
 import ProductCardAdmin from "../../components/ProductCardAdmin";
-import AddProductToCategory from "./components/AddProductsToCategory";
+import AddProductToBrand from "./components/AddProductsToBrand";
 
 interface ViewProps {
-  categoryId: number;
+  brandId: number;
 }
 
-export const EditCategoryPage = ({ categoryId }: ViewProps) => {
+export const EditBrandPage = ({ brandId }: ViewProps) => {
   const {
-    data: category,
-    isLoading: isCategoryLoading,
-    refetch: refetchCategory,
-  } = useGetAdminCategory(categoryId);
+    data: brand,
+    isLoading: isBrandLoading,
+    refetch: refetchBrand,
+  } = useGetAdminBrand(brandId);
 
   const { data: relatedProducts, isLoading: isRelatedProductsLoading } =
-    useGetAdminRelatedProductsByCategory(categoryId);
+    useGetAdminRelatedProductsByBrand(brandId);
 
-  const { mutateAsync: updateCategory, isPending: isCategoryUpdating } =
-    useUpdateAdminCategory();
+  const { mutateAsync: updateBrand, isPending: isBrandUpdating } =
+    useUpdateAdminBrand();
 
   const {
     values,
@@ -45,20 +45,20 @@ export const EditCategoryPage = ({ categoryId }: ViewProps) => {
   } = useFormik({
     enableReinitialize: true,
     initialValues: {
-      id: category?.id || "",
-      name: category?.name || "",
-      created_at: category?.created_at || "",
+      id: brand?.id || "",
+      name: brand?.name || "",
+      created_at: brand?.created_at || "",
     },
-    validationSchema: UpdateCategorySchema,
+    validationSchema: UpdateBrandSchema,
     onSubmit: async (values) => {
       const changedValues = getChangedValues(values, initialValues);
-      await updateCategory({ categoryId, updatedData: changedValues });
-      await refetchCategory();
+      await updateBrand({ brandId, updatedData: changedValues });
+      await refetchBrand();
     },
   });
   const router = useRouter();
 
-  if (isCategoryLoading) {
+  if (isBrandLoading) {
     return (
       <div className="flex items-center justify-center p-8">
         <Loader2 className="text-primary h-8 w-8 animate-spin" />
@@ -66,7 +66,7 @@ export const EditCategoryPage = ({ categoryId }: ViewProps) => {
     );
   }
 
-  const date = new Date(`${category?.created_at}`);
+  const date = new Date(`${brand?.created_at}`);
 
   const formattedDate = date.toLocaleDateString("en-US", {
     year: "numeric",
@@ -80,16 +80,16 @@ export const EditCategoryPage = ({ categoryId }: ViewProps) => {
   });
 
   return (
-    category && (
+    brand && (
       <div>
         <form onSubmit={handleSubmit}>
           <div className="flex items-center justify-between">
-            <div className="text-primary text-3xl">{category.name}</div>
+            <div className="text-primary text-3xl">{brand.name}</div>
             <Button
-              type={"button"}
+              type="button"
               variant={"outline"}
               onClick={() => {
-                router.push(`/admin/categories/${category.id}`);
+                router.push(`/admin/brands/${brand.id}`);
               }}
             >
               View Mode
@@ -101,7 +101,7 @@ export const EditCategoryPage = ({ categoryId }: ViewProps) => {
             <div className="mt-5 flex flex-wrap gap-6">
               <Field>
                 <FieldLabel className="text-primary text-sm">ID</FieldLabel>
-                <div className="text-muted-foreground">{category?.id}</div>
+                <div className="text-muted-foreground">{brand?.id}</div>
               </Field>
 
               <Field>
@@ -116,7 +116,7 @@ export const EditCategoryPage = ({ categoryId }: ViewProps) => {
               <Input
                 id="name"
                 name="name"
-                type="string"
+                type="text"
                 label="Name"
                 isRequired={true}
                 errors={errors}
@@ -133,7 +133,7 @@ export const EditCategoryPage = ({ categoryId }: ViewProps) => {
           <div className="border-primary mt-6 flex h-fit w-full flex-col rounded-3xl border bg-[#1a1a1a]/20 px-8 py-8 backdrop-blur-md">
             <div className="flex justify-between">
               <div className="text-lg">Manage Products</div>
-              <AddProductToCategory categoryId={categoryId} />
+              <AddProductToBrand brandId={brandId} />
             </div>
             <div className="mt-5 flex flex-wrap gap-6">
               <Field>
@@ -145,7 +145,7 @@ export const EditCategoryPage = ({ categoryId }: ViewProps) => {
                     <ProductCardAdmin
                       key={product.id}
                       product={product}
-                      pageType="category"
+                      pageType="brand"
                       isAdmin={true}
                       isLoading={isRelatedProductsLoading}
                     />
@@ -160,12 +160,12 @@ export const EditCategoryPage = ({ categoryId }: ViewProps) => {
             <Button
               type="submit"
               variant="default"
-              isPending={isCategoryUpdating}
+              isPending={isBrandUpdating}
               pendingText="Updating"
-              disabled={!dirty || isCategoryUpdating}
+              disabled={!dirty || isBrandUpdating}
               className="rounded-lg p-6 text-base hover:cursor-pointer"
             >
-              Update Category
+              Update Brand
             </Button>
           </div>
         </form>

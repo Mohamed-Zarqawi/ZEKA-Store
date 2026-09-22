@@ -58,6 +58,7 @@ const ProductCardAdmin = ({
           <div className={`${isAdmin ? "flex" : "hidden"} flex-col`}>
             <Button
               variant="none"
+              type="button"
               size="none"
               onClick={(e) => {
                 e.preventDefault();

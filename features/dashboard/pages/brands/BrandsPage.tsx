@@ -3,17 +3,16 @@
 import { DataTable } from "@/components/DataTable";
 
 import { columns } from "./columns";
-import { useGetAdminCategories } from "./hooks/useCategories";
+import { useGetAdminBrands } from "./hooks/useBrands";
 
-const CategoriesPage = () => {
+const BrandsPage = () => {
   // ------------------- States -------------------
-  const storageKey = "categoriesView";
+  const storageKey = "brandsView";
 
   // ------------------- Query Fetches -------------------
   // --- get products
 
-  const { data: categories, isLoading: isCategoriesLoading } =
-    useGetAdminCategories();
+  const { data: brands, isLoading: isBrandsLoading } = useGetAdminBrands();
   // ------------------- Code -------------------
   return (
     <div className="w-full overflow-hidden">
@@ -21,14 +20,14 @@ const CategoriesPage = () => {
       <div className="mt-10">
         <DataTable
           columns={columns()}
-          data={categories || []}
-          createHref="/admin/categories/create"
+          data={brands || []}
+          createHref="/admin/brands/create"
           storageKey={storageKey}
-          isLoading={isCategoriesLoading}
+          isLoading={isBrandsLoading}
         />
       </div>
     </div>
   );
 };
 
-export default CategoriesPage;
+export default BrandsPage;

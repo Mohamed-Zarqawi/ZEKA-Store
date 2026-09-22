@@ -33,7 +33,7 @@ import {
   useGetAdminProducts,
 } from "../products/hooks/useProducts";
 
-const CreateProductPage = () => {
+const CreateBrandsPage = () => {
   const router = useRouter();
 
   interface PreviewImage {
@@ -460,4 +460,4 @@ const CreateProductPage = () => {
   );
 };
 
-export default CreateProductPage;
+export default CreateBrandsPage;

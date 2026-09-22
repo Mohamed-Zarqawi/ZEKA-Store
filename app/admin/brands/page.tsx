@@ -1,5 +1,7 @@
-const Brands = () => {
-  return <div></div>;
+import BrandsPage from "@/features/dashboard/pages/brands/BrandsPage";
+
+const Products = () => {
+  return <BrandsPage />;
 };
 
-export default Brands;
+export default Products;

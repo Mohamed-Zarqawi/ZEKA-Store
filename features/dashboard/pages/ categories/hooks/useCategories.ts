@@ -1,15 +1,17 @@
 import {
+  CreateAdminCategory as CreateCategoryAdmin,
   deleteCategoryAdmin,
-  getAdminBrands,
   getAdminCategories,
   getAdminCategory,
-  getAdminRelatedProductsByBrand,
   getAdminRelatedProductsByCategory,
+  UpdateAdminCategory,
   updateCategoryProducts,
 } from "@/services/adminServices/categories.service";
-import { ResCategoryType } from "@/types/admin/category";
+import { ReqCreateCategoryType, ResCategoryType } from "@/types/admin/category";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
+
 import { toast } from "sonner";
 
 // -------------- get categories --------------
@@ -86,21 +88,51 @@ export const useDeleteCategoryAdmin = () => {
   });
 };
 
-// -------------- get brands --------------
+// -------------- Create category --------------
 
-export const useGetAdminBrands = () => {
-  return useQuery({
-    queryKey: ["brands"],
-    queryFn: () => getAdminBrands(),
+export const useCreateCategoryAdmin = () => {
+  const queryClient = useQueryClient();
+  const router = useRouter();
+  return useMutation({
+    mutationFn: (body: ReqCreateCategoryType) => {
+      return CreateCategoryAdmin(body);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["categories"] });
+      toast.success("Category created successfully!");
+      router.push("/admin/categories");
+    },
+    onError: () => {
+      toast.error("Create category faild", {});
+    },
   });
 };
 
-// -------------- get related products by brand --------------
+// -------------- Update category --------------
 
-export const useGetAdminRelatedProductsByBrand = (brandId: number) => {
-  return useQuery({
-    queryKey: ["brands", brandId],
-    queryFn: () => getAdminRelatedProductsByBrand(brandId),
-    enabled: !!brandId,
+export const useUpdateAdminCategory = () => {
+  const queryClient = useQueryClient();
+  const router = useRouter();
+  return useMutation({
+    mutationFn: ({
+      categoryId,
+      updatedData,
+    }: {
+      categoryId: number;
+      updatedData: ResCategoryType;
+    }) => {
+      return UpdateAdminCategory(categoryId, updatedData);
+    },
+
+    onSuccess: () => {
+      toast.success("Category updated successfully!");
+      queryClient.invalidateQueries({ queryKey: ["categories"] });
+      router.push("/admin/categories");
+    },
+    onError: () => {
+      toast.error("Failed to update category!");
+
+      toast.error("Update Category Faild");
+    },
   });
 };

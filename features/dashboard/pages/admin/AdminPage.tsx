@@ -7,7 +7,7 @@ const AdminPage = () => {
   const router = useRouter();
 
   useEffect(() => {
-    router.push("/admin/products");
+    router.push("/admin/users");
   }, []);
   return <div></div>;
 };
