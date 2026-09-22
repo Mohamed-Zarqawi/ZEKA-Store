@@ -1,0 +1,116 @@
+"use client";
+
+import { Button } from "@/components/ui/button";
+import { ColumnDef } from "@tanstack/react-table";
+import { ArrowUpDown } from "lucide-react";
+import { toast } from "sonner";
+import { ActionCell } from "./ActionCell";
+
+export interface Category {
+  id: number;
+  name: string;
+  categoryRelatedProducts: number;
+  created_at: string;
+}
+
+export const columns = (): ColumnDef<Category>[] => [
+  // ---------------- id ----------------
+
+  {
+    accessorKey: "id",
+    header: ({ column }) => (
+      <div>
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="hover:text-secondary text-xs"
+        >
+          Id
+          <ArrowUpDown />
+        </Button>
+      </div>
+    ),
+
+    cell: ({ row }) => (
+      <div>
+        <Button
+          variant="link"
+          onClick={() => {
+            navigator.clipboard.writeText(row.getValue<string>("id"));
+            toast.success("Copied to clipboard", {});
+          }}
+        >
+          {row.getValue("id")}
+        </Button>
+      </div>
+    ),
+  },
+
+  // ---------------- name ----------------
+  {
+    accessorKey: "name",
+    header: ({ column }) => (
+      <div>
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="hover:text-secondary text-xs"
+        >
+          Category Name
+          <ArrowUpDown />
+        </Button>
+      </div>
+    ),
+
+    cell: ({ row }) => (
+      <div>
+        <Button
+          variant="link"
+          onClick={() => {
+            navigator.clipboard.writeText(row.getValue<string>("name"));
+            toast.success("Copied to clipboard", {});
+          }}
+        >
+          {row.getValue("name") || "_"}
+        </Button>
+      </div>
+    ),
+  },
+
+  // ---------------- related products ----------------
+  {
+    accessorKey: "categoryRelatedProducts",
+    header: ({ column }) => (
+      <div>
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="hover:text-secondary text-xs"
+        >
+          Related Products
+          <ArrowUpDown />
+        </Button>
+      </div>
+    ),
+
+    cell: ({ row }) => {
+      return (
+        <div className="pl-4.5 text-sm">
+          {row.getValue("categoryRelatedProducts") || "-"}
+        </div>
+      );
+    },
+  },
+
+  // ---------------- actions ----------------
+  {
+    id: "actions",
+    header: () => <div className="mr-4 flex justify-end">Actions</div>,
+
+    cell: ({ row }) => {
+      const id = row.getValue<string>("id");
+      const href = `/admin/categories/${id}`;
+      return <ActionCell category={row.original} viewHref={href} />;
+    },
+  },
+];

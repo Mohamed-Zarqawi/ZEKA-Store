@@ -20,8 +20,8 @@ export const ViewProductPage = ({ productId }: ViewProps) => {
   const router = useRouter();
   if (isProductLoading) {
     return (
-      <div className="flex justify-center items-center p-8">
-        <Loader2 className="w-8 h-8 text-primary animate-spin" />
+      <div className="flex items-center justify-center p-8">
+        <Loader2 className="text-primary h-8 w-8 animate-spin" />
       </div>
     );
   }
@@ -29,7 +29,7 @@ export const ViewProductPage = ({ productId }: ViewProps) => {
   return (
     product && (
       <div>
-        <div className="flex justify-between items-center">
+        <div className="flex items-center justify-between">
           <div className="text-primary text-3xl">{product.name}</div>
           <Button
             variant={"outline"}
@@ -41,9 +41,9 @@ export const ViewProductPage = ({ productId }: ViewProps) => {
           </Button>
         </div>
         {/* Basic information */}
-        <div className="flex flex-col bg-[#1a1a1a]/20 backdrop-blur-md mt-10 px-8 py-8 border border-primary rounded-3xl w-full h-fit">
+        <div className="border-primary mt-10 flex h-fit w-full flex-col rounded-3xl border bg-[#1a1a1a]/20 px-8 py-8 backdrop-blur-md">
           <div className="text-lg">Basic Information</div>
-          <div className="flex flex-wrap gap-6 mt-5">
+          <div className="mt-5 flex flex-wrap gap-6">
             <Field>
               <FieldLabel className="text-primary text-sm">ID</FieldLabel>
               <div className="text-muted-foreground">{product?.id}</div>
@@ -66,9 +66,9 @@ export const ViewProductPage = ({ productId }: ViewProps) => {
         </div>
 
         {/* Brand details */}
-        <div className="flex flex-col bg-[#1a1a1a]/20 backdrop-blur-md mt-6 px-8 py-8 border border-primary rounded-3xl w-full h-fit">
+        <div className="border-primary mt-6 flex h-fit w-full flex-col rounded-3xl border bg-[#1a1a1a]/20 px-8 py-8 backdrop-blur-md">
           <div className="text-lg">Product Details</div>
-          <div className="flex flex-wrap gap-6 mt-5">
+          <div className="mt-5 flex flex-wrap gap-6">
             <Field>
               <FieldLabel className="text-primary text-sm">Category</FieldLabel>
               <div className="text-muted-foreground">
@@ -96,27 +96,27 @@ export const ViewProductPage = ({ productId }: ViewProps) => {
         </div>
 
         {/* Product Photos */}
-        <div className="flex flex-col bg-[#1a1a1a]/20 backdrop-blur-md mt-6 px-8 py-8 border border-primary rounded-3xl w-full h-fit">
+        <div className="border-primary mt-6 flex h-fit w-full flex-col rounded-3xl border bg-[#1a1a1a]/20 px-8 py-8 backdrop-blur-md">
           <div className="text-lg">Product Photos</div>
 
-          <div className="flex flex-wrap gap-6 mt-5">
+          <div className="mt-5 flex flex-wrap gap-6">
             <Field>
-              <FieldLabel className="mb-3 text-primary text-sm">
+              <FieldLabel className="text-primary mb-3 text-sm">
                 Main photo
               </FieldLabel>
 
-              <div className="relative flex gap-8 w-full max-w-2xl">
+              <div className="relative flex w-full max-w-2xl gap-8">
                 <div>
                   <img
                     src={imageUrl}
-                    className="border border-primary rounded-2xl w-130 h-130 object-center object-cover hover:cursor-pointer"
+                    className="border-primary h-130 w-130 rounded-2xl border object-cover object-center hover:cursor-pointer"
                   />
                 </div>
               </div>
             </Field>
 
             <Field className="mt-5">
-              <FieldLabel className="mb-3 text-primary text-sm">
+              <FieldLabel className="text-primary mb-3 text-sm">
                 Other photos
               </FieldLabel>
               <div className="flex gap-4">
@@ -127,7 +127,7 @@ export const ViewProductPage = ({ productId }: ViewProps) => {
                       <img
                         key={i}
                         src={image}
-                        className="border border-primary rounded-2xl w-45 h-45 object-center object-cover hover:cursor-pointer"
+                        className="border-primary h-45 w-45 rounded-2xl border object-cover object-center hover:cursor-pointer"
                       />
                     ))
                 ) : (

@@ -1,5 +1,7 @@
-const Categories = () => {
-  return <div></div>;
+import CategoriesPage from "@/features/dashboard/pages/ categories/CategoriesPage";
+
+const Products = () => {
+  return <CategoriesPage />;
 };
 
-export default Categories;
+export default Products;

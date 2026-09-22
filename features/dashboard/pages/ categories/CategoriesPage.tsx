@@ -1,18 +1,19 @@
 "use client";
 
 import { DataTable } from "@/components/DataTable";
-import { columns } from "./columns";
-import { useGetAdminProducts } from "./hooks/useProducts";
 
-const ProductsPage = () => {
+import { columns } from "./columns";
+import { useGetAdminCategories } from "./hooks/useCategories";
+
+const CategoriesPage = () => {
   // ------------------- States -------------------
   const storageKey = "productsView";
 
   // ------------------- Query Fetches -------------------
   // --- get products
-  const { data: products, isLoading: isProductsLoading } =
-    useGetAdminProducts();
 
+  const { data: categories, isLoading: isCategoriesLoading } =
+    useGetAdminCategories();
   // ------------------- Code -------------------
   return (
     <div className="w-full overflow-hidden">
@@ -20,14 +21,14 @@ const ProductsPage = () => {
       <div className="mt-10">
         <DataTable
           columns={columns()}
-          data={products?.data || []}
+          data={categories || []}
           createHref="/admin/products/create"
           storageKey={storageKey}
-          isLoading={isProductsLoading}
+          isLoading={isCategoriesLoading}
         />
       </div>
     </div>
   );
 };
 
-export default ProductsPage;
+export default CategoriesPage;

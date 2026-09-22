@@ -9,7 +9,12 @@ import {
 } from "@/services/adminServices/products.service";
 import { ReqCreateProductType } from "@/types/admin/product";
 import { ProductType } from "@/types/shop/product";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  keepPreviousData,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 import { toast } from "sonner";
 
 export const useGetAdminProducts = (
@@ -18,18 +23,17 @@ export const useGetAdminProducts = (
   brands: string[] = [],
   minPrice: number = 0,
   maxPrice: number = 1000,
+  search: string = "",
 ) => {
   return useQuery({
     queryKey: [
       "products",
-      page,
-      categories.join(","),
-      brands.join(","),
-      minPrice,
-      maxPrice,
+      { page, categories, brands, minPrice, maxPrice, search },
     ],
     queryFn: () =>
-      getAdminProducts(page, categories, brands, minPrice, maxPrice),
+      getAdminProducts(page, categories, brands, minPrice, maxPrice, search),
+
+    placeholderData: keepPreviousData,
   });
 };
 

@@ -2,9 +2,9 @@ import { Button } from "@/components/ui/button";
 import { Field, FieldLabel } from "@/components/ui/field";
 import AddressCard from "@/features/profile/pages/addresses/components/AddressCard";
 import OrderCard from "@/features/profile/pages/orders/components/OrderCard";
-import ProductCard from "@/features/shop/components/ProductCard";
 import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import ProductCardAdmin from "../../components/ProductCardAdmin";
 import { useGetUserAdmin } from "./hooks/useUser";
 
 interface ViewProps {
@@ -23,7 +23,19 @@ const ViewUserPage = ({ userId }: ViewProps) => {
   const state = user?.is_blocked;
   const isAvailable = state == false;
 
-  console.log(user);
+  const date = new Date(`${user?.created_at}`);
+
+  const formattedDate = date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
+
+  const formattedTime = date.toLocaleTimeString("en-US", {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+
   if (isProductLoading) {
     return (
       <div className="flex items-center justify-center p-8">
@@ -57,7 +69,9 @@ const ViewUserPage = ({ userId }: ViewProps) => {
 
             <Field>
               <FieldLabel className="text-primary text-sm">Login at</FieldLabel>
-              <div className="text-muted-foreground">{user?.created_at}</div>
+              <div className="text-muted-foreground">
+                {formattedDate} ({formattedTime})
+              </div>
             </Field>
 
             <Field>
@@ -156,9 +170,10 @@ const ViewUserPage = ({ userId }: ViewProps) => {
               </FieldLabel>
               <div className="mt-2 grid w-full grid-cols-2 gap-3 md:grid-cols-[repeat(auto-fill,minmax(240px,1fr))] lg:gap-6">
                 {user.favorite_items.map((favorite, i) => (
-                  <ProductCard
+                  <ProductCardAdmin
                     key={favorite.id}
                     product={favorite.product}
+                    pageType="user"
                     isAdmin={true}
                   />
                 ))}

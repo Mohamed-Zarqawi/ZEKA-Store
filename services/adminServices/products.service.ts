@@ -10,6 +10,7 @@ export const getAdminProducts = async (
   brands: string[] = [],
   minPrice: number = 0,
   maxPrice: number = 1000,
+  search: string = "",
 ) => {
   // const from = (page - 1) * 12;
   // const to = from + 12 - 1;
@@ -32,6 +33,9 @@ export const getAdminProducts = async (
     query = query.in("brand_id", brands);
   }
 
+  if (search.trim() !== "") {
+    query = query.ilike("name", `%${search}%`);
+  }
   // query = query.gte("price", minPrice).lte("price", maxPrice).range(from, to);
   query = query.gte("price", minPrice).lte("price", maxPrice);
 

@@ -148,7 +148,7 @@ export const columns = (): ColumnDef<Product>[] => [
     cell: ({ row }) => {
       const price = parseFloat(row.getValue("price"));
 
-      return <div className="pl-4 text-sm">${price.toFixed(2)}</div>;
+      return <div className="pl-4.5 text-sm">${price.toFixed(2)}</div>;
     },
   },
 
@@ -170,9 +170,7 @@ export const columns = (): ColumnDef<Product>[] => [
 
     cell: ({ row }) => {
       return (
-        <div className="pl-4 text-center text-sm">
-          {row.getValue("ordersNumber")}
-        </div>
+        <div className="pl-4.5 text-sm">{row.getValue("ordersNumber")}</div>
       );
     },
   },
@@ -195,7 +193,7 @@ export const columns = (): ColumnDef<Product>[] => [
 
     cell: ({ row }) => {
       return (
-        <div className="pl-4 text-center text-sm">
+        <div className="pl-4.5 text-sm">
           {row.getValue("favoritesNumber") || "_"}
         </div>
       );

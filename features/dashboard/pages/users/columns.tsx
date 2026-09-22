@@ -303,7 +303,7 @@ export const columns = (): ColumnDef<Users>[] => [
       });
 
       return (
-        <div className="flex flex-col items-center justify-center pl-4 text-center text-sm">
+        <div className="flex flex-col items-center justify-center pl-4.5 text-center text-sm">
           <span>{formattedDate}</span>
           <span className="text-muted-foreground mt-0.5 text-xs">
             {formattedTime}

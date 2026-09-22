@@ -1,4 +1,4 @@
-"use server"; // هذا السطر يحمي الملف بالكامل ويحوله إلى Server Actions آمنة
+"use server";
 
 import { Users } from "@/features/dashboard/pages/users/columns";
 import { supabase } from "@/lib/supabaseAdmin";

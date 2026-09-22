@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button";
 import { Field, FieldLabel } from "@/components/ui/field";
 import AddressCard from "@/features/profile/pages/addresses/components/AddressCard";
 import OrderCard from "@/features/profile/pages/orders/components/OrderCard";
-import ProductCard from "@/features/shop/components/ProductCard";
 import { Loader2, Mars, Venus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useGetUserAdmin, useUpdateUserAdmin } from "./hooks/useUser";
@@ -15,6 +14,7 @@ import { Input } from "@/components/ui/input";
 import { UpdateUserSchema } from "@/types/admin/user";
 import { getChangedValues } from "@/utils/getChangedValues";
 import { useFormik } from "formik";
+import ProductCardAdmin from "../../components/ProductCardAdmin";
 
 interface ViewProps {
   userId: string;
@@ -273,8 +273,9 @@ const EditUserPage = ({ userId }: ViewProps) => {
                 </FieldLabel>
                 <div className="mt-2 grid w-full grid-cols-2 gap-3 md:grid-cols-[repeat(auto-fill,minmax(240px,1fr))] lg:gap-6">
                   {user.favorite_items.map((favorite, i) => (
-                    <ProductCard
+                    <ProductCardAdmin
                       key={favorite.id}
+                      pageType="user"
                       product={favorite.product}
                       isAdmin={true}
                     />

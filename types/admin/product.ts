@@ -10,12 +10,12 @@ export const CreateProductSchema = y.object({
 });
 
 export const UpdateProductSchema = y.object({
-  name: y.string().notRequired(),
+  name: y.string().required(),
   description: y.string().notRequired(),
-  price: y.number().notRequired(),
-  stock: y.number().notRequired(),
-  category_id: y.number().notRequired(),
-  brand_id: y.number().notRequired(),
+  price: y.number().required(),
+  stock: y.number().required(),
+  category_id: y.number().required(),
+  brand_id: y.number().required(),
 });
 
 export type ReqCreateProductType = y.InferType<typeof CreateProductSchema>;

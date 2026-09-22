@@ -13,18 +13,15 @@ import {
 import { FavoriteItem } from "@/types/shop/favoriteItem";
 import { ProductType } from "@/types/shop/product";
 import { IconShoppingCartPlus } from "@tabler/icons-react";
+import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { Heart } from "../../../components/animate-ui/icons/heart";
 import { ProductCardSkeleton } from "./ProductCardSkilton";
 
-const ProductCard = ({
-  product,
-  isAdmin,
-}: {
-  product: ProductType;
-  isAdmin?: boolean;
-}) => {
+const ProductCard = ({ product }: { product: ProductType }) => {
+  const router = useRouter();
   const { data: currentUser, isLoading: isCurrentUserLoading } =
     useGetCurrentUser();
   const { data: cart = [], isLoading: isCartLoading } = useGetCart(
@@ -88,7 +85,7 @@ const ProductCard = ({
           <div className="relative">
             {/* love icon */}
 
-            <div className={`${isAdmin ? "hidden" : "flex"} flex-col`}>
+            <div className={`flex flex-col`}>
               <Button
                 variant="none"
                 size="none"
@@ -177,9 +174,12 @@ const ProductCard = ({
             </div>
 
             {/* image */}
-            <img
+
+            <Image
               src={product.images?.[0] || "/images/placeholder.jpeg"}
               alt={product.name || "Product Image"}
+              width={640}
+              height={400}
               className="h-46 w-full object-cover object-center hover:cursor-pointer md:h-64"
             />
           </div>
