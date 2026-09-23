@@ -107,7 +107,7 @@ const ProductCardAdmin = ({
             alt={product.name || "Product Image"}
             width={640}
             height={400}
-            className="h-46 w-full object-cover object-center hover:cursor-pointer md:h-64"
+            className="-46 w-full object-cover object-center hover:cursor-pointer md:h-64"
           />
         </div>
         {/* content */}
