@@ -38,7 +38,7 @@ const ProductCardAdmin = ({
   const handleCardClick = (e: React.MouseEvent) => {
     if (isSelectable) {
       e.preventDefault();
-      onSelect?.(product.id);
+      onSelect?.(product?.id);
     }
   };
 
@@ -60,7 +60,7 @@ const ProductCardAdmin = ({
               onClick={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
-                router.push(`/dashboard/products/${product.id}/edit`);
+                router.push(`/dashboard/products/${product?.id}/edit`);
               }}
               className="bg-primary/80 border-primary absolute right-3 bottom-3 cursor-pointer rounded-lg p-1.5 md:right-4 md:bottom-5"
             >
@@ -92,7 +92,7 @@ const ProductCardAdmin = ({
                 <Checkbox
                   checked={isSelected}
                   onCheckedChange={() => {
-                    onSelect?.(product.id);
+                    onSelect?.(product?.id);
                   }}
                   className={`text-foreground! pointer-events-none ${isSelected ? "bg-primary!" : "bg-foreground!"}`}
                 />
@@ -104,7 +104,7 @@ const ProductCardAdmin = ({
 
           <Image
             src={product.images?.[0] || "/images/placeholder.jpeg"}
-            alt={product.name || "Product Image"}
+            alt={product?.name || "Product Image"}
             width={640}
             height={400}
             className="-46 w-full object-cover object-center hover:cursor-pointer md:h-64"
@@ -117,7 +117,7 @@ const ProductCardAdmin = ({
               {product.brand?.name ? product.brand.name : "No Brand"}
             </div>
             <div className="line-clamp-2 text-[11px] md:text-sm">
-              {product.name}
+              {product?.name}
             </div>
           </div>
 

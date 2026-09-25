@@ -194,12 +194,12 @@ const EditProductPage = ({ productId }: EditProductPageProps) => {
         <form onSubmit={handleSubmit}>
           {/* Header Bar */}
           <div className="flex items-center justify-between">
-            <div className="text-primary text-3xl">Edit {product.name}</div>
+            <div className="text-primary text-3xl">Edit {product?.name}</div>
             <Button
               type="button"
               variant="outline"
               onClick={() => {
-                router.push(`/dashboard/products/${product.id}`);
+                router.push(`/dashboard/products/${product?.id}`);
               }}
             >
               View Mode
@@ -212,7 +212,7 @@ const EditProductPage = ({ productId }: EditProductPageProps) => {
             <div className="mt-5 flex flex-wrap gap-6">
               <Field>
                 <FieldLabel className="text-primary text-sm">ID</FieldLabel>
-                <div className="text-muted-foreground">{product.id}</div>
+                <div className="text-muted-foreground">{product?.id}</div>
               </Field>
 
               <Input
@@ -392,7 +392,7 @@ const EditProductPage = ({ productId }: EditProductPageProps) => {
                   {values?.images?.length > 0 ? (
                     <Image
                       src={mainImage}
-                      alt={`${product.name} main photo`}
+                      alt={`${product?.name} main photo`}
                       width={232}
                       height={232}
                       className="border-primary h-58 w-58 rounded-2xl border object-cover object-center"
@@ -420,7 +420,7 @@ const EditProductPage = ({ productId }: EditProductPageProps) => {
                         <div className="relative" key={i}>
                           <Image
                             src={image}
-                            alt={product.name}
+                            alt={product?.name}
                             width={128}
                             height={128}
                             className="border-primary h-32 w-32 rounded-2xl border object-cover object-center"

@@ -76,7 +76,7 @@ const HomePage = () => {
               {products?.data &&
                 products?.data?.length > 0 &&
                 products?.data?.map((product: ProductType) => (
-                  <ProductCard key={product.id} product={product} />
+                  <ProductCard key={product?.id} product={product} />
                 ))}
             </div>
           )}
@@ -167,7 +167,7 @@ export default HomePage;
 //               {products?.data &&
 //                 products?.data?.length > 0 &&
 //                 products?.data?.map((product: ProductType) => (
-//                   <ProductCard key={product.id} product={product} />
+//                   <ProductCard key={product?.id} product={product} />
 //                 ))}
 //             </div>
 //           )}

@@ -19,7 +19,7 @@ import {
   QrCodeIcon,
   ShoppingBasketIcon,
 } from "@animateicons/react/lucide";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, Info, Phone } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useGetFavorites } from "../favorites/hooks/useFavorites";
@@ -136,6 +136,24 @@ const AccountMobilePage = () => {
           describtion: "",
           href: "/profile/QRcode",
           icon: QrCodeIcon,
+        },
+      ],
+    },
+
+    {
+      title: "Our Information",
+      items: [
+        {
+          name: "About Us",
+          describtion: "",
+          href: "/aboutUs",
+          icon: Info,
+        },
+        {
+          name: "Contact Us",
+          describtion: "",
+          href: "/contact",
+          icon: Phone,
         },
       ],
     },

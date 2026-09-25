@@ -29,7 +29,7 @@ const Counter = ({
     data,
     isLoading: isProductLoading,
     refetch: reGetProduct,
-  } = useGetShopProduct(Number(product.id));
+  } = useGetShopProduct(Number(product?.id));
   const { data: currentUser, refetch: reGetCurrentUser } = useGetCurrentUser();
   const { data: cart = [], refetch: reGetCart } = useGetCart(currentUser?.id);
   const { mutateAsync: toggleCart, isPending: isToggleCart } = useToggleCart();
@@ -49,7 +49,7 @@ const Counter = ({
 
     await toggleCart({
       userId: currentUser.id,
-      productId: product.id,
+      productId: product?.id,
       action: action,
     });
 

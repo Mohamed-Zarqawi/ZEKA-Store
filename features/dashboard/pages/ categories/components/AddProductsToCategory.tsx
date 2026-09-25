@@ -66,7 +66,7 @@ const AddProductsToCategory = ({ categoryId }: { categoryId: number }) => {
     setPrevRelatedProducts(categoryProducts);
     setSelectedProductIds(
       categoryProducts
-        ? categoryProducts.map((product: ProductType) => product.id)
+        ? categoryProducts.map((product: ProductType) => product?.id)
         : [],
     );
   }
@@ -152,13 +152,13 @@ const AddProductsToCategory = ({ categoryId }: { categoryId: number }) => {
           ) : products?.data && products?.data?.length > 0 ? (
             products?.data?.map((product) => (
               <ProductCardAdmin
-                key={product.id}
+                key={product?.id}
                 product={product}
                 isAdmin={true}
                 pageType="category"
                 isLoading={isProductsLoading}
                 isSelectable={true}
-                isSelected={selectedProductIds.includes(product.id)}
+                isSelected={selectedProductIds.includes(product?.id)}
                 onSelect={(productId) => {
                   handleToggleProduct(productId);
                 }}

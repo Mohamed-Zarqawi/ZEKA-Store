@@ -35,7 +35,7 @@ const ProductCard = ({ product }: { product: ProductType }) => {
     useToggleFavorites();
 
   // ------------------------------------
-  const cartItem = cart.find((item) => item.productId === product.id);
+  const cartItem = cart.find((item) => item.productId === product?.id);
   const isInCart = !!cartItem;
 
   const handleCartClick = (e: React.MouseEvent, action: "add" | "decrease") => {
@@ -48,7 +48,7 @@ const ProductCard = ({ product }: { product: ProductType }) => {
 
     toggleCart({
       userId: currentUser.id,
-      productId: product.id,
+      productId: product?.id,
       action: action,
     });
   };
@@ -69,7 +69,7 @@ const ProductCard = ({ product }: { product: ProductType }) => {
 
     toggleFavorites({
       userId: currentUser.id,
-      productId: product.id,
+      productId: product?.id,
     });
   };
 
@@ -78,7 +78,7 @@ const ProductCard = ({ product }: { product: ProductType }) => {
   }
   return (
     <div>
-      <Link href={`/shop/${product.id}`}>
+      <Link href={`/shop/${product?.id}`}>
         <div className="group bg-card border-border flex h-79 w-full flex-col overflow-hidden rounded-2xl border transition-all duration-300 hover:border-zinc-600 hover:bg-zinc-900 md:h-99">
           {/* image & cart icon */}
 
@@ -177,7 +177,7 @@ const ProductCard = ({ product }: { product: ProductType }) => {
 
             <Image
               src={product.images?.[0] || "/images/placeholder.jpeg"}
-              alt={product.name || "Product Image"}
+              alt={product?.name || "Product Image"}
               width={640}
               height={400}
               className="h-46 w-full object-cover object-center hover:cursor-pointer md:h-64"
@@ -190,7 +190,7 @@ const ProductCard = ({ product }: { product: ProductType }) => {
                 {product.brand?.name ? product.brand.name : "No Brand"}
               </div>
               <div className="line-clamp-2 text-[11px] md:text-sm">
-                {product.name}
+                {product?.name}
               </div>
             </div>
 

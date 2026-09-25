@@ -30,11 +30,11 @@ export const ViewProductPage = ({ productId }: ViewProps) => {
     product && (
       <div>
         <div className="flex items-center justify-between">
-          <div className="text-primary text-3xl">{product.name}</div>
+          <div className="text-primary text-3xl">{product?.name}</div>
           <Button
             variant={"outline"}
             onClick={() => {
-              router.push(`/dashboard/products/${product.id}/edit`);
+              router.push(`/dashboard/products/${product?.id}/edit`);
             }}
           >
             Edit Mode

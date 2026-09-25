@@ -18,12 +18,12 @@ const OrderProduct = ({
       <div className="flex h-full w-full items-start gap-3 md:h-fit md:items-center md:gap-5">
         {/* Product Image Link */}
         <Link
-          href={`/shop/${product.id}`}
+          href={`/shop/${product?.id}`}
           className="block h-full w-23 shrink-0 md:h-25 md:w-25"
         >
           <img
             src={product?.images[0]}
-            alt={product.name}
+            alt={product?.name}
             className="border-primary/20 aspect-square h-full w-25 rounded-2xl border object-cover object-center hover:cursor-pointer md:h-25 md:w-25"
           />
         </Link>
@@ -32,9 +32,9 @@ const OrderProduct = ({
         <div className="flex h-full w-full flex-col justify-between md:my-0 md:flex-row md:items-center">
           {/* Title and Price */}
           <div className="mt-1 flex flex-col gap-1 md:mt-0">
-            <div className="text-xs md:text-base">{product.name}</div>
+            <div className="text-xs md:text-base">{product?.name}</div>
             <div className="text-primary min-w-3 text-sm">
-              ${price.toFixed(2)}
+              ${price?.toFixed(2)}
             </div>
           </div>
 

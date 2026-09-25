@@ -19,9 +19,9 @@ export const ActionCell = ({ product, viewHref }: ActionCellProps) => {
     useToggleDeleteProduct_Admin();
 
   const handleDelete = () => {
-    if (!product.id) return;
+    if (!product?.id) return;
 
-    deleteProduct(product.id, {
+    deleteProduct(product?.id, {
       onSuccess: () => {
         if (product?.isDeleted) {
           toast.success("Product activated successfully!");
@@ -57,7 +57,7 @@ export const ActionCell = ({ product, viewHref }: ActionCellProps) => {
         size="icon-sm"
         className="border-border cursor-pointer border p-2"
         onClick={() => {
-          router.push(`/dashboard/products/${product.id}/edit`);
+          router.push(`/dashboard/products/${product?.id}/edit`);
         }}
         disabled={isDeleting}
       >

@@ -78,7 +78,7 @@ const ProductPage = ({ productId }: ViewProps) => {
 
     await toggleCart({
       userId: currentUser.id,
-      productId: product.id,
+      productId: product?.id,
       action: action,
     });
 
@@ -125,7 +125,7 @@ const ProductPage = ({ productId }: ViewProps) => {
 
     toggleFavorites({
       userId: currentUser.id,
-      productId: product.id,
+      productId: product?.id,
     });
   };
 
@@ -157,7 +157,7 @@ const ProductPage = ({ productId }: ViewProps) => {
                   height={500}
                   onClick={() => handleChangeImage(image)}
                   className={`border-primary h-25 w-full rounded-2xl border object-cover object-center duration-500 hover:cursor-pointer ${image == (selectedImage || imageUrl) ? "border-primary" : "border-primary/30"}`}
-                  alt={product.name}
+                  alt={product?.name}
                 />
               ))
             ) : (
@@ -251,7 +251,7 @@ const ProductPage = ({ productId }: ViewProps) => {
                     height={100}
                     onClick={() => handleChangeImage(image)}
                     className={`aspect-square h-25 w-25 rounded-xl border object-cover object-center duration-500 hover:cursor-pointer ${image == (selectedImage || imageUrl) ? "border-primary" : "border-primary/30"} `}
-                    alt={product.name}
+                    alt={product?.name}
                   />
                 ))
               ) : (
@@ -396,7 +396,7 @@ const ProductPage = ({ productId }: ViewProps) => {
         </div>
         <div className="grid w-full grid-cols-2 gap-3 md:grid-cols-[repeat(auto-fill,minmax(240px,1fr))] md:gap-6">
           {relatedProducts?.map((product: ProductType) => (
-            <ProductCard key={product.id} product={product} />
+            <ProductCard key={product?.id} product={product} />
           ))}
         </div>
       </div>

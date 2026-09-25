@@ -187,11 +187,19 @@ const ShopPage = () => {
               value={searchValue}
               onChange={(e) => {
                 setSearchValue(e.target.value);
+                if (!e.target.value || e.target.value == "") {
+                  setSearchQuery("");
+                }
+              }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  setSearchQuery(String(searchValue));
+                }
               }}
               className="h-12 w-full md:h-auto md:w-100!"
             />
             <Button
-              className="h-12 rounded-lg"
+              className="h-13.5 rounded-lg"
               onClick={() => {
                 setSearchQuery(String(searchValue));
                 setCurrentPage(1);
@@ -210,7 +218,7 @@ const ShopPage = () => {
             ))
           ) : products?.data && products?.data?.length > 0 ? (
             products.data.map((product: ProductType) => (
-              <ProductCard key={product.id} product={product} />
+              <ProductCard key={product?.id} product={product} />
             ))
           ) : (
             <div className="text-muted-foreground col-span-full py-10 text-center">

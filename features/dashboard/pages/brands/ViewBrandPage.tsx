@@ -92,7 +92,7 @@ export const ViewBrandsPage = ({ brandId }: ViewProps) => {
               <div className="mt-2 grid w-full grid-cols-2 gap-3 md:grid-cols-[repeat(auto-fill,minmax(240px,1fr))] lg:gap-6">
                 {relatedProducts?.map((product, i) => (
                   <ProductCardAdmin
-                    key={product.id}
+                    key={product?.id}
                     pageType="brand"
                     product={product}
                     isAdmin={true}
