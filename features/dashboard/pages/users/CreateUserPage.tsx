@@ -10,7 +10,7 @@ const CreateUserPage = () => {
   const logout = useLogout();
   const handleLogout = () => {
     logout();
-    router.push("/signup");
+    router.push("/auth/signup");
   };
   return (
     <div className="flex min-h-[calc(100dvh-155px)] flex-col justify-center lg:min-h-[calc(100dvh-185px)]">

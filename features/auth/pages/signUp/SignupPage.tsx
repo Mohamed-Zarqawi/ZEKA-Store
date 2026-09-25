@@ -143,7 +143,7 @@ const SignUpPage = () => {
             <div className="text-sm md:text-base">
               Already a member?{" "}
               <Link
-                href="/login"
+                href="/auth/login"
                 className="text-primary hover:text-secondary transition-colors duration-300"
               >
                 Log In

@@ -25,7 +25,7 @@ export default function ResetPasswordPage() {
       validationSchema: resetPasswordSchema,
       onSubmit: async (values) => {
         await handleResetPassword(values.password);
-        router.push("/login");
+        router.push("/auth/login");
       },
     });
 

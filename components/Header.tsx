@@ -88,11 +88,11 @@ const Header = () => {
                 </Link>
               ) : (
                 <Link
-                  href="/login"
-                  // className={`login-button ${pathname === "/login" ? "text-primary border-primary " : " hover:text-primary hover:border-primary "}`}
+                  href="/auth/login"
+                  // className={`login-button ${pathname === "/auth/login" ? "text-primary border-primary " : " hover:text-primary hover:border-primary "}`}
                 >
                   <Button
-                    className={`login-button relative hover:cursor-pointer ${pathname === "/login" ? "text-primary border-primary" : "hover:text-primary hover:border-primary"}`}
+                    className={`login-button relative hover:cursor-pointer ${pathname === "/auth/login" ? "text-primary border-primary" : "hover:text-primary hover:border-primary"}`}
                   >
                     LOG IN
                   </Button>

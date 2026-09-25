@@ -124,7 +124,7 @@ const ForgotPasswordPage = () => {
             </div>
 
             <Link
-              href="/login"
+              href="/auth/login"
               className="hover:text-primary text-muted-foreground flex items-center justify-center gap-1.5 text-sm hover:cursor-pointer md:text-base md:transition-colors md:duration-300"
             >
               <IconArrowLeft className="size-5" />

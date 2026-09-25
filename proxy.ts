@@ -39,12 +39,12 @@ export async function proxy(request: NextRequest) {
   const protectedRoutes = ["/profile", "/cart"];
 
   // قائمة مسارات المصادقة التي يجب منع المسجلين من دخولها
-  const authRoutes = ["/login", "/signup", "/forgotPassword"];
+  const authRoutes = ["/auth/login", "/auth/signup", "/auth/forgotPassword"];
 
   // 1️⃣ حماية مسار الـ Admin (يتطلب تسجيل دخول + صلاحية أدمن)
   if (pathname.startsWith("/dashboard")) {
     if (!user) {
-      const loginUrl = new URL("/login", request.url);
+      const loginUrl = new URL("/auth/login", request.url);
       loginUrl.searchParams.set("redirect", pathname);
       return NextResponse.redirect(loginUrl);
     }
@@ -61,7 +61,7 @@ export async function proxy(request: NextRequest) {
   );
 
   if (isProtectedRoute && !user) {
-    const loginUrl = new URL("/login", request.url);
+    const loginUrl = new URL("/auth/login", request.url);
     loginUrl.searchParams.set("redirect", pathname);
     return NextResponse.redirect(loginUrl);
   }
@@ -80,8 +80,6 @@ export const config = {
     "/profile/:path*",
     "/cart/:path*",
     "/dashboard/:path*",
-    "/login/:path*",
-    "/signup/:path*",
-    "/forgotPassword/:path*",
+    "/auth/:path*",
   ],
 };

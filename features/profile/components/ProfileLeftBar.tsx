@@ -124,7 +124,7 @@ const ProfileLeftBar = () => {
 
   const handleLogout = () => {
     logout();
-    router.push("/login");
+    router.push("/auth/login");
   };
 
   const leftBarItems1 = [

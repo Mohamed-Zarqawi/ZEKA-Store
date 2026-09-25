@@ -1,18 +1,16 @@
 "use client";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import {
-  Home,
-  ShoppingBag,
-  User as UserIcon,
-  ShoppingCart,
-  Info,
-  Phone,
-  Store,
-  LogIn,
-} from "lucide-react";
 import { useGetCurrentUser } from "@/features/auth/pages/hooks/useAuth";
 import { useGetCart } from "@/features/cart/pages/hooks/useCart";
+import {
+  Home,
+  LogIn,
+  Phone,
+  ShoppingCart,
+  Store,
+  User as UserIcon,
+} from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Skeleton } from "./ui/skeleton";
 
 export default function MobileBottomNav() {
@@ -46,7 +44,7 @@ export default function MobileBottomNav() {
     {
       title: "4",
       name: currentUser ? null : "LOGIN",
-      href: currentUser ? "/accountMoblie" : "/login",
+      href: currentUser ? "/accountMoblie" : "/auth/login",
       icon: currentUser ? UserIcon : LogIn,
     },
   ];

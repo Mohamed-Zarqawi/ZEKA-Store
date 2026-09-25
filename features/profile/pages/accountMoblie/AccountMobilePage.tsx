@@ -38,7 +38,7 @@ const AccountMobilePage = () => {
 
   const handleLogout = () => {
     logout();
-    router.push("/login");
+    router.push("/auth/login");
   };
 
   const CalculateProfilePercentage = () => {

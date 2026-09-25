@@ -75,7 +75,7 @@ const LoginPage = () => {
             />
 
             <Link
-              href="/forgotPassword"
+              href="/auth/forgotPassword"
               className="text-primary hover:text-secondary text-xs"
             >
               Forgot password?
@@ -99,7 +99,7 @@ const LoginPage = () => {
             <div className="text-sm md:text-base">
               Don&apos;t have an account?{" "}
               <Link
-                href="/signup"
+                href="/auth/signup"
                 className="text-primary hover:text-secondary transition-colors duration-300"
               >
                 Sign Up

@@ -19,7 +19,7 @@ import { toast } from "sonner";
 // toast.error(`${getErrorMessage(error)}`, {
 //   action: {
 //     label: "Register",
-//     onClick: () => router.push("/signup"),
+//     onClick: () => router.push("/auth/signup"),
 //   },
 // });
 const AUTH_TOKEN_CHANGED_EVENT = "auth-token-changed";
@@ -46,7 +46,7 @@ const getErrorMessage = (
         description: "If you don't have an account register first.",
         action: {
           label: "Register",
-          onClick: () => router.push("/signup"),
+          onClick: () => router.push("/auth/signup"),
         },
       });
 
@@ -126,7 +126,7 @@ export const useSignUp = () => {
       toast.error("This account already exists, please login", {
         action: {
           label: "Login",
-          onClick: () => router.push("/login"),
+          onClick: () => router.push("/auth/login"),
         },
       });
     },
@@ -141,7 +141,7 @@ export const useLogout = () => {
     const { error } = await supabase.auth.signOut();
     notifyAuthTokenChanged();
     queryClient.clear();
-    router.push("/login");
+    router.push("/auth/login");
   };
 };
 
@@ -186,7 +186,7 @@ export const useDeleteAccount = () => {
     onSuccess: () => {
       queryClient.clear();
       toast.success("Account deleted successfully.", { richColors: true });
-      router.push("/login");
+      router.push("/auth/login");
       router.refresh();
     },
     onError: (error: Error) => {
