@@ -7,7 +7,7 @@ const QrcodePage = () => {
       </div>
       <div className="border-primary mt-6 flex h-fit w-full flex-col rounded-3xl border bg-[#1a1a1a]/20 px-6 py-6 md:mt-10 md:px-8 md:py-10">
         <div className="flex h-full w-full items-center justify-center">
-          <img src="/images/qrcode.png" className="aspect-square" />
+          {/* <img src="/images/qrcode.png" className="aspect-square" /> */}
         </div>
       </div>
     </div>
